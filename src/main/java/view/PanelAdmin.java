@@ -4,6 +4,7 @@
  */
 package view;
 
+import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.Window;
 import javax.swing.SwingUtilities;
@@ -48,7 +49,14 @@ public class PanelAdmin extends javax.swing.JPanel {
         btnLogout = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         contentPanel = new javax.swing.JPanel();
-        jLabel11 = new javax.swing.JLabel();
+        homePanel = new javax.swing.JPanel();
+        jLabel12 = new javax.swing.JLabel();
+        customerPanel = new javax.swing.JPanel();
+        jLabel13 = new javax.swing.JLabel();
+        carPanel = new javax.swing.JPanel();
+        jLabel14 = new javax.swing.JLabel();
+        contractPanel = new javax.swing.JPanel();
+        jLabel15 = new javax.swing.JLabel();
 
         sidePanel.setBackground(new java.awt.Color(0, 79, 225));
 
@@ -259,27 +267,99 @@ public class PanelAdmin extends javax.swing.JPanel {
         );
 
         contentPanel.setPreferredSize(new java.awt.Dimension(1024, 0));
+        contentPanel.setLayout(new java.awt.CardLayout());
 
-        jLabel11.setFont(new java.awt.Font("Segoe UI", 1, 48)); // NOI18N
-        jLabel11.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel11.setText("Quản lý thuê xe");
+        jLabel12.setFont(new java.awt.Font("Segoe UI", 1, 48)); // NOI18N
+        jLabel12.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel12.setText("Quản lý thuê xe");
 
-        javax.swing.GroupLayout contentPanelLayout = new javax.swing.GroupLayout(contentPanel);
-        contentPanel.setLayout(contentPanelLayout);
-        contentPanelLayout.setHorizontalGroup(
-            contentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(contentPanelLayout.createSequentialGroup()
+        javax.swing.GroupLayout homePanelLayout = new javax.swing.GroupLayout(homePanel);
+        homePanel.setLayout(homePanelLayout);
+        homePanelLayout.setHorizontalGroup(
+            homePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(homePanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel11, javax.swing.GroupLayout.DEFAULT_SIZE, 1005, Short.MAX_VALUE)
+                .addComponent(jLabel12, javax.swing.GroupLayout.DEFAULT_SIZE, 1005, Short.MAX_VALUE)
                 .addContainerGap())
         );
-        contentPanelLayout.setVerticalGroup(
-            contentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(contentPanelLayout.createSequentialGroup()
+        homePanelLayout.setVerticalGroup(
+            homePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(homePanelLayout.createSequentialGroup()
                 .addGap(40, 40, 40)
-                .addComponent(jLabel11)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jLabel12)
+                .addContainerGap(616, Short.MAX_VALUE))
         );
+
+        contentPanel.add(homePanel, "cardHome");
+
+        jLabel13.setFont(new java.awt.Font("Segoe UI", 1, 48)); // NOI18N
+        jLabel13.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel13.setText("Khách hàng");
+
+        javax.swing.GroupLayout customerPanelLayout = new javax.swing.GroupLayout(customerPanel);
+        customerPanel.setLayout(customerPanelLayout);
+        customerPanelLayout.setHorizontalGroup(
+            customerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(customerPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel13, javax.swing.GroupLayout.DEFAULT_SIZE, 1005, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        customerPanelLayout.setVerticalGroup(
+            customerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(customerPanelLayout.createSequentialGroup()
+                .addGap(40, 40, 40)
+                .addComponent(jLabel13)
+                .addContainerGap(616, Short.MAX_VALUE))
+        );
+
+        contentPanel.add(customerPanel, "cardCustomer");
+
+        jLabel14.setFont(new java.awt.Font("Segoe UI", 1, 48)); // NOI18N
+        jLabel14.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel14.setText("Xe");
+
+        javax.swing.GroupLayout carPanelLayout = new javax.swing.GroupLayout(carPanel);
+        carPanel.setLayout(carPanelLayout);
+        carPanelLayout.setHorizontalGroup(
+            carPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(carPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel14, javax.swing.GroupLayout.DEFAULT_SIZE, 1005, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        carPanelLayout.setVerticalGroup(
+            carPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(carPanelLayout.createSequentialGroup()
+                .addGap(40, 40, 40)
+                .addComponent(jLabel14)
+                .addContainerGap(616, Short.MAX_VALUE))
+        );
+
+        contentPanel.add(carPanel, "cardCar");
+
+        jLabel15.setFont(new java.awt.Font("Segoe UI", 1, 48)); // NOI18N
+        jLabel15.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel15.setText("Hợp đồng");
+
+        javax.swing.GroupLayout contractPanelLayout = new javax.swing.GroupLayout(contractPanel);
+        contractPanel.setLayout(contractPanelLayout);
+        contractPanelLayout.setHorizontalGroup(
+            contractPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(contractPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel15, javax.swing.GroupLayout.DEFAULT_SIZE, 1005, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        contractPanelLayout.setVerticalGroup(
+            contractPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(contractPanelLayout.createSequentialGroup()
+                .addGap(40, 40, 40)
+                .addComponent(jLabel15)
+                .addContainerGap(616, Short.MAX_VALUE))
+        );
+
+        contentPanel.add(contractPanel, "cardContract");
 
         javax.swing.GroupLayout mainPanelLayout = new javax.swing.GroupLayout(mainPanel);
         mainPanel.setLayout(mainPanelLayout);
@@ -288,7 +368,7 @@ public class PanelAdmin extends javax.swing.JPanel {
             .addGroup(mainPanelLayout.createSequentialGroup()
                 .addComponent(sidePanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(contentPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 1017, Short.MAX_VALUE))
+                .addComponent(contentPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 1017, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         mainPanelLayout.setVerticalGroup(
             mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -324,6 +404,9 @@ public class PanelAdmin extends javax.swing.JPanel {
         btnCustomer.setBackground(new Color(0, 79, 225));
         btnCar.setBackground(new Color(0, 79, 225));
         btnContract.setBackground(new Color(0, 79, 225));
+        
+        CardLayout layout = (CardLayout) contentPanel.getLayout();
+        layout.show(contentPanel, "cardHome");
     }//GEN-LAST:event_btnHomeMousePressed
 
     private void btnCustomerMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCustomerMousePressed
@@ -332,6 +415,9 @@ public class PanelAdmin extends javax.swing.JPanel {
         btnCustomer.setBackground(new Color(51, 114, 231));
         btnCar.setBackground(new Color(0, 79, 225));
         btnContract.setBackground(new Color(0, 79, 225));
+        
+        CardLayout layout = (CardLayout) contentPanel.getLayout();
+        layout.show(contentPanel, "cardCustomer");
     }//GEN-LAST:event_btnCustomerMousePressed
 
     private void btnCarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCarMousePressed
@@ -340,6 +426,9 @@ public class PanelAdmin extends javax.swing.JPanel {
         btnCustomer.setBackground(new Color(0, 79, 225));
         btnCar.setBackground(new Color(51, 114, 231));
         btnContract.setBackground(new Color(0, 79, 225));
+        
+        CardLayout layout = (CardLayout) contentPanel.getLayout();
+        layout.show(contentPanel, "cardCar");       
     }//GEN-LAST:event_btnCarMousePressed
 
     private void btnContractMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnContractMousePressed
@@ -348,6 +437,9 @@ public class PanelAdmin extends javax.swing.JPanel {
         btnCustomer.setBackground(new Color(0, 79, 225));
         btnCar.setBackground(new Color(0, 79, 225));
         btnContract.setBackground(new Color(51, 114, 231));
+        
+        CardLayout layout = (CardLayout) contentPanel.getLayout();
+        layout.show(contentPanel, "cardContract");
     }//GEN-LAST:event_btnContractMousePressed
 
 
@@ -357,10 +449,17 @@ public class PanelAdmin extends javax.swing.JPanel {
     private javax.swing.JPanel btnCustomer;
     private javax.swing.JPanel btnHome;
     private javax.swing.JPanel btnLogout;
+    private javax.swing.JPanel carPanel;
     private javax.swing.JPanel contentPanel;
+    private javax.swing.JPanel contractPanel;
+    private javax.swing.JPanel customerPanel;
+    private javax.swing.JPanel homePanel;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
