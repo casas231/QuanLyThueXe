@@ -5,7 +5,8 @@
 package view;
 
 import com.formdev.flatlaf.themes.FlatMacDarkLaf;
-import utils.TitleImage;
+import java.awt.CardLayout;
+import utils.ImageHelper;
 
 /**
  *
@@ -18,11 +19,18 @@ public class MainFrame extends javax.swing.JFrame {
     /**
      * Creates new form BigFrame
      */
-    public MainFrame() {
+    public MainFrame(String role) {
         initComponents();
         setResizable(false);
         setLocationRelativeTo(null);
-        this.setIconImage(TitleImage.getAppIcon());
+        this.setIconImage(ImageHelper.getAppIcon());
+        CardLayout layout = (CardLayout) parentFrame.getLayout();
+        if (role.equals("admin")) {
+            layout.show(parentFrame, "cardAdmin");
+        }
+        else {
+            layout.show(parentFrame, "cardUser");
+        }
     }
 
     /**
@@ -36,12 +44,14 @@ public class MainFrame extends javax.swing.JFrame {
 
         parentFrame = new javax.swing.JPanel();
         panelAdmin1 = new view.PanelAdmin();
+        panelUser2 = new view.PanelUser();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Quản lý thuê xe");
 
         parentFrame.setLayout(new java.awt.CardLayout());
-        parentFrame.add(panelAdmin1, "card2");
+        parentFrame.add(panelAdmin1, "cardAdmin");
+        parentFrame.add(panelUser2, "cardUser");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -70,11 +80,12 @@ public class MainFrame extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> new MainFrame().setVisible(true));
+        java.awt.EventQueue.invokeLater(() -> new MainFrame("admin").setVisible(true));
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private view.PanelAdmin panelAdmin1;
+    private view.PanelUser panelUser2;
     private javax.swing.JPanel parentFrame;
     // End of variables declaration//GEN-END:variables
 }

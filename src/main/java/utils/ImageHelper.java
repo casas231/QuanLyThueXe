@@ -12,11 +12,11 @@ import java.net.URL;
  *
  * @author ducanh123
  */
-public class TitleImage {
+public class ImageHelper {
     
     public static Image getAppIcon() {
         try {
-            URL urlIcon = TitleImage.class.getResource("/image/kma.png");
+            URL urlIcon = ImageHelper.class.getResource("/image/kma.png");
             if (urlIcon != null) {
                 return Toolkit.getDefaultToolkit().createImage(urlIcon);
             }

@@ -41,7 +41,14 @@
         <Component class="view.PanelAdmin" name="panelAdmin1">
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignCardLayout" value="org.netbeans.modules.form.compat2.layouts.DesignCardLayout$CardConstraintsDescription">
-              <CardConstraints cardName="card2"/>
+              <CardConstraints cardName="cardAdmin"/>
+            </Constraint>
+          </Constraints>
+        </Component>
+        <Component class="view.PanelUser" name="panelUser2">
+          <Constraints>
+            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignCardLayout" value="org.netbeans.modules.form.compat2.layouts.DesignCardLayout$CardConstraintsDescription">
+              <CardConstraints cardName="cardUser"/>
             </Constraint>
           </Constraints>
         </Component>

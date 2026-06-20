@@ -5,7 +5,7 @@
 package view;
 
 import com.formdev.flatlaf.themes.FlatMacDarkLaf;
-import utils.TitleImage;
+import utils.ImageHelper;
 
 /**
  *
@@ -22,7 +22,7 @@ public class LoginFrame extends javax.swing.JFrame {
         initComponents();
         setResizable(false);
         setLocationRelativeTo(null);
-        this.setIconImage(TitleImage.getAppIcon());
+        this.setIconImage(ImageHelper.getAppIcon());
     }
 
     /**

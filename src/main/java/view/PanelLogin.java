@@ -8,6 +8,7 @@ import java.awt.CardLayout;
 import java.awt.Container;
 import java.awt.Window;
 import javax.swing.SwingUtilities;
+import model.AccountDAO;
 
 /**
  *
@@ -123,18 +124,17 @@ public class PanelLogin extends javax.swing.JPanel {
         // TODO add your handling code here:
         String userText = txtUsername.getText();
         String passText = new String(txtPassword.getPassword());
-        if (userText.isEmpty() || passText.isEmpty()) {
+        String role = AccountDAO.checkAccount(userText, passText);
+        if (role.equals("")) {
             lblWrong.setVisible(true);
         }
         else {
             lblWrong.setVisible(false);
-            System.out.println("Check username: " + userText);
-            System.out.println("Check password: " + passText);
             Window frame = SwingUtilities.getWindowAncestor(this);
             if (frame != null) {
                 frame.dispose();
             }
-            MainFrame mainFrame = new MainFrame();
+            MainFrame mainFrame = new MainFrame(role);
             mainFrame.setVisible(true);
         }
     }//GEN-LAST:event_btnLoginActionPerformed
