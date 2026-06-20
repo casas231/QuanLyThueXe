@@ -54,9 +54,8 @@ public class PanelLogin extends javax.swing.JPanel {
         jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel3.setText("Mật khẩu");
 
-        btnLogin.setBackground(new java.awt.Color(102, 255, 51));
+        btnLogin.setBackground(new java.awt.Color(0, 79, 225));
         btnLogin.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        btnLogin.setForeground(new java.awt.Color(60, 63, 65));
         btnLogin.setText("Đăng nhập");
         btnLogin.addActionListener(this::btnLoginActionPerformed);
 

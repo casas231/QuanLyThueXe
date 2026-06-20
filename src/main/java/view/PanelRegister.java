@@ -54,9 +54,8 @@ public class PanelRegister extends javax.swing.JPanel {
         jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel3.setText("Mật khẩu");
 
-        btnRegister.setBackground(new java.awt.Color(102, 255, 51));
+        btnRegister.setBackground(new java.awt.Color(0, 79, 225));
         btnRegister.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        btnRegister.setForeground(new java.awt.Color(60, 63, 65));
         btnRegister.setText("Đăng ký");
         btnRegister.addActionListener(this::btnRegisterActionPerformed);
 
