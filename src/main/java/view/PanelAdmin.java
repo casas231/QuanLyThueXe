@@ -7,7 +7,11 @@ package view;
 import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.Window;
+import java.io.File;
+import javax.swing.ImageIcon;
+import javax.swing.JFileChooser;
 import javax.swing.SwingUtilities;
+import utils.ImageHelper;
 
 /**
  *
@@ -76,6 +80,28 @@ public class PanelAdmin extends javax.swing.JPanel {
         jLabel21 = new javax.swing.JLabel();
         carPanel = new javax.swing.JPanel();
         jLabel14 = new javax.swing.JLabel();
+        jLabel22 = new javax.swing.JLabel();
+        jLabel23 = new javax.swing.JLabel();
+        txtCarLicensePlate = new javax.swing.JTextField();
+        jLabel24 = new javax.swing.JLabel();
+        jLabel25 = new javax.swing.JLabel();
+        txtCarBrand = new javax.swing.JTextField();
+        txtCarName = new javax.swing.JTextField();
+        txtCarPrice = new javax.swing.JTextField();
+        jSpinner1 = new javax.swing.JSpinner();
+        jLabel26 = new javax.swing.JLabel();
+        jLabel27 = new javax.swing.JLabel();
+        jComboBox1 = new javax.swing.JComboBox<>();
+        jLabel28 = new javax.swing.JLabel();
+        jLabel29 = new javax.swing.JLabel();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        jTable2 = new javax.swing.JTable();
+        btnCarImage = new javax.swing.JButton();
+        lblCarImage = new javax.swing.JLabel();
+        btnCarDelete = new javax.swing.JButton();
+        btnCarAdd = new javax.swing.JButton();
+        btnCarEdit = new javax.swing.JButton();
+        btnCarClear = new javax.swing.JButton();
         contractPanel = new javax.swing.JPanel();
         jLabel15 = new javax.swing.JLabel();
 
@@ -84,7 +110,7 @@ public class PanelAdmin extends javax.swing.JPanel {
         jLabel1.setBackground(new java.awt.Color(204, 204, 204));
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 48)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("KMA");
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/admin/panel.png"))); // NOI18N
 
         btnHome.setBackground(new java.awt.Color(51, 114, 231));
         btnHome.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -272,9 +298,9 @@ public class PanelAdmin extends javax.swing.JPanel {
         sidePanelLayout.setVerticalGroup(
             sidePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(sidePanelLayout.createSequentialGroup()
-                .addGap(40, 40, 40)
-                .addComponent(jLabel1)
-                .addGap(41, 41, 41)
+                .addContainerGap()
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addComponent(btnHome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnCustomer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -467,9 +493,9 @@ public class PanelAdmin extends javax.swing.JPanel {
                             .addComponent(jLabel19)
                             .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(40, 40, 40)
-                        .addGroup(customerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btnCustomerAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnCustomerDelete, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(customerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(btnCustomerDelete, javax.swing.GroupLayout.DEFAULT_SIZE, 50, Short.MAX_VALUE)
+                            .addComponent(btnCustomerAdd, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(34, 34, 34)
                         .addGroup(customerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(btnCustomerEdit, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -482,7 +508,70 @@ public class PanelAdmin extends javax.swing.JPanel {
 
         jLabel14.setFont(new java.awt.Font("Segoe UI", 1, 48)); // NOI18N
         jLabel14.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel14.setText("Xe");
+        jLabel14.setText("Quản lý xe");
+
+        jLabel22.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel22.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/admin/car64_2.png"))); // NOI18N
+
+        jLabel23.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        jLabel23.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabel23.setText("Biển số xe:");
+
+        jLabel24.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        jLabel24.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabel24.setText("Hãng xe:");
+
+        jLabel25.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        jLabel25.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabel25.setText("Tên xe:");
+
+        jLabel26.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        jLabel26.setText("Số chỗ:");
+
+        jLabel27.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        jLabel27.setText("Phí thuê 1 ngày:");
+
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Sẵn sàng", "Đang thuê", "Đang sửa chữa" }));
+
+        jLabel28.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        jLabel28.setText("Trạng thái:");
+
+        jLabel29.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel29.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/admin/car64.png"))); // NOI18N
+
+        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "ID", "Biển số", "Hãng xe", "Tên xe", "Số chỗ", "Phí thuê", "Trạng thái"
+            }
+        ));
+        jScrollPane3.setViewportView(jTable2);
+
+        btnCarImage.setBackground(new java.awt.Color(0, 79, 225));
+        btnCarImage.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        btnCarImage.setText("Chọn ảnh xe");
+        btnCarImage.addActionListener(this::btnCarImageActionPerformed);
+
+        lblCarImage.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblCarImage.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)));
+
+        btnCarDelete.setBackground(new java.awt.Color(0, 79, 225));
+        btnCarDelete.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        btnCarDelete.setText("Xóa");
+
+        btnCarAdd.setBackground(new java.awt.Color(0, 79, 225));
+        btnCarAdd.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        btnCarAdd.setText("Thêm");
+
+        btnCarEdit.setBackground(new java.awt.Color(0, 79, 225));
+        btnCarEdit.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        btnCarEdit.setText("Sửa");
+
+        btnCarClear.setBackground(new java.awt.Color(0, 79, 225));
+        btnCarClear.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        btnCarClear.setText("Clear");
 
         javax.swing.GroupLayout carPanelLayout = new javax.swing.GroupLayout(carPanel);
         carPanel.setLayout(carPanelLayout);
@@ -490,15 +579,112 @@ public class PanelAdmin extends javax.swing.JPanel {
             carPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(carPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel14, javax.swing.GroupLayout.DEFAULT_SIZE, 1005, Short.MAX_VALUE)
+                .addComponent(jLabel14, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, carPanelLayout.createSequentialGroup()
+                .addGroup(carPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(carPanelLayout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel22, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, carPanelLayout.createSequentialGroup()
+                        .addGroup(carPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(carPanelLayout.createSequentialGroup()
+                                .addGap(40, 40, 40)
+                                .addGroup(carPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addComponent(jLabel25, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jLabel24, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jLabel23, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(btnCarImage, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                            .addGroup(carPanelLayout.createSequentialGroup()
+                                .addGap(39, 39, 39)
+                                .addComponent(btnCarAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, carPanelLayout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(btnCarEdit, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(9, 9, 9)
+                        .addGroup(carPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(carPanelLayout.createSequentialGroup()
+                                .addGroup(carPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(carPanelLayout.createSequentialGroup()
+                                        .addComponent(lblCarImage, javax.swing.GroupLayout.PREFERRED_SIZE, 256, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, carPanelLayout.createSequentialGroup()
+                                        .addGap(0, 0, Short.MAX_VALUE)
+                                        .addGroup(carPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                            .addComponent(btnCarDelete, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .addComponent(btnCarClear, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE))
+                                        .addGap(40, 40, 40)))
+                                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 510, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(carPanelLayout.createSequentialGroup()
+                                .addGroup(carPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addComponent(txtCarBrand, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 250, Short.MAX_VALUE)
+                                    .addComponent(txtCarLicensePlate, javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(txtCarName))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 91, Short.MAX_VALUE)
+                                .addGroup(carPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel26, javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jLabel27, javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jLabel28, javax.swing.GroupLayout.Alignment.TRAILING))
+                                .addGap(18, 18, 18)
+                                .addGroup(carPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(txtCarPrice)
+                                    .addComponent(jComboBox1, 0, 250, Short.MAX_VALUE)
+                                    .addComponent(jSpinner1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))))
+                .addGap(40, 40, 40))
+            .addGroup(carPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(carPanelLayout.createSequentialGroup()
+                    .addGap(50, 50, 50)
+                    .addComponent(jLabel29, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(903, Short.MAX_VALUE)))
         );
         carPanelLayout.setVerticalGroup(
             carPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(carPanelLayout.createSequentialGroup()
                 .addGap(40, 40, 40)
                 .addComponent(jLabel14)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(24, 24, 24)
+                .addComponent(jLabel22, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(carPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLabel26, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel23, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(txtCarLicensePlate)
+                    .addComponent(jSpinner1))
+                .addGap(18, 18, 18)
+                .addGroup(carPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(txtCarPrice)
+                    .addComponent(jLabel24, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(txtCarBrand)
+                    .addComponent(jLabel27, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addGroup(carPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLabel25, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(txtCarName)
+                    .addComponent(jComboBox1, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel28, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addGroup(carPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 326, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(carPanelLayout.createSequentialGroup()
+                        .addGroup(carPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblCarImage, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(carPanelLayout.createSequentialGroup()
+                                .addGap(42, 42, 42)
+                                .addComponent(btnCarImage, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(40, 40, 40)
+                        .addGroup(carPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(btnCarDelete, javax.swing.GroupLayout.DEFAULT_SIZE, 50, Short.MAX_VALUE)
+                            .addComponent(btnCarAdd, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(carPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btnCarClear, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnCarEdit, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(40, Short.MAX_VALUE))
+            .addGroup(carPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(carPanelLayout.createSequentialGroup()
+                    .addGap(132, 132, 132)
+                    .addComponent(jLabel29, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(524, Short.MAX_VALUE)))
         );
 
         contentPanel.add(carPanel, "cardCar");
@@ -607,9 +793,27 @@ public class PanelAdmin extends javax.swing.JPanel {
         layout.show(contentPanel, "cardContract");
     }//GEN-LAST:event_btnContractMousePressed
 
+    private void btnCarImageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCarImageActionPerformed
+        // TODO add your handling code here:
+        JFileChooser fileChooser = new JFileChooser();
+        int result = fileChooser.showOpenDialog(this);
+        if (result == JFileChooser.APPROVE_OPTION) {
+            File selectedFile = fileChooser.getSelectedFile();
+            int width = lblCarImage.getWidth();
+            int height = lblCarImage.getHeight();
+            ImageIcon image = ImageHelper.scaleImage(selectedFile, width, height);
+            lblCarImage.setIcon(image);
+        }
+    }//GEN-LAST:event_btnCarImageActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel btnCar;
+    private javax.swing.JButton btnCarAdd;
+    private javax.swing.JButton btnCarClear;
+    private javax.swing.JButton btnCarDelete;
+    private javax.swing.JButton btnCarEdit;
+    private javax.swing.JButton btnCarImage;
     private javax.swing.JPanel btnContract;
     private javax.swing.JPanel btnCustomer;
     private javax.swing.JButton btnCustomerAdd;
@@ -624,6 +828,7 @@ public class PanelAdmin extends javax.swing.JPanel {
     private javax.swing.JPanel contractPanel;
     private javax.swing.JPanel customerPanel;
     private javax.swing.JPanel homePanel;
+    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -638,6 +843,14 @@ public class PanelAdmin extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel21;
+    private javax.swing.JLabel jLabel22;
+    private javax.swing.JLabel jLabel23;
+    private javax.swing.JLabel jLabel24;
+    private javax.swing.JLabel jLabel25;
+    private javax.swing.JLabel jLabel26;
+    private javax.swing.JLabel jLabel27;
+    private javax.swing.JLabel jLabel28;
+    private javax.swing.JLabel jLabel29;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -647,9 +860,17 @@ public class PanelAdmin extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JSpinner jSpinner1;
     private javax.swing.JTable jTable1;
+    private javax.swing.JTable jTable2;
+    private javax.swing.JLabel lblCarImage;
     private javax.swing.JPanel mainPanel;
     private javax.swing.JPanel sidePanel;
+    private javax.swing.JTextField txtCarBrand;
+    private javax.swing.JTextField txtCarLicensePlate;
+    private javax.swing.JTextField txtCarName;
+    private javax.swing.JTextField txtCarPrice;
     private javax.swing.JTextArea txtCustomerAddress;
     private javax.swing.JTextField txtCustomerDriver;
     private javax.swing.JTextField txtCustomerID;

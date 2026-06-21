@@ -6,7 +6,12 @@ package utils;
 
 import java.awt.Image;
 import java.awt.Toolkit;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.net.URL;
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 
 /**
  *
@@ -25,6 +30,18 @@ public class ImageHelper {
             }
         }
         catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+    
+    public static ImageIcon scaleImage(File imageFile, int width, int height) {
+        try {
+            BufferedImage orginalImage = ImageIO.read(imageFile);
+            Image scaledImage = orginalImage.getScaledInstance(width, height, Image.SCALE_SMOOTH);
+            return new ImageIcon(scaledImage);
+        }
+        catch (IOException e) {
             e.printStackTrace();
             return null;
         }
