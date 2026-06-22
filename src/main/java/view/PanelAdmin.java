@@ -10,6 +10,7 @@ import java.awt.Window;
 import java.io.File;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 import utils.ImageHelper;
 
@@ -88,10 +89,10 @@ public class PanelAdmin extends javax.swing.JPanel {
         txtCarBrand = new javax.swing.JTextField();
         txtCarName = new javax.swing.JTextField();
         txtCarPrice = new javax.swing.JTextField();
-        jSpinner1 = new javax.swing.JSpinner();
+        spinnerCarSeat = new javax.swing.JSpinner();
         jLabel26 = new javax.swing.JLabel();
         jLabel27 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        cbCarStatus = new javax.swing.JComboBox<>();
         jLabel28 = new javax.swing.JLabel();
         jLabel29 = new javax.swing.JLabel();
         jScrollPane3 = new javax.swing.JScrollPane();
@@ -378,6 +379,7 @@ public class PanelAdmin extends javax.swing.JPanel {
 
         btnCustomerSearch.setBackground(new java.awt.Color(0, 79, 225));
         btnCustomerSearch.setText("Tìm");
+        btnCustomerSearch.addActionListener(this::btnCustomerSearchActionPerformed);
 
         txtCustomerAddress.setColumns(20);
         txtCustomerAddress.setRows(5);
@@ -386,18 +388,22 @@ public class PanelAdmin extends javax.swing.JPanel {
         btnCustomerAdd.setBackground(new java.awt.Color(0, 79, 225));
         btnCustomerAdd.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         btnCustomerAdd.setText("Thêm");
+        btnCustomerAdd.addActionListener(this::btnCustomerAddActionPerformed);
 
         btnCustomerEdit.setBackground(new java.awt.Color(0, 79, 225));
         btnCustomerEdit.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         btnCustomerEdit.setText("Sửa");
+        btnCustomerEdit.addActionListener(this::btnCustomerEditActionPerformed);
 
         btnCustomerDelete.setBackground(new java.awt.Color(0, 79, 225));
         btnCustomerDelete.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         btnCustomerDelete.setText("Xóa");
+        btnCustomerDelete.addActionListener(this::btnCustomerDeleteActionPerformed);
 
         btnCustomerClear.setBackground(new java.awt.Color(0, 79, 225));
         btnCustomerClear.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         btnCustomerClear.setText("Clear");
+        btnCustomerClear.addActionListener(this::btnCustomerClearActionPerformed);
 
         jLabel21.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel21.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/admin/user64.png"))); // NOI18N
@@ -531,7 +537,7 @@ public class PanelAdmin extends javax.swing.JPanel {
         jLabel27.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         jLabel27.setText("Phí thuê 1 ngày:");
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Sẵn sàng", "Đang thuê", "Đang sửa chữa" }));
+        cbCarStatus.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Sẵn sàng", "Đang thuê", "Đang sửa chữa" }));
 
         jLabel28.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         jLabel28.setText("Trạng thái:");
@@ -560,18 +566,22 @@ public class PanelAdmin extends javax.swing.JPanel {
         btnCarDelete.setBackground(new java.awt.Color(0, 79, 225));
         btnCarDelete.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         btnCarDelete.setText("Xóa");
+        btnCarDelete.addActionListener(this::btnCarDeleteActionPerformed);
 
         btnCarAdd.setBackground(new java.awt.Color(0, 79, 225));
         btnCarAdd.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         btnCarAdd.setText("Thêm");
+        btnCarAdd.addActionListener(this::btnCarAddActionPerformed);
 
         btnCarEdit.setBackground(new java.awt.Color(0, 79, 225));
         btnCarEdit.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         btnCarEdit.setText("Sửa");
+        btnCarEdit.addActionListener(this::btnCarEditActionPerformed);
 
         btnCarClear.setBackground(new java.awt.Color(0, 79, 225));
         btnCarClear.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         btnCarClear.setText("Clear");
+        btnCarClear.addActionListener(this::btnCarClearActionPerformed);
 
         javax.swing.GroupLayout carPanelLayout = new javax.swing.GroupLayout(carPanel);
         carPanel.setLayout(carPanelLayout);
@@ -628,8 +638,8 @@ public class PanelAdmin extends javax.swing.JPanel {
                                 .addGap(18, 18, 18)
                                 .addGroup(carPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(txtCarPrice)
-                                    .addComponent(jComboBox1, 0, 250, Short.MAX_VALUE)
-                                    .addComponent(jSpinner1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))))
+                                    .addComponent(cbCarStatus, 0, 250, Short.MAX_VALUE)
+                                    .addComponent(spinnerCarSeat, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))))
                 .addGap(40, 40, 40))
             .addGroup(carPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(carPanelLayout.createSequentialGroup()
@@ -649,7 +659,7 @@ public class PanelAdmin extends javax.swing.JPanel {
                     .addComponent(jLabel26, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabel23, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(txtCarLicensePlate)
-                    .addComponent(jSpinner1))
+                    .addComponent(spinnerCarSeat))
                 .addGap(18, 18, 18)
                 .addGroup(carPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(txtCarPrice)
@@ -660,7 +670,7 @@ public class PanelAdmin extends javax.swing.JPanel {
                 .addGroup(carPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jLabel25, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(txtCarName)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(cbCarStatus, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel28, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
                 .addGroup(carPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -806,6 +816,55 @@ public class PanelAdmin extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_btnCarImageActionPerformed
 
+    private void btnCarAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCarAddActionPerformed
+        // TODO add your handling code here:
+        JOptionPane.showMessageDialog(carPanel, "Thêm xe thành công!");
+    }//GEN-LAST:event_btnCarAddActionPerformed
+
+    private void btnCarDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCarDeleteActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnCarDeleteActionPerformed
+
+    private void btnCarEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCarEditActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnCarEditActionPerformed
+
+    private void btnCarClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCarClearActionPerformed
+        // TODO add your handling code here:
+        txtCarLicensePlate.setText("");
+        txtCarBrand.setText("");
+        txtCarName.setText("");
+        spinnerCarSeat.setValue(0);
+        txtCarPrice.setText("");
+        cbCarStatus.setSelectedIndex(0);
+        lblCarImage.setIcon(null);
+    }//GEN-LAST:event_btnCarClearActionPerformed
+
+    private void btnCustomerAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCustomerAddActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnCustomerAddActionPerformed
+
+    private void btnCustomerDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCustomerDeleteActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnCustomerDeleteActionPerformed
+
+    private void btnCustomerEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCustomerEditActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnCustomerEditActionPerformed
+
+    private void btnCustomerClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCustomerClearActionPerformed
+        // TODO add your handling code here:
+        txtCustomerName.setText("");
+        txtCustomerPhone.setText("");
+        txtCustomerID.setText("");
+        txtCustomerDriver.setText("");
+        txtCustomerAddress.setText("");
+    }//GEN-LAST:event_btnCustomerClearActionPerformed
+
+    private void btnCustomerSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCustomerSearchActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnCustomerSearchActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel btnCar;
@@ -824,11 +883,11 @@ public class PanelAdmin extends javax.swing.JPanel {
     private javax.swing.JPanel btnHome;
     private javax.swing.JPanel btnLogout;
     private javax.swing.JPanel carPanel;
+    private javax.swing.JComboBox<String> cbCarStatus;
     private javax.swing.JPanel contentPanel;
     private javax.swing.JPanel contractPanel;
     private javax.swing.JPanel customerPanel;
     private javax.swing.JPanel homePanel;
-    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -861,12 +920,12 @@ public class PanelAdmin extends javax.swing.JPanel {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JSpinner jSpinner1;
     private javax.swing.JTable jTable1;
     private javax.swing.JTable jTable2;
     private javax.swing.JLabel lblCarImage;
     private javax.swing.JPanel mainPanel;
     private javax.swing.JPanel sidePanel;
+    private javax.swing.JSpinner spinnerCarSeat;
     private javax.swing.JTextField txtCarBrand;
     private javax.swing.JTextField txtCarLicensePlate;
     private javax.swing.JTextField txtCarName;
