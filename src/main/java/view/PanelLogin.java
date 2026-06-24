@@ -8,7 +8,7 @@ import java.awt.CardLayout;
 import java.awt.Container;
 import java.awt.Window;
 import javax.swing.SwingUtilities;
-import model.AccountDAO;
+import dao.AccountDAO;
 
 /**
  *
