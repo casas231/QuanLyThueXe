@@ -12,6 +12,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
+import utils.DateForeground;
 import utils.ImageHelper;
 
 /**
@@ -25,6 +26,9 @@ public class PanelAdmin extends javax.swing.JPanel {
      */
     public PanelAdmin() {
         initComponents();
+        DateForeground.changeForeground(txtContractStart);
+        DateForeground.changeForeground(txtContractEnd);
+        DateForeground.changeForeground(txtContractSearch);
     }
 
     /**
@@ -56,6 +60,23 @@ public class PanelAdmin extends javax.swing.JPanel {
         contentPanel = new javax.swing.JPanel();
         homePanel = new javax.swing.JPanel();
         jLabel12 = new javax.swing.JLabel();
+        jLabel37 = new javax.swing.JLabel();
+        homePanelCustomer = new javax.swing.JPanel();
+        homePanelCustomerTitle = new javax.swing.JPanel();
+        jLabel39 = new javax.swing.JLabel();
+        jLabel40 = new javax.swing.JLabel();
+        jLabel45 = new javax.swing.JLabel();
+        homePanelContract = new javax.swing.JPanel();
+        homePanelContractTitle = new javax.swing.JPanel();
+        jLabel43 = new javax.swing.JLabel();
+        jLabel44 = new javax.swing.JLabel();
+        jLabel46 = new javax.swing.JLabel();
+        homePanelCar = new javax.swing.JPanel();
+        homePanelCarTitle = new javax.swing.JPanel();
+        jLabel41 = new javax.swing.JLabel();
+        jLabel42 = new javax.swing.JLabel();
+        jLabel47 = new javax.swing.JLabel();
+        jLabel38 = new javax.swing.JLabel();
         customerPanel = new javax.swing.JPanel();
         jLabel13 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -105,6 +126,28 @@ public class PanelAdmin extends javax.swing.JPanel {
         btnCarClear = new javax.swing.JButton();
         contractPanel = new javax.swing.JPanel();
         jLabel15 = new javax.swing.JLabel();
+        jLabel30 = new javax.swing.JLabel();
+        jLabel31 = new javax.swing.JLabel();
+        txtContractCustomer = new javax.swing.JTextField();
+        jLabel32 = new javax.swing.JLabel();
+        txtContractCar = new javax.swing.JTextField();
+        jLabel33 = new javax.swing.JLabel();
+        jLabel34 = new javax.swing.JLabel();
+        jLabel35 = new javax.swing.JLabel();
+        jLabel36 = new javax.swing.JLabel();
+        txtContractStart = new com.toedter.calendar.JDateChooser();
+        txtContractEnd = new com.toedter.calendar.JDateChooser();
+        txtContractPrice = new javax.swing.JTextField();
+        cbContractStatus = new javax.swing.JComboBox<>();
+        btnContractAdd = new javax.swing.JButton();
+        btnContractDelete = new javax.swing.JButton();
+        btnContractEdit = new javax.swing.JButton();
+        btnContractClear = new javax.swing.JButton();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        jTable3 = new javax.swing.JTable();
+        jComboBox1 = new javax.swing.JComboBox<>();
+        txtContractSearch = new com.toedter.calendar.JDateChooser();
+        jButton1 = new javax.swing.JButton();
 
         sidePanel.setBackground(new java.awt.Color(0, 79, 225));
 
@@ -321,21 +364,219 @@ public class PanelAdmin extends javax.swing.JPanel {
         jLabel12.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel12.setText("Quản lý thuê xe");
 
+        jLabel37.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel37.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/admin/home64.png"))); // NOI18N
+
+        homePanelCustomer.setBackground(new java.awt.Color(234, 67, 53));
+
+        homePanelCustomerTitle.setBackground(new java.awt.Color(175, 50, 39));
+
+        jLabel39.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel39.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/admin/user64.png"))); // NOI18N
+
+        jLabel40.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        jLabel40.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel40.setText("Khách hàng");
+
+        javax.swing.GroupLayout homePanelCustomerTitleLayout = new javax.swing.GroupLayout(homePanelCustomerTitle);
+        homePanelCustomerTitle.setLayout(homePanelCustomerTitleLayout);
+        homePanelCustomerTitleLayout.setHorizontalGroup(
+            homePanelCustomerTitleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(homePanelCustomerTitleLayout.createSequentialGroup()
+                .addGap(18, 18, 18)
+                .addComponent(jLabel39, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel40)
+                .addContainerGap(19, Short.MAX_VALUE))
+        );
+        homePanelCustomerTitleLayout.setVerticalGroup(
+            homePanelCustomerTitleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(homePanelCustomerTitleLayout.createSequentialGroup()
+                .addGap(18, 18, 18)
+                .addGroup(homePanelCustomerTitleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLabel39, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel40, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(18, Short.MAX_VALUE))
+        );
+
+        jLabel45.setFont(new java.awt.Font("Segoe UI", 1, 48)); // NOI18N
+        jLabel45.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel45.setText("0");
+
+        javax.swing.GroupLayout homePanelCustomerLayout = new javax.swing.GroupLayout(homePanelCustomer);
+        homePanelCustomer.setLayout(homePanelCustomerLayout);
+        homePanelCustomerLayout.setHorizontalGroup(
+            homePanelCustomerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(homePanelCustomerTitle, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, homePanelCustomerLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel45, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        homePanelCustomerLayout.setVerticalGroup(
+            homePanelCustomerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(homePanelCustomerLayout.createSequentialGroup()
+                .addComponent(homePanelCustomerTitle, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel45, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+
+        homePanelContract.setBackground(new java.awt.Color(66, 133, 244));
+
+        homePanelContractTitle.setBackground(new java.awt.Color(49, 99, 183));
+
+        jLabel43.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel43.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/admin/contract64.png"))); // NOI18N
+
+        jLabel44.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        jLabel44.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel44.setText("Hợp đồng");
+
+        javax.swing.GroupLayout homePanelContractTitleLayout = new javax.swing.GroupLayout(homePanelContractTitle);
+        homePanelContractTitle.setLayout(homePanelContractTitleLayout);
+        homePanelContractTitleLayout.setHorizontalGroup(
+            homePanelContractTitleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(homePanelContractTitleLayout.createSequentialGroup()
+                .addGap(18, 18, 18)
+                .addComponent(jLabel43, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel44, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(18, Short.MAX_VALUE))
+        );
+        homePanelContractTitleLayout.setVerticalGroup(
+            homePanelContractTitleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(homePanelContractTitleLayout.createSequentialGroup()
+                .addGap(18, 18, 18)
+                .addGroup(homePanelContractTitleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLabel43, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel44, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(18, Short.MAX_VALUE))
+        );
+
+        jLabel46.setFont(new java.awt.Font("Segoe UI", 1, 48)); // NOI18N
+        jLabel46.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel46.setText("0");
+
+        javax.swing.GroupLayout homePanelContractLayout = new javax.swing.GroupLayout(homePanelContract);
+        homePanelContract.setLayout(homePanelContractLayout);
+        homePanelContractLayout.setHorizontalGroup(
+            homePanelContractLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(homePanelContractTitle, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(homePanelContractLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel46, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        homePanelContractLayout.setVerticalGroup(
+            homePanelContractLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(homePanelContractLayout.createSequentialGroup()
+                .addComponent(homePanelContractTitle, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel46, javax.swing.GroupLayout.DEFAULT_SIZE, 188, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+
+        homePanelCar.setBackground(new java.awt.Color(52, 168, 83));
+
+        homePanelCarTitle.setBackground(new java.awt.Color(39, 126, 62));
+
+        jLabel41.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel41.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/admin/car64.png"))); // NOI18N
+
+        jLabel42.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        jLabel42.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel42.setText("Xe");
+
+        javax.swing.GroupLayout homePanelCarTitleLayout = new javax.swing.GroupLayout(homePanelCarTitle);
+        homePanelCarTitle.setLayout(homePanelCarTitleLayout);
+        homePanelCarTitleLayout.setHorizontalGroup(
+            homePanelCarTitleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(homePanelCarTitleLayout.createSequentialGroup()
+                .addGap(18, 18, 18)
+                .addComponent(jLabel41, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel42, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(18, Short.MAX_VALUE))
+        );
+        homePanelCarTitleLayout.setVerticalGroup(
+            homePanelCarTitleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(homePanelCarTitleLayout.createSequentialGroup()
+                .addGap(18, 18, 18)
+                .addGroup(homePanelCarTitleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLabel41, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel42, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(18, Short.MAX_VALUE))
+        );
+
+        jLabel47.setFont(new java.awt.Font("Segoe UI", 1, 48)); // NOI18N
+        jLabel47.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel47.setText("0");
+
+        javax.swing.GroupLayout homePanelCarLayout = new javax.swing.GroupLayout(homePanelCar);
+        homePanelCar.setLayout(homePanelCarLayout);
+        homePanelCarLayout.setHorizontalGroup(
+            homePanelCarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(homePanelCarTitle, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(homePanelCarLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel47, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        homePanelCarLayout.setVerticalGroup(
+            homePanelCarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(homePanelCarLayout.createSequentialGroup()
+                .addComponent(homePanelCarTitle, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel47, javax.swing.GroupLayout.DEFAULT_SIZE, 188, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+
+        jLabel38.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        jLabel38.setText("Admin");
+
         javax.swing.GroupLayout homePanelLayout = new javax.swing.GroupLayout(homePanel);
         homePanel.setLayout(homePanelLayout);
         homePanelLayout.setHorizontalGroup(
             homePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(homePanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel12, javax.swing.GroupLayout.DEFAULT_SIZE, 1005, Short.MAX_VALUE)
+                .addComponent(jLabel12, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
+            .addGroup(homePanelLayout.createSequentialGroup()
+                .addGap(40, 40, 40)
+                .addGroup(homePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(homePanelLayout.createSequentialGroup()
+                        .addComponent(jLabel37)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabel38)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(homePanelLayout.createSequentialGroup()
+                        .addComponent(homePanelCustomer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 90, Short.MAX_VALUE)
+                        .addComponent(homePanelCar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(93, 93, 93)
+                        .addComponent(homePanelContract, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(40, 40, 40))))
         );
         homePanelLayout.setVerticalGroup(
             homePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(homePanelLayout.createSequentialGroup()
                 .addGap(40, 40, 40)
                 .addComponent(jLabel12)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(homePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(homePanelLayout.createSequentialGroup()
+                        .addGap(24, 24, 24)
+                        .addComponent(jLabel37))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, homePanelLayout.createSequentialGroup()
+                        .addGap(33, 33, 33)
+                        .addComponent(jLabel38, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(40, 40, 40)
+                .addGroup(homePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(homePanelCar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(homePanelContract, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(homePanelCustomer, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(188, Short.MAX_VALUE))
         );
 
         contentPanel.add(homePanel, "cardHome");
@@ -507,7 +748,7 @@ public class PanelAdmin extends javax.swing.JPanel {
                             .addComponent(btnCustomerEdit, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btnCustomerClear, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(jScrollPane1))
-                .addContainerGap(54, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         contentPanel.add(customerPanel, "cardCustomer");
@@ -689,7 +930,7 @@ public class PanelAdmin extends javax.swing.JPanel {
                         .addGroup(carPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(btnCarClear, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btnCarEdit, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(40, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(carPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(carPanelLayout.createSequentialGroup()
                     .addGap(132, 132, 132)
@@ -703,20 +944,164 @@ public class PanelAdmin extends javax.swing.JPanel {
         jLabel15.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel15.setText("Quản lý hợp đồng");
 
+        jLabel30.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel30.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/admin/contract64.png"))); // NOI18N
+
+        jLabel31.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        jLabel31.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabel31.setText("ID khách:");
+
+        jLabel32.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        jLabel32.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabel32.setText("ID xe:");
+
+        jLabel33.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        jLabel33.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabel33.setText("Ngày thuê:");
+
+        jLabel34.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        jLabel34.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabel34.setText("Ngày trả:");
+
+        jLabel35.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        jLabel35.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabel35.setText("Tổng tiền:");
+
+        jLabel36.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        jLabel36.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabel36.setText("Trạng thái:");
+
+        cbContractStatus.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Đã duyệt", "Chờ duyệt", "Không duyệt" }));
+
+        btnContractAdd.setBackground(new java.awt.Color(0, 79, 225));
+        btnContractAdd.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        btnContractAdd.setText("Thêm");
+        btnContractAdd.addActionListener(this::btnContractAddActionPerformed);
+
+        btnContractDelete.setBackground(new java.awt.Color(0, 79, 225));
+        btnContractDelete.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        btnContractDelete.setText("Xóa");
+        btnContractDelete.addActionListener(this::btnContractDeleteActionPerformed);
+
+        btnContractEdit.setBackground(new java.awt.Color(0, 79, 225));
+        btnContractEdit.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        btnContractEdit.setText("Sửa");
+        btnContractEdit.addActionListener(this::btnContractEditActionPerformed);
+
+        btnContractClear.setBackground(new java.awt.Color(0, 79, 225));
+        btnContractClear.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        btnContractClear.setText("Clear");
+        btnContractClear.addActionListener(this::btnContractClearActionPerformed);
+
+        jTable3.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "ID khách", "ID xe", "Ngày thuê", "Ngày trả", "Tổng tiền", "Trạng thái"
+            }
+        ));
+        jScrollPane4.setViewportView(jTable3);
+
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tìm theo ngày thuê", "Tìm theo ngày trả" }));
+
+        jButton1.setBackground(new java.awt.Color(0, 79, 225));
+        jButton1.setText("Tìm");
+
         javax.swing.GroupLayout contractPanelLayout = new javax.swing.GroupLayout(contractPanel);
         contractPanel.setLayout(contractPanelLayout);
         contractPanelLayout.setHorizontalGroup(
             contractPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(contractPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel15, javax.swing.GroupLayout.DEFAULT_SIZE, 1005, Short.MAX_VALUE)
+                .addComponent(jLabel15, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
+            .addGroup(contractPanelLayout.createSequentialGroup()
+                .addGap(40, 40, 40)
+                .addGroup(contractPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(contractPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, contractPanelLayout.createSequentialGroup()
+                            .addComponent(btnContractEdit, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 34, Short.MAX_VALUE)
+                            .addComponent(btnContractClear, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, contractPanelLayout.createSequentialGroup()
+                            .addComponent(btnContractAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnContractDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, contractPanelLayout.createSequentialGroup()
+                            .addGroup(contractPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(jLabel31, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jLabel32, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jLabel36, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jLabel35, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jLabel34, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jLabel33, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGap(18, 18, 18)
+                            .addGroup(contractPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(txtContractCustomer, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
+                                .addComponent(txtContractCar, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
+                                .addComponent(txtContractEnd, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
+                                .addComponent(txtContractPrice, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
+                                .addComponent(cbContractStatus, 0, 200, Short.MAX_VALUE)
+                                .addComponent(txtContractStart, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                    .addComponent(jLabel30, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 74, Short.MAX_VALUE)
+                .addGroup(contractPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 529, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(contractPanelLayout.createSequentialGroup()
+                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(txtContractSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jButton1)))
+                .addGap(40, 40, 40))
         );
         contractPanelLayout.setVerticalGroup(
             contractPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(contractPanelLayout.createSequentialGroup()
                 .addGap(40, 40, 40)
                 .addComponent(jLabel15)
+                .addGap(24, 24, 24)
+                .addGroup(contractPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel30, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtContractSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton1))
+                .addGap(18, 18, 18)
+                .addGroup(contractPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(contractPanelLayout.createSequentialGroup()
+                        .addGroup(contractPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(txtContractCustomer)
+                            .addComponent(jLabel31, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(18, 18, 18)
+                        .addGroup(contractPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel32)
+                            .addComponent(txtContractCar, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(contractPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(txtContractStart, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel33))
+                        .addGap(18, 18, 18)
+                        .addGroup(contractPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(txtContractEnd, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel34))
+                        .addGap(18, 18, 18)
+                        .addGroup(contractPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jLabel35, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(txtContractPrice))
+                        .addGap(18, 18, 18)
+                        .addGroup(contractPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jLabel36, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(cbContractStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(40, 40, 40)
+                        .addGroup(contractPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btnContractAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnContractDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(34, 34, 34)
+                        .addGroup(contractPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btnContractEdit, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnContractClear, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 461, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -842,6 +1227,7 @@ public class PanelAdmin extends javax.swing.JPanel {
 
     private void btnCustomerAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCustomerAddActionPerformed
         // TODO add your handling code here:
+        JOptionPane.showMessageDialog(carPanel, "Thêm khách hàng thành công!");
     }//GEN-LAST:event_btnCustomerAddActionPerformed
 
     private void btnCustomerDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCustomerDeleteActionPerformed
@@ -865,6 +1251,29 @@ public class PanelAdmin extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_btnCustomerSearchActionPerformed
 
+    private void btnContractAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnContractAddActionPerformed
+        // TODO add your handling code here:
+        JOptionPane.showMessageDialog(carPanel, "Thêm hợp đồng thành công!");
+    }//GEN-LAST:event_btnContractAddActionPerformed
+
+    private void btnContractDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnContractDeleteActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnContractDeleteActionPerformed
+
+    private void btnContractEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnContractEditActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnContractEditActionPerformed
+
+    private void btnContractClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnContractClearActionPerformed
+        // TODO add your handling code here:
+        txtContractCustomer.setText("");
+        txtContractCar.setText("");
+        txtContractPrice.setText("");
+        txtContractStart.setDate(null);
+        txtContractEnd.setDate(null);
+        cbContractStatus.setSelectedIndex(0);
+    }//GEN-LAST:event_btnContractClearActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel btnCar;
@@ -874,6 +1283,10 @@ public class PanelAdmin extends javax.swing.JPanel {
     private javax.swing.JButton btnCarEdit;
     private javax.swing.JButton btnCarImage;
     private javax.swing.JPanel btnContract;
+    private javax.swing.JButton btnContractAdd;
+    private javax.swing.JButton btnContractClear;
+    private javax.swing.JButton btnContractDelete;
+    private javax.swing.JButton btnContractEdit;
     private javax.swing.JPanel btnCustomer;
     private javax.swing.JButton btnCustomerAdd;
     private javax.swing.JButton btnCustomerClear;
@@ -884,10 +1297,19 @@ public class PanelAdmin extends javax.swing.JPanel {
     private javax.swing.JPanel btnLogout;
     private javax.swing.JPanel carPanel;
     private javax.swing.JComboBox<String> cbCarStatus;
+    private javax.swing.JComboBox<String> cbContractStatus;
     private javax.swing.JPanel contentPanel;
     private javax.swing.JPanel contractPanel;
     private javax.swing.JPanel customerPanel;
     private javax.swing.JPanel homePanel;
+    private javax.swing.JPanel homePanelCar;
+    private javax.swing.JPanel homePanelCarTitle;
+    private javax.swing.JPanel homePanelContract;
+    private javax.swing.JPanel homePanelContractTitle;
+    private javax.swing.JPanel homePanelCustomer;
+    private javax.swing.JPanel homePanelCustomerTitle;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -911,7 +1333,25 @@ public class PanelAdmin extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel28;
     private javax.swing.JLabel jLabel29;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel30;
+    private javax.swing.JLabel jLabel31;
+    private javax.swing.JLabel jLabel32;
+    private javax.swing.JLabel jLabel33;
+    private javax.swing.JLabel jLabel34;
+    private javax.swing.JLabel jLabel35;
+    private javax.swing.JLabel jLabel36;
+    private javax.swing.JLabel jLabel37;
+    private javax.swing.JLabel jLabel38;
+    private javax.swing.JLabel jLabel39;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel40;
+    private javax.swing.JLabel jLabel41;
+    private javax.swing.JLabel jLabel42;
+    private javax.swing.JLabel jLabel43;
+    private javax.swing.JLabel jLabel44;
+    private javax.swing.JLabel jLabel45;
+    private javax.swing.JLabel jLabel46;
+    private javax.swing.JLabel jLabel47;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
@@ -920,8 +1360,10 @@ public class PanelAdmin extends javax.swing.JPanel {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JTable jTable1;
     private javax.swing.JTable jTable2;
+    private javax.swing.JTable jTable3;
     private javax.swing.JLabel lblCarImage;
     private javax.swing.JPanel mainPanel;
     private javax.swing.JPanel sidePanel;
@@ -930,6 +1372,12 @@ public class PanelAdmin extends javax.swing.JPanel {
     private javax.swing.JTextField txtCarLicensePlate;
     private javax.swing.JTextField txtCarName;
     private javax.swing.JTextField txtCarPrice;
+    private javax.swing.JTextField txtContractCar;
+    private javax.swing.JTextField txtContractCustomer;
+    private com.toedter.calendar.JDateChooser txtContractEnd;
+    private javax.swing.JTextField txtContractPrice;
+    private com.toedter.calendar.JDateChooser txtContractSearch;
+    private com.toedter.calendar.JDateChooser txtContractStart;
     private javax.swing.JTextArea txtCustomerAddress;
     private javax.swing.JTextField txtCustomerDriver;
     private javax.swing.JTextField txtCustomerID;
