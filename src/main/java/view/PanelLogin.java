@@ -4,17 +4,25 @@
  */
 package view;
 
+import controller.AuthController;
 import java.awt.CardLayout;
 import java.awt.Container;
 import java.awt.Window;
 import javax.swing.SwingUtilities;
+<<<<<<< Updated upstream
 import model.AccountDAO;
+=======
+import javax.swing.JOptionPane;
+import model.User;
+>>>>>>> Stashed changes
 
 /**
  *
  * @author ducanh123
  */
 public class PanelLogin extends javax.swing.JPanel {
+
+    private AuthController authController = new AuthController();
 
     /**
      * Creates new form PanelLogin
@@ -123,19 +131,27 @@ public class PanelLogin extends javax.swing.JPanel {
         // TODO add your handling code here:
         String userText = txtUsername.getText();
         String passText = new String(txtPassword.getPassword());
-        String role = AccountDAO.checkAccount(userText, passText);
-        if (role.equals("")) {
-            lblWrong.setVisible(true);
-        }
-        else {
-            lblWrong.setVisible(false);
-            Window frame = SwingUtilities.getWindowAncestor(this);
-            if (frame != null) {
-                frame.dispose();
+        try {
+            // Gọi controller để xử lý xác thực
+            User loggedIn = authController.login(userText, passText);
+
+            // Nếu không có lỗi (không nhảy vào catch), tức là đăng nhập thành công
+            if (loggedIn != null) {
+                lblWrong.setVisible(false);
+                Window frame = SwingUtilities.getWindowAncestor(this);
+                if (frame != null) {
+                    frame.dispose();
+                }
+                MainFrame mainFrame = new MainFrame(loggedIn.getRole());
+                mainFrame.setVisible(true);
+                JOptionPane.showMessageDialog(this, "Chào mừng bạn đã quay trở lại!");
             }
-            MainFrame mainFrame = new MainFrame(role);
-            mainFrame.setVisible(true);
+
+        } catch (Exception e) {
+            // Hiển thị các thông báo lỗi từ Controller (Trống field, sai tài khoản...)
+            JOptionPane.showMessageDialog(this, e.getMessage(), "Lỗi đăng nhập", JOptionPane.ERROR_MESSAGE);
         }
+
     }//GEN-LAST:event_btnLoginActionPerformed
 
     private void btnToRegisterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnToRegisterActionPerformed
@@ -144,7 +160,6 @@ public class PanelLogin extends javax.swing.JPanel {
         CardLayout layout = (CardLayout) parent.getLayout();
         layout.show(parent, "cardRegister");
     }//GEN-LAST:event_btnToRegisterActionPerformed
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnLogin;

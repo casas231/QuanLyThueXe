@@ -4,6 +4,7 @@
  */
 package view;
 
+import controller.AuthController;
 import java.awt.CardLayout;
 import java.awt.Container;
 import javax.swing.JOptionPane;
@@ -13,6 +14,8 @@ import javax.swing.JOptionPane;
  * @author ducanh123
  */
 public class PanelRegister extends javax.swing.JPanel {
+
+    private AuthController authController = new AuthController();
 
     /**
      * Creates new form PanelLogin
@@ -113,16 +116,17 @@ public class PanelRegister extends javax.swing.JPanel {
         // TODO add your handling code here:
         String userText = txtUsername.getText();
         String passText = new String(txtPassword.getPassword());
-        if (userText.isEmpty() || passText.isEmpty()) {
-            lblMissing.setVisible(true);
-        }
-        else {
+        String message = authController.register(userText, passText);
+        JOptionPane.showMessageDialog(this, message);
+
+        // Nếu đăng ký thành công, tắt màn hình này và quay lại màn hình Login
+        if (message.equals("Đăng ký tài khoản thành công!")) {
             lblMissing.setVisible(false);
-            JOptionPane.showMessageDialog(this, "Đăng ký thành công!", "Đăng ký", JOptionPane.INFORMATION_MESSAGE);
             Container parent = this.getParent();
             CardLayout layout = (CardLayout) parent.getLayout();
             layout.show(parent, "cardLogin");
         }
+
     }//GEN-LAST:event_btnRegisterActionPerformed
 
     private void btnBackLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackLoginActionPerformed
@@ -131,7 +135,6 @@ public class PanelRegister extends javax.swing.JPanel {
         CardLayout layout = (CardLayout) parent.getLayout();
         layout.show(parent, "cardLogin");
     }//GEN-LAST:event_btnBackLoginActionPerformed
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBackLogin;
