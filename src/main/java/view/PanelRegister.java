@@ -119,7 +119,6 @@ public class PanelRegister extends javax.swing.JPanel {
         String message = authController.register(userText, passText);
         JOptionPane.showMessageDialog(this, message);
 
-        // Nếu đăng ký thành công, tắt màn hình này và quay lại màn hình Login
         if (message.equals("Đăng ký tài khoản thành công!")) {
             lblMissing.setVisible(false);
             Container parent = this.getParent();

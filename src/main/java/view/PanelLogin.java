@@ -9,12 +9,9 @@ import java.awt.CardLayout;
 import java.awt.Container;
 import java.awt.Window;
 import javax.swing.SwingUtilities;
-<<<<<<< Updated upstream
-import model.AccountDAO;
-=======
+
 import javax.swing.JOptionPane;
 import model.User;
->>>>>>> Stashed changes
 
 /**
  *
