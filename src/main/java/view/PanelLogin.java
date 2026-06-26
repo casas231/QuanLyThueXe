@@ -9,7 +9,6 @@ import java.awt.CardLayout;
 import java.awt.Container;
 import java.awt.Window;
 import javax.swing.SwingUtilities;
-
 import javax.swing.JOptionPane;
 import model.User;
 
@@ -129,10 +128,8 @@ public class PanelLogin extends javax.swing.JPanel {
         String userText = txtUsername.getText();
         String passText = new String(txtPassword.getPassword());
         try {
-            // Gọi controller để xử lý xác thực
             User loggedIn = authController.login(userText, passText);
 
-            // Nếu không có lỗi (không nhảy vào catch), tức là đăng nhập thành công
             if (loggedIn != null) {
                 lblWrong.setVisible(false);
                 Window frame = SwingUtilities.getWindowAncestor(this);
@@ -145,7 +142,6 @@ public class PanelLogin extends javax.swing.JPanel {
             }
 
         } catch (Exception e) {
-            // Hiển thị các thông báo lỗi từ Controller (Trống field, sai tài khoản...)
             JOptionPane.showMessageDialog(this, e.getMessage(), "Lỗi đăng nhập", JOptionPane.ERROR_MESSAGE);
         }
 

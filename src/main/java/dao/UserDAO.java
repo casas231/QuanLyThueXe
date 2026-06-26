@@ -27,7 +27,6 @@ public class UserDAO {
 
             try (ResultSet rs = pstmt.executeQuery()) {
                 if (rs.next()) {
-                    // Nếu tìm thấy, trả về đối tượng User đầy đủ thông tin
                     return new User(
                             rs.getString("username"),
                             rs.getString("password"),
@@ -38,10 +37,9 @@ public class UserDAO {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return null; // Trả về null nếu sai tài khoản/mật khẩu
+        return null;
     }
 
-    // Đăng ký tài khoản mới (Nếu cần mở rộng tính năng)
     public boolean insertUser(User user) {
         String sql = "INSERT INTO ACCOUNT(username, password, role) VALUES(?,?,?)";
         try (Connection conn = SQLConnect.connect(); PreparedStatement pstmt = conn.prepareStatement(sql)) {
