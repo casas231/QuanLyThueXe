@@ -78,7 +78,7 @@
         <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="0" green="0" red="ff" type="rgb"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="Vui l&#xf2;ng nh&#x1ead;p &#x111;&#x1ea7;y &#x111;&#x1ee7; t&#xea;n &#x111;&#x103;ng nh&#x1ead;p ho&#x1eb7;c m&#x1ead;t kh&#x1ea9;u!"/>
+        <Property name="text" type="java.lang.String" value="Error message"/>
       </Properties>
       <AuxValues>
         <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="lblMissing.setVisible(false);"/>

@@ -19,8 +19,7 @@ public class SQLConnect {
         Connection conn = null;
         try {
             conn = DriverManager.getConnection(url);
-        }
-        catch (SQLException e) {
+        } catch (SQLException e) {
             System.err.println(e);
         }
         return conn;

@@ -8,12 +8,13 @@ package model;
  *
  * @author ducanh123
  */
-public class Account {
+public class User {
+    
     private String username;
     private String password;
     private String role;
 
-    public Account(String username, String password, String role) {
+    public User(String username, String password, String role) {
         this.username = username;
         this.password = password;
         this.role = role;

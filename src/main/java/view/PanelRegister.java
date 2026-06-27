@@ -4,6 +4,7 @@
  */
 package view;
 
+import controller.AuthController;
 import java.awt.CardLayout;
 import java.awt.Container;
 import javax.swing.JOptionPane;
@@ -13,6 +14,8 @@ import javax.swing.JOptionPane;
  * @author ducanh123
  */
 public class PanelRegister extends javax.swing.JPanel {
+    
+    private AuthController authController = new AuthController();
 
     /**
      * Creates new form PanelLogin
@@ -41,7 +44,7 @@ public class PanelRegister extends javax.swing.JPanel {
 
         lblMissing.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         lblMissing.setForeground(new java.awt.Color(255, 0, 0));
-        lblMissing.setText("Vui lòng nhập đầy đủ tên đăng nhập hoặc mật khẩu!");
+        lblMissing.setText("Error message");
         lblMissing.setVisible(false);
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
@@ -113,15 +116,19 @@ public class PanelRegister extends javax.swing.JPanel {
         // TODO add your handling code here:
         String userText = txtUsername.getText();
         String passText = new String(txtPassword.getPassword());
-        if (userText.isEmpty() || passText.isEmpty()) {
-            lblMissing.setVisible(true);
-        }
-        else {
+        
+        String message = authController.register(userText, passText);
+        //JOptionPane.showMessageDialog(this, message);
+        
+        if (message.equals("Đăng ký tài khoản thành công!")) {
             lblMissing.setVisible(false);
-            JOptionPane.showMessageDialog(this, "Đăng ký thành công!", "Đăng ký", JOptionPane.INFORMATION_MESSAGE);
             Container parent = this.getParent();
             CardLayout layout = (CardLayout) parent.getLayout();
             layout.show(parent, "cardLogin");
+        }
+        else {
+            lblMissing.setText(message);
+            lblMissing.setVisible(true);
         }
     }//GEN-LAST:event_btnRegisterActionPerformed
 

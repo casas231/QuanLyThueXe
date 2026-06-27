@@ -66,16 +66,16 @@ public class PanelAdmin extends javax.swing.JPanel {
         jLabel39 = new javax.swing.JLabel();
         jLabel40 = new javax.swing.JLabel();
         jLabel45 = new javax.swing.JLabel();
-        homePanelContract = new javax.swing.JPanel();
-        homePanelContractTitle = new javax.swing.JPanel();
-        jLabel43 = new javax.swing.JLabel();
-        jLabel44 = new javax.swing.JLabel();
-        jLabel46 = new javax.swing.JLabel();
         homePanelCar = new javax.swing.JPanel();
         homePanelCarTitle = new javax.swing.JPanel();
         jLabel41 = new javax.swing.JLabel();
         jLabel42 = new javax.swing.JLabel();
         jLabel47 = new javax.swing.JLabel();
+        homePanelContract = new javax.swing.JPanel();
+        homePanelContractTitle = new javax.swing.JPanel();
+        jLabel43 = new javax.swing.JLabel();
+        jLabel44 = new javax.swing.JLabel();
+        jLabel46 = new javax.swing.JLabel();
         jLabel38 = new javax.swing.JLabel();
         customerPanel = new javax.swing.JPanel();
         jLabel13 = new javax.swing.JLabel();
@@ -422,61 +422,6 @@ public class PanelAdmin extends javax.swing.JPanel {
                 .addContainerGap())
         );
 
-        homePanelContract.setBackground(new java.awt.Color(66, 133, 244));
-
-        homePanelContractTitle.setBackground(new java.awt.Color(49, 99, 183));
-
-        jLabel43.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel43.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/admin/contract64.png"))); // NOI18N
-
-        jLabel44.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        jLabel44.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel44.setText("Hợp đồng");
-
-        javax.swing.GroupLayout homePanelContractTitleLayout = new javax.swing.GroupLayout(homePanelContractTitle);
-        homePanelContractTitle.setLayout(homePanelContractTitleLayout);
-        homePanelContractTitleLayout.setHorizontalGroup(
-            homePanelContractTitleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(homePanelContractTitleLayout.createSequentialGroup()
-                .addGap(18, 18, 18)
-                .addComponent(jLabel43, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jLabel44, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(18, Short.MAX_VALUE))
-        );
-        homePanelContractTitleLayout.setVerticalGroup(
-            homePanelContractTitleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(homePanelContractTitleLayout.createSequentialGroup()
-                .addGap(18, 18, 18)
-                .addGroup(homePanelContractTitleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabel43, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel44, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(18, Short.MAX_VALUE))
-        );
-
-        jLabel46.setFont(new java.awt.Font("Segoe UI", 1, 48)); // NOI18N
-        jLabel46.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel46.setText("0");
-
-        javax.swing.GroupLayout homePanelContractLayout = new javax.swing.GroupLayout(homePanelContract);
-        homePanelContract.setLayout(homePanelContractLayout);
-        homePanelContractLayout.setHorizontalGroup(
-            homePanelContractLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(homePanelContractTitle, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(homePanelContractLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel46, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-        homePanelContractLayout.setVerticalGroup(
-            homePanelContractLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(homePanelContractLayout.createSequentialGroup()
-                .addComponent(homePanelContractTitle, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel46, javax.swing.GroupLayout.DEFAULT_SIZE, 188, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-
         homePanelCar.setBackground(new java.awt.Color(52, 168, 83));
 
         homePanelCarTitle.setBackground(new java.awt.Color(39, 126, 62));
@@ -529,6 +474,61 @@ public class PanelAdmin extends javax.swing.JPanel {
                 .addComponent(homePanelCarTitle, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel47, javax.swing.GroupLayout.DEFAULT_SIZE, 188, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+
+        homePanelContract.setBackground(new java.awt.Color(66, 133, 244));
+
+        homePanelContractTitle.setBackground(new java.awt.Color(49, 99, 183));
+
+        jLabel43.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel43.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/admin/contract64.png"))); // NOI18N
+
+        jLabel44.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        jLabel44.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel44.setText("Hợp đồng");
+
+        javax.swing.GroupLayout homePanelContractTitleLayout = new javax.swing.GroupLayout(homePanelContractTitle);
+        homePanelContractTitle.setLayout(homePanelContractTitleLayout);
+        homePanelContractTitleLayout.setHorizontalGroup(
+            homePanelContractTitleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(homePanelContractTitleLayout.createSequentialGroup()
+                .addGap(18, 18, 18)
+                .addComponent(jLabel43, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel44, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(18, Short.MAX_VALUE))
+        );
+        homePanelContractTitleLayout.setVerticalGroup(
+            homePanelContractTitleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(homePanelContractTitleLayout.createSequentialGroup()
+                .addGap(18, 18, 18)
+                .addGroup(homePanelContractTitleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLabel43, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel44, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(18, Short.MAX_VALUE))
+        );
+
+        jLabel46.setFont(new java.awt.Font("Segoe UI", 1, 48)); // NOI18N
+        jLabel46.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel46.setText("0");
+
+        javax.swing.GroupLayout homePanelContractLayout = new javax.swing.GroupLayout(homePanelContract);
+        homePanelContract.setLayout(homePanelContractLayout);
+        homePanelContractLayout.setHorizontalGroup(
+            homePanelContractLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(homePanelContractTitle, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(homePanelContractLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel46, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        homePanelContractLayout.setVerticalGroup(
+            homePanelContractLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(homePanelContractLayout.createSequentialGroup()
+                .addComponent(homePanelContractTitle, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel46, javax.swing.GroupLayout.DEFAULT_SIZE, 188, Short.MAX_VALUE)
                 .addContainerGap())
         );
 

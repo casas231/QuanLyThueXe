@@ -4,17 +4,21 @@
  */
 package view;
 
+import controller.AuthController;
 import java.awt.CardLayout;
 import java.awt.Container;
 import java.awt.Window;
 import javax.swing.SwingUtilities;
-import dao.AccountDAO;
+import javax.swing.JOptionPane;
+import model.User;
 
 /**
  *
  * @author ducanh123
  */
 public class PanelLogin extends javax.swing.JPanel {
+    
+    private AuthController authController = new AuthController();
 
     /**
      * Creates new form PanelLogin
@@ -66,7 +70,7 @@ public class PanelLogin extends javax.swing.JPanel {
 
         lblWrong.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         lblWrong.setForeground(new java.awt.Color(255, 0, 0));
-        lblWrong.setText("Tên người dùng hoặc mật khẩu sai!");
+        lblWrong.setText("Error message");
         lblWrong.setVisible(false);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -123,18 +127,21 @@ public class PanelLogin extends javax.swing.JPanel {
         // TODO add your handling code here:
         String userText = txtUsername.getText();
         String passText = new String(txtPassword.getPassword());
-        String role = AccountDAO.checkAccount(userText, passText);
-        if (role.equals("")) {
-            lblWrong.setVisible(true);
-        }
-        else {
-            lblWrong.setVisible(false);
-            Window frame = SwingUtilities.getWindowAncestor(this);
-            if (frame != null) {
-                frame.dispose();
+        try {
+            User loggedIn = authController.login(userText, passText);
+            
+            if (loggedIn != null) {
+                lblWrong.setVisible(false);
+                Window frame = SwingUtilities.getWindowAncestor(this);
+                if (frame != null) {
+                    frame.dispose();
+                }
+                MainFrame mainFrame = new MainFrame(loggedIn.getRole());
+                mainFrame.setVisible(true);
             }
-            MainFrame mainFrame = new MainFrame(role);
-            mainFrame.setVisible(true);
+        } catch (Exception e) {
+            lblWrong.setText(e.getMessage());
+            lblWrong.setVisible(true);
         }
     }//GEN-LAST:event_btnLoginActionPerformed
 
