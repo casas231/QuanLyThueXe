@@ -59,7 +59,7 @@ public class AuthController {
                 return "Tài khoản đã tồn tại trên hệ thống!";
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            System.err.println(e);
             return "Lỗi hệ thông";
         }
 
