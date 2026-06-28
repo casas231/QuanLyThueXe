@@ -35,7 +35,7 @@ public class UserDAO {
                 }
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            System.err.println(e);
         }
         return null;
     }
@@ -54,7 +54,7 @@ public class UserDAO {
             }
             return generatedId;
         } catch (SQLException e) {
-            e.printStackTrace();
+            System.err.println(e);
             return -1;
         }
     }
