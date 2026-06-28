@@ -94,13 +94,33 @@ public class CustomerDAO {
         }
     }
 
-    public boolean deleteCustomer(int id) throws SQLException {
+    public boolean deleteCustomer(int id, int accountID) {
         String sql = "DELETE FROM CUSTOMER WHERE id = ?";
-        try (Connection conn = SQLConnect.connect(); PreparedStatement ps = conn.prepareStatement(sql)) {
+        Connection conn = null;
+        try {
+            conn = SQLConnect.connect();
+            conn.setAutoCommit(false);
+            UserDAO userDAO = new UserDAO();
+            boolean isSuccess = userDAO.deleteUser(accountID, conn);
+            if (isSuccess) {
+                PreparedStatement psCustomer = conn.prepareStatement(sql);
+                psCustomer.setInt(1, id);
+                psCustomer.executeUpdate();
+                conn.commit();
+                return true;
+            }
 
-            ps.setInt(1, id);
-            return ps.executeUpdate() > 0;
+        } catch (SQLException e) {
+            if (conn != null) {
+                try {
+                    conn.rollback();
+                } catch (SQLException ex) {
+                    System.err.println(ex);
+                }
+            }
+            System.err.println(e);
         }
+        return false;
     }
 
     public Customer findCustomer(String idNumber) throws SQLException {

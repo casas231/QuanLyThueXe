@@ -32,7 +32,7 @@ public class CustomerController {
             return "Thông tin không được để trống!";
         }
 
-        String generatedUsername = Normalizer.normalize(fullName, Normalizer.Form.NFD).replaceAll("\\W", "").toLowerCase() + idNumber;
+        String generatedUsername = Normalizer.normalize(fullName, Normalizer.Form.NFD).toLowerCase().replace("đ", "d").replaceAll("\\W", "") + idNumber;
         User newUser = new User(generatedUsername, "123456", "user");
         boolean isSuccess = customerDAO.insertCustomer(newUser, fullName, phone, idNumber, driverLicense, address);
         if (isSuccess) {
@@ -54,9 +54,9 @@ public class CustomerController {
         }
     }
 
-    public String removeCustomer(int id) {
+    public String removeCustomer(int id, int accountID) {
         try {
-            boolean isDeleted = customerDAO.deleteCustomer(id);
+            boolean isDeleted = customerDAO.deleteCustomer(id, accountID);
             return isDeleted ? "Xóa khách hàng thành công!" : "Xóa khách hàng thất bại.";
         } catch (Exception e) {
             return "Không thể xóa khách hàng";
