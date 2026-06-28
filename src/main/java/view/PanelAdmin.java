@@ -600,13 +600,29 @@ public class PanelAdmin extends javax.swing.JPanel {
             new String [] {
                 "ID", "Họ tên", "SĐT", "CCCD", "GPLX", "Địa chỉ"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jTable1MouseClicked(evt);
             }
         });
         jScrollPane1.setViewportView(jTable1);
+        if (jTable1.getColumnModel().getColumnCount() > 0) {
+            jTable1.getColumnModel().getColumn(0).setResizable(false);
+            jTable1.getColumnModel().getColumn(1).setResizable(false);
+            jTable1.getColumnModel().getColumn(2).setResizable(false);
+            jTable1.getColumnModel().getColumn(3).setResizable(false);
+            jTable1.getColumnModel().getColumn(4).setResizable(false);
+            jTable1.getColumnModel().getColumn(5).setResizable(false);
+        }
 
         jLabel11.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         jLabel11.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
@@ -808,8 +824,25 @@ public class PanelAdmin extends javax.swing.JPanel {
             new String [] {
                 "ID", "Biển số", "Hãng xe", "Tên xe", "Số chỗ", "Phí thuê", "Trạng thái"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         jScrollPane3.setViewportView(jTable2);
+        if (jTable2.getColumnModel().getColumnCount() > 0) {
+            jTable2.getColumnModel().getColumn(0).setResizable(false);
+            jTable2.getColumnModel().getColumn(1).setResizable(false);
+            jTable2.getColumnModel().getColumn(2).setResizable(false);
+            jTable2.getColumnModel().getColumn(3).setResizable(false);
+            jTable2.getColumnModel().getColumn(4).setResizable(false);
+            jTable2.getColumnModel().getColumn(5).setResizable(false);
+            jTable2.getColumnModel().getColumn(6).setResizable(false);
+        }
 
         btnCarImage.setBackground(new java.awt.Color(0, 79, 225));
         btnCarImage.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
@@ -1015,8 +1048,24 @@ public class PanelAdmin extends javax.swing.JPanel {
             new String [] {
                 "ID khách", "ID xe", "Ngày thuê", "Ngày trả", "Tổng tiền", "Trạng thái"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         jScrollPane4.setViewportView(jTable3);
+        if (jTable3.getColumnModel().getColumnCount() > 0) {
+            jTable3.getColumnModel().getColumn(0).setResizable(false);
+            jTable3.getColumnModel().getColumn(1).setResizable(false);
+            jTable3.getColumnModel().getColumn(2).setResizable(false);
+            jTable3.getColumnModel().getColumn(3).setResizable(false);
+            jTable3.getColumnModel().getColumn(4).setResizable(false);
+            jTable3.getColumnModel().getColumn(5).setResizable(false);
+        }
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tìm theo ngày thuê", "Tìm theo ngày trả" }));
 
@@ -1268,7 +1317,7 @@ public class PanelAdmin extends javax.swing.JPanel {
             renderTableCustomer();
             JOptionPane.showMessageDialog(this, message);
         } catch (Exception ex) {
-            ex.printStackTrace();
+            System.err.println(ex);;
         }
 
     }//GEN-LAST:event_btnCustomerAddActionPerformed

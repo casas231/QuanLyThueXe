@@ -8,7 +8,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 import model.Customer;
@@ -72,10 +71,10 @@ public class CustomerDAO {
                 try {
                     conn.rollback();
                 } catch (SQLException ex) {
-                    ex.printStackTrace();
+                    System.err.println(ex);
                 }
             }
-            e.printStackTrace();
+            System.err.println(e);
         }
         return false;
     }

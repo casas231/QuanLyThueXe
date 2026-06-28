@@ -66,7 +66,5 @@ public class CustomerController {
     public Customer fillCustomer(String idNumber) throws SQLException {
         Customer c = customerDAO.findCustomer(idNumber);
         return c;
-
     }
-
 }
