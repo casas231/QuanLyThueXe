@@ -5,7 +5,10 @@
 package controller;
 
 import dao.UserDAO;
+import java.sql.Connection;
+import java.sql.SQLException;
 import model.User;
+import utils.SQLConnect;
 
 /**
  *
@@ -46,13 +49,19 @@ public class AuthController {
         }
 
         User newUser = new User(username, password, "user");
+        try {
+            Connection conn = SQLConnect.connect();
+            int userID = userDAO.insertUser(conn, newUser);
 
-        boolean isSuccess = userDAO.insertUser(newUser);
-
-        if (isSuccess) {
-            return "Đăng ký tài khoản thành công!";
-        } else {
-            return "Tài khoản đã tồn tại trên hệ thống!";
+            if (userID != -1) {
+                return "Đăng ký tài khoản thành công!";
+            } else {
+                return "Tài khoản đã tồn tại trên hệ thống!";
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return "Lỗi hệ thông";
         }
+
     }
 }

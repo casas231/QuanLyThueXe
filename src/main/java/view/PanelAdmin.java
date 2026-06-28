@@ -4,6 +4,7 @@
  */
 package view;
 
+import controller.CustomerController;
 import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.Window;
@@ -20,6 +21,8 @@ import utils.ImageHelper;
  * @author ducanh123
  */
 public class PanelAdmin extends javax.swing.JPanel {
+
+    private CustomerController customerController = new CustomerController();
 
     /**
      * Creates new form PanelAdmin
@@ -615,6 +618,8 @@ public class PanelAdmin extends javax.swing.JPanel {
         jLabel19.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel19.setText("Địa chỉ:");
 
+        txtCustomerName.addActionListener(this::txtCustomerNameActionPerformed);
+
         jLabel20.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel20.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/customer/search.png"))); // NOI18N
 
@@ -1150,7 +1155,7 @@ public class PanelAdmin extends javax.swing.JPanel {
         btnCustomer.setBackground(new Color(0, 79, 225));
         btnCar.setBackground(new Color(0, 79, 225));
         btnContract.setBackground(new Color(0, 79, 225));
-        
+
         CardLayout layout = (CardLayout) contentPanel.getLayout();
         layout.show(contentPanel, "cardHome");
     }//GEN-LAST:event_btnHomeMousePressed
@@ -1161,7 +1166,7 @@ public class PanelAdmin extends javax.swing.JPanel {
         btnCustomer.setBackground(new Color(51, 114, 231));
         btnCar.setBackground(new Color(0, 79, 225));
         btnContract.setBackground(new Color(0, 79, 225));
-        
+
         CardLayout layout = (CardLayout) contentPanel.getLayout();
         layout.show(contentPanel, "cardCustomer");
     }//GEN-LAST:event_btnCustomerMousePressed
@@ -1172,9 +1177,9 @@ public class PanelAdmin extends javax.swing.JPanel {
         btnCustomer.setBackground(new Color(0, 79, 225));
         btnCar.setBackground(new Color(51, 114, 231));
         btnContract.setBackground(new Color(0, 79, 225));
-        
+
         CardLayout layout = (CardLayout) contentPanel.getLayout();
-        layout.show(contentPanel, "cardCar");       
+        layout.show(contentPanel, "cardCar");
     }//GEN-LAST:event_btnCarMousePressed
 
     private void btnContractMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnContractMousePressed
@@ -1183,7 +1188,7 @@ public class PanelAdmin extends javax.swing.JPanel {
         btnCustomer.setBackground(new Color(0, 79, 225));
         btnCar.setBackground(new Color(0, 79, 225));
         btnContract.setBackground(new Color(51, 114, 231));
-        
+
         CardLayout layout = (CardLayout) contentPanel.getLayout();
         layout.show(contentPanel, "cardContract");
     }//GEN-LAST:event_btnContractMousePressed
@@ -1227,7 +1232,20 @@ public class PanelAdmin extends javax.swing.JPanel {
 
     private void btnCustomerAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCustomerAddActionPerformed
         // TODO add your handling code here:
-        JOptionPane.showMessageDialog(carPanel, "Thêm khách hàng thành công!");
+        String fullNameText = txtCustomerName.getText();
+        String phoneText = txtCustomerPhone.getText();
+        String idNumberText = txtCustomerID.getText();
+        String driverLicenseText = txtCustomerDriver.getText();
+        String addressText = txtCustomerAddress.getText();
+
+        String message = null;
+        try {
+            message = customerController.createCustomer(fullNameText, phoneText, idNumberText, driverLicenseText, addressText);
+            JOptionPane.showMessageDialog(this, message);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+
     }//GEN-LAST:event_btnCustomerAddActionPerformed
 
     private void btnCustomerDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCustomerDeleteActionPerformed
@@ -1274,6 +1292,9 @@ public class PanelAdmin extends javax.swing.JPanel {
         cbContractStatus.setSelectedIndex(0);
     }//GEN-LAST:event_btnContractClearActionPerformed
 
+    private void txtCustomerNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCustomerNameActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtCustomerNameActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel btnCar;
