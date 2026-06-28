@@ -10,6 +10,7 @@ package model;
  */
 public class Customer {
 
+    private int id;
     private int accountID;
     private String fullName;
     private String phone;
@@ -17,13 +18,22 @@ public class Customer {
     private String driverLicense;
     private String address;
 
-    public Customer(int accountID, String fullName, String phone, String idNumber, String driverLicense, String address) {
+    public Customer(int id, int accountID, String fullName, String phone, String idNumber, String driverLicense, String address) {
+        this.id = id;
         this.accountID = accountID;
         this.fullName = fullName;
         this.phone = phone;
         this.idNumber = idNumber;
         this.driverLicense = driverLicense;
         this.address = address;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public int getAccountID() {

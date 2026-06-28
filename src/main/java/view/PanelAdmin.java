@@ -13,6 +13,8 @@ import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
+import javax.swing.table.DefaultTableModel;
+import model.Customer;
 import utils.DateForeground;
 import utils.ImageHelper;
 
@@ -23,6 +25,7 @@ import utils.ImageHelper;
 public class PanelAdmin extends javax.swing.JPanel {
 
     private CustomerController customerController = new CustomerController();
+    private DefaultTableModel customerTableModel;
 
     /**
      * Creates new form PanelAdmin
@@ -32,6 +35,8 @@ public class PanelAdmin extends javax.swing.JPanel {
         DateForeground.changeForeground(txtContractStart);
         DateForeground.changeForeground(txtContractEnd);
         DateForeground.changeForeground(txtContractSearch);
+        customerTableModel = (DefaultTableModel) jTable1.getModel();
+        renderTableCustomer();
     }
 
     /**
@@ -596,6 +601,11 @@ public class PanelAdmin extends javax.swing.JPanel {
                 "ID", "Họ tên", "SĐT", "CCCD", "GPLX", "Địa chỉ"
             }
         ));
+        jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTable1MouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(jTable1);
 
         jLabel11.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
@@ -1230,6 +1240,20 @@ public class PanelAdmin extends javax.swing.JPanel {
         lblCarImage.setIcon(null);
     }//GEN-LAST:event_btnCarClearActionPerformed
 
+    private void renderTableCustomer() {
+        customerTableModel.setRowCount(0);
+        try {
+            java.util.List<model.Customer> list = customerController.loadAllCustomers();
+            for (model.Customer c : list) {
+                customerTableModel.addRow(new Object[]{
+                    c.getId(), c.getFullName(), c.getPhone(), c.getIdNumber(), c.getDriverLicense(), c.getAddress()
+                });
+            }
+        } catch (Exception e) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Lỗi tải bảng Khách hàng: " + e.getMessage());
+        }
+    }
+
     private void btnCustomerAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCustomerAddActionPerformed
         // TODO add your handling code here:
         String fullNameText = txtCustomerName.getText();
@@ -1241,6 +1265,7 @@ public class PanelAdmin extends javax.swing.JPanel {
         String message = null;
         try {
             message = customerController.createCustomer(fullNameText, phoneText, idNumberText, driverLicenseText, addressText);
+            renderTableCustomer();
             JOptionPane.showMessageDialog(this, message);
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -1250,10 +1275,36 @@ public class PanelAdmin extends javax.swing.JPanel {
 
     private void btnCustomerDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCustomerDeleteActionPerformed
         // TODO add your handling code here:
+        int selectedRow = jTable1.getSelectedRow();
+        if (selectedRow == -1) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Vui lòng chọn 1 khách hàng để xóa!");
+            return;
+        }
+
+        int confirm = javax.swing.JOptionPane.showConfirmDialog(this, "Bạn có chắc muốn xóa khách hàng này?", "Xác nhận", javax.swing.JOptionPane.YES_NO_OPTION);
+        if (confirm == javax.swing.JOptionPane.YES_OPTION) {
+            int id = Integer.parseInt(customerTableModel.getValueAt(selectedRow, 0).toString());
+            String res = customerController.removeCustomer(id);
+            renderTableCustomer();
+            javax.swing.JOptionPane.showMessageDialog(this, res);
+
+        }
     }//GEN-LAST:event_btnCustomerDeleteActionPerformed
 
     private void btnCustomerEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCustomerEditActionPerformed
         // TODO add your handling code here:
+        int selectedRow = jTable1.getSelectedRow();
+        if (selectedRow == -1) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Vui lòng chọn 1 khách hàng trên bảng để sửa!");
+            return;
+        }
+
+        int id = Integer.parseInt(customerTableModel.getValueAt(selectedRow, 0).toString());
+
+        String res = customerController.updateCustomer(id, txtCustomerName.getText(), txtCustomerPhone.getText(), txtCustomerID.getText(), txtCustomerDriver.getText(), txtCustomerAddress.getText());
+        renderTableCustomer();
+        javax.swing.JOptionPane.showMessageDialog(this, res);
+
     }//GEN-LAST:event_btnCustomerEditActionPerformed
 
     private void btnCustomerClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCustomerClearActionPerformed
@@ -1263,10 +1314,32 @@ public class PanelAdmin extends javax.swing.JPanel {
         txtCustomerID.setText("");
         txtCustomerDriver.setText("");
         txtCustomerAddress.setText("");
+        txtCustomerSearch.setText("");
+        renderTableCustomer();
     }//GEN-LAST:event_btnCustomerClearActionPerformed
 
     private void btnCustomerSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCustomerSearchActionPerformed
         // TODO add your handling code here:
+        if (txtCustomerSearch.getText().trim().isEmpty()) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Vui lòng nhập CCCD để tìm khách hàng.");
+            return;
+        }
+        customerTableModel.setRowCount(0);
+        try {
+            Customer c = customerController.fillCustomer(txtCustomerSearch.getText());
+            if (c == null) {
+                javax.swing.JOptionPane.showMessageDialog(this, "Không tìm thấy khách hàng");
+                renderTableCustomer();
+                return;
+            }
+            customerTableModel.addRow(new Object[]{
+                c.getId(), c.getFullName(), c.getPhone(), c.getIdNumber(), c.getDriverLicense(), c.getAddress()
+            });
+
+        } catch (Exception e) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Lỗi tải bảng Khách hàng: " + e.getMessage());
+        }
+
     }//GEN-LAST:event_btnCustomerSearchActionPerformed
 
     private void btnContractAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnContractAddActionPerformed
@@ -1295,6 +1368,18 @@ public class PanelAdmin extends javax.swing.JPanel {
     private void txtCustomerNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCustomerNameActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtCustomerNameActionPerformed
+
+    private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
+        // TODO add your handling code here:
+        int selectedRow = jTable1.getSelectedRow();
+        if (selectedRow != -1) {
+            txtCustomerName.setText(customerTableModel.getValueAt(selectedRow, 1).toString());
+            txtCustomerPhone.setText(customerTableModel.getValueAt(selectedRow, 2).toString());
+            txtCustomerID.setText(customerTableModel.getValueAt(selectedRow, 3).toString());
+            txtCustomerDriver.setText(customerTableModel.getValueAt(selectedRow, 4).toString());
+            txtCustomerAddress.setText(customerTableModel.getValueAt(selectedRow, 5).toString());
+        }
+    }//GEN-LAST:event_jTable1MouseClicked
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel btnCar;
