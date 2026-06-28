@@ -42,16 +42,14 @@ public class CustomerDAO {
         return list;
     }
 
-    public boolean insertCustomer(User user, String fullName, String phone, String idNumber, String driverLicense, String address) {
+    public boolean insertCustomer(User user, String fullName, String phone, String idNumber, String driverLicense, String address) throws SQLException {
         String insertCustomerSQL = "INSERT INTO customer(account_id, name, phone, id_number, driver_license, address) VALUES(?, ?, ?, ?, ?, ?)";
         Connection conn = null;
         try {
             conn = SQLConnect.connect();
             conn.setAutoCommit(false);
-
             UserDAO userDAO = new UserDAO();
             int generatedUserId = userDAO.insertUser(conn, user);
-
             if (generatedUserId != -1) {
                 PreparedStatement psCustomer = conn.prepareStatement(insertCustomerSQL);
                 psCustomer.setInt(1, generatedUserId);
@@ -61,11 +59,9 @@ public class CustomerDAO {
                 psCustomer.setString(5, driverLicense);
                 psCustomer.setString(6, address);
                 psCustomer.executeUpdate();
-
                 conn.commit();
                 return true;
             }
-
         } catch (SQLException e) {
             if (conn != null) {
                 try {
@@ -75,6 +71,8 @@ public class CustomerDAO {
                 }
             }
             System.err.println(e);
+        } finally {
+            conn.close();
         }
         return false;
     }
@@ -94,7 +92,7 @@ public class CustomerDAO {
         }
     }
 
-    public boolean deleteCustomer(int id, int accountID) {
+    public boolean deleteCustomer(int id, int accountID) throws SQLException {
         String sql = "DELETE FROM CUSTOMER WHERE id = ?";
         Connection conn = null;
         try {
@@ -119,6 +117,10 @@ public class CustomerDAO {
                 }
             }
             System.err.println(e);
+        } finally {
+            if (conn != null) {
+                conn.close();
+            }
         }
         return false;
     }
@@ -147,16 +149,16 @@ public class CustomerDAO {
 
     public int getCustomerQuantity() {
         String sql = "SELECT count(*) FROM CUSTOMER";
-        try {
-            Connection conn = SQLConnect.connect();
-            PreparedStatement ps = conn.prepareStatement(sql);
-            ResultSet rs = ps.executeQuery();
+
+        try (Connection conn = SQLConnect.connect(); PreparedStatement ps = conn.prepareStatement(sql); ResultSet rs = ps.executeQuery()) {
+
             if (rs.next()) {
                 return rs.getInt(1);
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
+
         return 0;
     }
 }

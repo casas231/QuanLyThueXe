@@ -27,7 +27,6 @@ public class PanelAdmin extends javax.swing.JPanel {
 
     private CustomerController customerController = new CustomerController();
     private DefaultTableModel customerTableModel;
-    private CustomerDAO customerDAO;
 
     /**
      * Creates new form PanelAdmin
@@ -38,9 +37,8 @@ public class PanelAdmin extends javax.swing.JPanel {
         DateForeground.changeForeground(txtContractEnd);
         DateForeground.changeForeground(txtContractSearch);
         customerTableModel = (DefaultTableModel) jTable1.getModel();
-        customerDAO = new CustomerDAO();
-        jLabel45.setText(Integer.toString(customerDAO.getCustomerQuantity()));
         renderTableCustomer();
+
     }
 
     /**
@@ -1306,6 +1304,8 @@ public class PanelAdmin extends javax.swing.JPanel {
             jTable1.getColumnModel().getColumn(6).setMinWidth(0);
             jTable1.getColumnModel().getColumn(6).setMaxWidth(0);
             jTable1.getColumnModel().getColumn(6).setPreferredWidth(0);
+            jLabel45.setText(Integer.toString(customerController.loadCustomerQuantity()));
+
         } catch (Exception e) {
             javax.swing.JOptionPane.showMessageDialog(this, "Lỗi tải bảng Khách hàng: " + e.getMessage());
         }

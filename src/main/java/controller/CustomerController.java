@@ -27,6 +27,10 @@ public class CustomerController {
         return customerDAO.getAllCustomers();
     }
 
+    public int loadCustomerQuantity() {
+        return customerDAO.getCustomerQuantity();
+    }
+
     public String createCustomer(String fullName, String phone, String idNumber, String driverLicense, String address) throws Exception {
         if (fullName.trim().isEmpty() || phone.trim().isEmpty() || idNumber.trim().isEmpty() || driverLicense.trim().isEmpty() || address.trim().isEmpty()) {
             return "Thông tin không được để trống!";
