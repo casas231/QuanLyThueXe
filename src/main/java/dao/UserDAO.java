@@ -16,7 +16,7 @@ import utils.SQLConnect;
  * @author ducanh123
  */
 public class UserDAO {
-    
+
     public User checkLogin(String username, String password) {
         String sql = "SELECT * FROM ACCOUNT WHERE username = ? AND password = ?";
 
@@ -40,40 +40,22 @@ public class UserDAO {
         return null;
     }
 
-    public boolean insertUser(User user) {
-        String sql = "INSERT INTO ACCOUNT(username, password, role) VALUES(?,?,?)";
-        try (Connection conn = SQLConnect.connect(); PreparedStatement pstmt = conn.prepareStatement(sql)) {
-
+    public int insertUser(Connection conn, User user) throws SQLException {
+        String sql = "INSERT INTO ACCOUNT(username, password, role) VALUES(?,?,?) RETURNING id";
+        try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            int generatedId = -1;
             pstmt.setString(1, user.getUsername());
             pstmt.setString(2, user.getPassword());
             pstmt.setString(3, "user");
-
-            return pstmt.executeUpdate() > 0;
-        } catch (SQLException e) {
-            System.err.println(e);
-            return false;
-        }
-    }
-
-    public String checkAccount(String user, String pass) {
-        String sql = "SELECT * FROM ACCOUNT WHERE username = ? AND password = ?";
-        try (Connection conn = SQLConnect.connect()) {
-            PreparedStatement statement = conn.prepareStatement(sql);
-            statement.setString(1, user);
-            statement.setString(2, pass);
-            try (ResultSet rs = statement.executeQuery()) {
+            try (ResultSet rs = pstmt.executeQuery()) {
                 if (rs.next()) {
-                    String role = rs.getString("role");
-                    if (role.equals("admin")) {
-                        return "admin";
-                    } else if (role.equals("user")) {
-                        return "user";
-                    }
+                    generatedId = rs.getInt("id");
                 }
             }
+            return generatedId;
         } catch (SQLException e) {
             System.err.println(e);
+            return -1;
         }
-        return "";
     }
 }

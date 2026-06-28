@@ -13,9 +13,9 @@ import java.sql.SQLException;
  * @author ducanh123
  */
 public class SQLConnect {
-    
+
     public static Connection connect() {
-        String url = "jdbc:sqlite:db/QuanLyThueXe.db";
+        String url = "jdbc:sqlite:C:/SQLite/Resource/QuanLyThueXe.db";
         Connection conn = null;
         try {
             conn = DriverManager.getConnection(url);
