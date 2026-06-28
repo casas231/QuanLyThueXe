@@ -35,7 +35,7 @@ public class UserDAO {
                 }
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            System.err.println(e);
         }
         return null;
     }
@@ -50,7 +50,7 @@ public class UserDAO {
 
             return pstmt.executeUpdate() > 0;
         } catch (SQLException e) {
-            e.printStackTrace();
+            System.err.println(e);
             return false;
         }
     }

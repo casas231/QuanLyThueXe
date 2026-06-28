@@ -118,10 +118,10 @@ public class PanelRegister extends javax.swing.JPanel {
         String passText = new String(txtPassword.getPassword());
         
         String message = authController.register(userText, passText);
-        //JOptionPane.showMessageDialog(this, message);
         
         if (message.equals("Đăng ký tài khoản thành công!")) {
             lblMissing.setVisible(false);
+            JOptionPane.showMessageDialog(this, message, "Đăng ký", JOptionPane.INFORMATION_MESSAGE);
             Container parent = this.getParent();
             CardLayout layout = (CardLayout) parent.getLayout();
             layout.show(parent, "cardLogin");
