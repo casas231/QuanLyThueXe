@@ -5,6 +5,7 @@
 package view;
 
 import controller.CustomerController;
+import dao.CustomerDAO;
 import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.Window;
@@ -26,6 +27,7 @@ public class PanelAdmin extends javax.swing.JPanel {
 
     private CustomerController customerController = new CustomerController();
     private DefaultTableModel customerTableModel;
+    private CustomerDAO customerDAO;
 
     /**
      * Creates new form PanelAdmin
@@ -36,6 +38,8 @@ public class PanelAdmin extends javax.swing.JPanel {
         DateForeground.changeForeground(txtContractEnd);
         DateForeground.changeForeground(txtContractSearch);
         customerTableModel = (DefaultTableModel) jTable1.getModel();
+        customerDAO = new CustomerDAO();
+        jLabel45.setText(Integer.toString(customerDAO.getCustomerQuantity()));
         renderTableCustomer();
     }
 

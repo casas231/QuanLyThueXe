@@ -144,4 +144,19 @@ public class CustomerDAO {
             return null;
         }
     }
+
+    public int getCustomerQuantity() {
+        String sql = "SELECT count(*) FROM CUSTOMER";
+        try {
+            Connection conn = SQLConnect.connect();
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                return rs.getInt(1);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return 0;
+    }
 }
