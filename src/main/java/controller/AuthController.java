@@ -16,7 +16,7 @@ import utils.SQLConnect;
  */
 public class AuthController {
 
-    private UserDAO userDAO;
+    private final UserDAO userDAO;
 
     public AuthController() {
         this.userDAO = new UserDAO();
@@ -62,6 +62,5 @@ public class AuthController {
             System.err.println(e);
             return "Lỗi hệ thông";
         }
-
     }
 }

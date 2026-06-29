@@ -5,11 +5,11 @@
 package view;
 
 import controller.CustomerController;
-import dao.CustomerDAO;
 import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.Window;
 import java.io.File;
+import java.sql.SQLException;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
@@ -25,8 +25,8 @@ import utils.ImageHelper;
  */
 public class PanelAdmin extends javax.swing.JPanel {
 
-    private CustomerController customerController = new CustomerController();
-    private DefaultTableModel customerTableModel;
+    private final CustomerController customerController = new CustomerController();
+    private final DefaultTableModel customerTableModel;
 
     /**
      * Creates new form PanelAdmin
@@ -75,17 +75,17 @@ public class PanelAdmin extends javax.swing.JPanel {
         homePanelCustomerTitle = new javax.swing.JPanel();
         jLabel39 = new javax.swing.JLabel();
         jLabel40 = new javax.swing.JLabel();
-        jLabel45 = new javax.swing.JLabel();
+        lblTotalCustomer = new javax.swing.JLabel();
         homePanelCar = new javax.swing.JPanel();
         homePanelCarTitle = new javax.swing.JPanel();
         jLabel41 = new javax.swing.JLabel();
         jLabel42 = new javax.swing.JLabel();
-        jLabel47 = new javax.swing.JLabel();
+        lblTotalCar = new javax.swing.JLabel();
         homePanelContract = new javax.swing.JPanel();
         homePanelContractTitle = new javax.swing.JPanel();
         jLabel43 = new javax.swing.JLabel();
         jLabel44 = new javax.swing.JLabel();
-        jLabel46 = new javax.swing.JLabel();
+        lblTotalContract = new javax.swing.JLabel();
         jLabel38 = new javax.swing.JLabel();
         customerPanel = new javax.swing.JPanel();
         jLabel13 = new javax.swing.JLabel();
@@ -409,9 +409,9 @@ public class PanelAdmin extends javax.swing.JPanel {
                 .addContainerGap(18, Short.MAX_VALUE))
         );
 
-        jLabel45.setFont(new java.awt.Font("Segoe UI", 1, 48)); // NOI18N
-        jLabel45.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel45.setText("0");
+        lblTotalCustomer.setFont(new java.awt.Font("Segoe UI", 1, 48)); // NOI18N
+        lblTotalCustomer.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblTotalCustomer.setText("0");
 
         javax.swing.GroupLayout homePanelCustomerLayout = new javax.swing.GroupLayout(homePanelCustomer);
         homePanelCustomer.setLayout(homePanelCustomerLayout);
@@ -420,7 +420,7 @@ public class PanelAdmin extends javax.swing.JPanel {
             .addComponent(homePanelCustomerTitle, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, homePanelCustomerLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel45, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(lblTotalCustomer, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
         homePanelCustomerLayout.setVerticalGroup(
@@ -428,7 +428,7 @@ public class PanelAdmin extends javax.swing.JPanel {
             .addGroup(homePanelCustomerLayout.createSequentialGroup()
                 .addComponent(homePanelCustomerTitle, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel45, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(lblTotalCustomer, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -464,9 +464,9 @@ public class PanelAdmin extends javax.swing.JPanel {
                 .addContainerGap(18, Short.MAX_VALUE))
         );
 
-        jLabel47.setFont(new java.awt.Font("Segoe UI", 1, 48)); // NOI18N
-        jLabel47.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel47.setText("0");
+        lblTotalCar.setFont(new java.awt.Font("Segoe UI", 1, 48)); // NOI18N
+        lblTotalCar.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblTotalCar.setText("0");
 
         javax.swing.GroupLayout homePanelCarLayout = new javax.swing.GroupLayout(homePanelCar);
         homePanelCar.setLayout(homePanelCarLayout);
@@ -475,7 +475,7 @@ public class PanelAdmin extends javax.swing.JPanel {
             .addComponent(homePanelCarTitle, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(homePanelCarLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel47, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(lblTotalCar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
         homePanelCarLayout.setVerticalGroup(
@@ -483,7 +483,7 @@ public class PanelAdmin extends javax.swing.JPanel {
             .addGroup(homePanelCarLayout.createSequentialGroup()
                 .addComponent(homePanelCarTitle, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel47, javax.swing.GroupLayout.DEFAULT_SIZE, 188, Short.MAX_VALUE)
+                .addComponent(lblTotalCar, javax.swing.GroupLayout.DEFAULT_SIZE, 188, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -519,9 +519,9 @@ public class PanelAdmin extends javax.swing.JPanel {
                 .addContainerGap(18, Short.MAX_VALUE))
         );
 
-        jLabel46.setFont(new java.awt.Font("Segoe UI", 1, 48)); // NOI18N
-        jLabel46.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel46.setText("0");
+        lblTotalContract.setFont(new java.awt.Font("Segoe UI", 1, 48)); // NOI18N
+        lblTotalContract.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblTotalContract.setText("0");
 
         javax.swing.GroupLayout homePanelContractLayout = new javax.swing.GroupLayout(homePanelContract);
         homePanelContract.setLayout(homePanelContractLayout);
@@ -530,7 +530,7 @@ public class PanelAdmin extends javax.swing.JPanel {
             .addComponent(homePanelContractTitle, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(homePanelContractLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel46, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(lblTotalContract, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
         homePanelContractLayout.setVerticalGroup(
@@ -538,7 +538,7 @@ public class PanelAdmin extends javax.swing.JPanel {
             .addGroup(homePanelContractLayout.createSequentialGroup()
                 .addComponent(homePanelContractTitle, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel46, javax.swing.GroupLayout.DEFAULT_SIZE, 188, Short.MAX_VALUE)
+                .addComponent(lblTotalContract, javax.swing.GroupLayout.DEFAULT_SIZE, 188, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -1304,8 +1304,7 @@ public class PanelAdmin extends javax.swing.JPanel {
             jTable1.getColumnModel().getColumn(6).setMinWidth(0);
             jTable1.getColumnModel().getColumn(6).setMaxWidth(0);
             jTable1.getColumnModel().getColumn(6).setPreferredWidth(0);
-            jLabel45.setText(Integer.toString(customerController.loadCustomerQuantity()));
-
+            lblTotalCustomer.setText(Integer.toString(list.size()));
         } catch (Exception e) {
             javax.swing.JOptionPane.showMessageDialog(this, "Lỗi tải bảng Khách hàng: " + e.getMessage());
         }
@@ -1319,15 +1318,13 @@ public class PanelAdmin extends javax.swing.JPanel {
         String driverLicenseText = txtCustomerDriver.getText();
         String addressText = txtCustomerAddress.getText();
 
-        String message = null;
         try {
-            message = customerController.createCustomer(fullNameText, phoneText, idNumberText, driverLicenseText, addressText);
+            String message = customerController.createCustomer(fullNameText, phoneText, idNumberText, driverLicenseText, addressText);
             renderTableCustomer();
             JOptionPane.showMessageDialog(this, message);
         } catch (Exception ex) {
-            System.err.println(ex);;
+            System.err.println(ex);
         }
-
     }//GEN-LAST:event_btnCustomerAddActionPerformed
 
     private void btnCustomerDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCustomerDeleteActionPerformed
@@ -1345,7 +1342,6 @@ public class PanelAdmin extends javax.swing.JPanel {
             String res = customerController.removeCustomer(id, accountID);
             renderTableCustomer();
             javax.swing.JOptionPane.showMessageDialog(this, res);
-
         }
     }//GEN-LAST:event_btnCustomerDeleteActionPerformed
 
@@ -1362,7 +1358,6 @@ public class PanelAdmin extends javax.swing.JPanel {
         String res = customerController.updateCustomer(id, txtCustomerName.getText(), txtCustomerPhone.getText(), txtCustomerID.getText(), txtCustomerDriver.getText(), txtCustomerAddress.getText());
         renderTableCustomer();
         javax.swing.JOptionPane.showMessageDialog(this, res);
-
     }//GEN-LAST:event_btnCustomerEditActionPerformed
 
     private void btnCustomerClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCustomerClearActionPerformed
@@ -1393,11 +1388,9 @@ public class PanelAdmin extends javax.swing.JPanel {
             customerTableModel.addRow(new Object[]{
                 c.getId(), c.getFullName(), c.getPhone(), c.getIdNumber(), c.getDriverLicense(), c.getAddress()
             });
-
-        } catch (Exception e) {
+        } catch (SQLException e) {
             javax.swing.JOptionPane.showMessageDialog(this, "Lỗi tải bảng Khách hàng: " + e.getMessage());
         }
-
     }//GEN-LAST:event_btnCustomerSearchActionPerformed
 
     private void btnContractAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnContractAddActionPerformed
@@ -1513,9 +1506,6 @@ public class PanelAdmin extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel42;
     private javax.swing.JLabel jLabel43;
     private javax.swing.JLabel jLabel44;
-    private javax.swing.JLabel jLabel45;
-    private javax.swing.JLabel jLabel46;
-    private javax.swing.JLabel jLabel47;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
@@ -1529,6 +1519,9 @@ public class PanelAdmin extends javax.swing.JPanel {
     private javax.swing.JTable jTable2;
     private javax.swing.JTable jTable3;
     private javax.swing.JLabel lblCarImage;
+    private javax.swing.JLabel lblTotalCar;
+    private javax.swing.JLabel lblTotalContract;
+    private javax.swing.JLabel lblTotalCustomer;
     private javax.swing.JPanel mainPanel;
     private javax.swing.JPanel sidePanel;
     private javax.swing.JSpinner spinnerCarSeat;

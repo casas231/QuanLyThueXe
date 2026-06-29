@@ -21,7 +21,6 @@ public class UserDAO {
         String sql = "SELECT * FROM ACCOUNT WHERE username = ? AND password = ?";
 
         try (Connection conn = SQLConnect.connect(); PreparedStatement pstmt = conn.prepareStatement(sql)) {
-
             pstmt.setString(1, username);
             pstmt.setString(2, password);
 

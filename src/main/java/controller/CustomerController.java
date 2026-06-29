@@ -17,7 +17,7 @@ import model.User;
  */
 public class CustomerController {
 
-    private CustomerDAO customerDAO;
+    private final CustomerDAO customerDAO;
 
     public CustomerController() {
         this.customerDAO = new CustomerDAO();
@@ -25,10 +25,6 @@ public class CustomerController {
 
     public List<Customer> loadAllCustomers() throws Exception {
         return customerDAO.getAllCustomers();
-    }
-
-    public int loadCustomerQuantity() {
-        return customerDAO.getCustomerQuantity();
     }
 
     public String createCustomer(String fullName, String phone, String idNumber, String driverLicense, String address) throws Exception {
@@ -62,7 +58,8 @@ public class CustomerController {
         try {
             boolean isDeleted = customerDAO.deleteCustomer(id, accountID);
             return isDeleted ? "Xóa khách hàng thành công!" : "Xóa khách hàng thất bại.";
-        } catch (Exception e) {
+        } catch (SQLException e) {
+            System.err.println(e);
             return "Không thể xóa khách hàng";
         }
     }

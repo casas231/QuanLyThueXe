@@ -25,7 +25,6 @@ public class CustomerDAO {
         String sql = "SELECT * FROM CUSTOMER";
 
         try (Connection conn = SQLConnect.connect(); PreparedStatement ps = conn.prepareStatement(sql); ResultSet rs = ps.executeQuery()) {
-
             while (rs.next()) {
                 Customer c = new Customer(
                         rs.getInt("id"),
@@ -72,7 +71,7 @@ public class CustomerDAO {
             }
             System.err.println(e);
         } finally {
-            conn.close();
+            if (conn != null) conn.close();
         }
         return false;
     }
@@ -80,7 +79,6 @@ public class CustomerDAO {
     public boolean updateCustomer(int id, String fullName, String phone, String idNumber, String driverLicense, String address) throws SQLException {
         String sql = "UPDATE CUSTOMER SET name = ?, phone = ?, id_number = ?, driver_license = ?, address = ? WHERE id = ?";
         try (Connection conn = SQLConnect.connect(); PreparedStatement ps = conn.prepareStatement(sql)) {
-
             ps.setString(1, fullName);
             ps.setString(2, phone);
             ps.setString(3, idNumber);
@@ -107,7 +105,6 @@ public class CustomerDAO {
                 conn.commit();
                 return true;
             }
-
         } catch (SQLException e) {
             if (conn != null) {
                 try {
@@ -118,9 +115,7 @@ public class CustomerDAO {
             }
             System.err.println(e);
         } finally {
-            if (conn != null) {
-                conn.close();
-            }
+            if (conn != null) conn.close();
         }
         return false;
     }
@@ -145,20 +140,5 @@ public class CustomerDAO {
             }
             return null;
         }
-    }
-
-    public int getCustomerQuantity() {
-        String sql = "SELECT count(*) FROM CUSTOMER";
-
-        try (Connection conn = SQLConnect.connect(); PreparedStatement ps = conn.prepareStatement(sql); ResultSet rs = ps.executeQuery()) {
-
-            if (rs.next()) {
-                return rs.getInt(1);
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-        return 0;
     }
 }

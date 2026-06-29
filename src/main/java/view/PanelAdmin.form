@@ -479,7 +479,7 @@
                           <Component id="homePanelCustomerTitle" alignment="0" max="32767" attributes="0"/>
                           <Group type="102" alignment="1" attributes="0">
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="jLabel45" max="32767" attributes="0"/>
+                              <Component id="lblTotalCustomer" max="32767" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                           </Group>
                       </Group>
@@ -489,7 +489,7 @@
                           <Group type="102" alignment="0" attributes="0">
                               <Component id="homePanelCustomerTitle" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="jLabel45" max="32767" attributes="0"/>
+                              <Component id="lblTotalCustomer" max="32767" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                           </Group>
                       </Group>
@@ -548,7 +548,7 @@
                         </Component>
                       </SubComponents>
                     </Container>
-                    <Component class="javax.swing.JLabel" name="jLabel45">
+                    <Component class="javax.swing.JLabel" name="lblTotalCustomer">
                       <Properties>
                         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                           <Font name="Segoe UI" size="48" style="1"/>
@@ -556,6 +556,9 @@
                         <Property name="horizontalAlignment" type="int" value="0"/>
                         <Property name="text" type="java.lang.String" value="0"/>
                       </Properties>
+                      <AuxValues>
+                        <AuxValue name="JavaCodeGenerator_SerializeTo" type="java.lang.String" value="PanelAdmin_jLabel45"/>
+                      </AuxValues>
                     </Component>
                   </SubComponents>
                 </Container>
@@ -572,7 +575,7 @@
                           <Component id="homePanelCarTitle" alignment="0" max="32767" attributes="0"/>
                           <Group type="102" alignment="0" attributes="0">
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="jLabel47" max="32767" attributes="0"/>
+                              <Component id="lblTotalCar" max="32767" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                           </Group>
                       </Group>
@@ -582,7 +585,7 @@
                           <Group type="102" alignment="0" attributes="0">
                               <Component id="homePanelCarTitle" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="jLabel47" pref="188" max="32767" attributes="0"/>
+                              <Component id="lblTotalCar" pref="188" max="32767" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                           </Group>
                       </Group>
@@ -641,7 +644,7 @@
                         </Component>
                       </SubComponents>
                     </Container>
-                    <Component class="javax.swing.JLabel" name="jLabel47">
+                    <Component class="javax.swing.JLabel" name="lblTotalCar">
                       <Properties>
                         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                           <Font name="Segoe UI" size="48" style="1"/>
@@ -665,7 +668,7 @@
                           <Component id="homePanelContractTitle" alignment="0" max="32767" attributes="0"/>
                           <Group type="102" alignment="0" attributes="0">
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="jLabel46" max="32767" attributes="0"/>
+                              <Component id="lblTotalContract" max="32767" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                           </Group>
                       </Group>
@@ -675,7 +678,7 @@
                           <Group type="102" alignment="0" attributes="0">
                               <Component id="homePanelContractTitle" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="jLabel46" pref="188" max="32767" attributes="0"/>
+                              <Component id="lblTotalContract" pref="188" max="32767" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                           </Group>
                       </Group>
@@ -734,7 +737,7 @@
                         </Component>
                       </SubComponents>
                     </Container>
-                    <Component class="javax.swing.JLabel" name="jLabel46">
+                    <Component class="javax.swing.JLabel" name="lblTotalContract">
                       <Properties>
                         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                           <Font name="Segoe UI" size="48" style="1"/>
