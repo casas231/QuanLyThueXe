@@ -4,8 +4,10 @@
  */
 package view;
 
+import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.Window;
+import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 
 /**
@@ -36,21 +38,47 @@ public class PanelUser extends javax.swing.JPanel {
         btnProfile = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
-        btnCar = new javax.swing.JPanel();
+        btnRental = new javax.swing.JPanel();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
-        btnContract = new javax.swing.JPanel();
+        btnHistory = new javax.swing.JPanel();
         jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
         btnLogout = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
+        contentPanel = new javax.swing.JPanel();
+        profilePanel = new javax.swing.JPanel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel11 = new javax.swing.JLabel();
+        jLabel12 = new javax.swing.JLabel();
+        jLabel13 = new javax.swing.JLabel();
+        jLabel14 = new javax.swing.JLabel();
+        jLabel15 = new javax.swing.JLabel();
+        jLabel16 = new javax.swing.JLabel();
+        txtProfileUsername = new javax.swing.JTextField();
+        txtProfileName = new javax.swing.JTextField();
+        txtProfilePhone = new javax.swing.JTextField();
+        txtProfileID = new javax.swing.JTextField();
+        txtProfileDriver = new javax.swing.JTextField();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        txtProfileAddress = new javax.swing.JTextArea();
+        jLabel17 = new javax.swing.JLabel();
+        jLabel18 = new javax.swing.JLabel();
+        btnProfileEditUsername = new javax.swing.JButton();
+        btnProfileEditPassword = new javax.swing.JButton();
+        btnProfileSave = new javax.swing.JButton();
+        lblProfileStatus = new javax.swing.JLabel();
+        txtProfilePassword = new javax.swing.JPasswordField();
+        rentalPanel = new javax.swing.JPanel();
+        historyPanel = new javax.swing.JPanel();
 
         sidePanel.setBackground(new java.awt.Color(0, 79, 225));
 
         jLabel1.setBackground(new java.awt.Color(204, 204, 204));
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 48)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/admin/panel.png"))); // NOI18N
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/user/car_rental100.png"))); // NOI18N
 
         btnProfile.setBackground(new java.awt.Color(51, 114, 231));
         btnProfile.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -64,7 +92,7 @@ public class PanelUser extends javax.swing.JPanel {
         jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/admin/user.png"))); // NOI18N
 
         jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        jLabel6.setText("Profile");
+        jLabel6.setText("Hồ sơ");
 
         javax.swing.GroupLayout btnProfileLayout = new javax.swing.GroupLayout(btnProfile);
         btnProfile.setLayout(btnProfileLayout);
@@ -87,10 +115,10 @@ public class PanelUser extends javax.swing.JPanel {
                 .addContainerGap())
         );
 
-        btnCar.setBackground(new java.awt.Color(0, 79, 225));
-        btnCar.addMouseListener(new java.awt.event.MouseAdapter() {
+        btnRental.setBackground(new java.awt.Color(0, 79, 225));
+        btnRental.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
-                btnCarMousePressed(evt);
+                btnRentalMousePressed(evt);
             }
         });
 
@@ -101,31 +129,31 @@ public class PanelUser extends javax.swing.JPanel {
         jLabel8.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         jLabel8.setText("Đặt xe");
 
-        javax.swing.GroupLayout btnCarLayout = new javax.swing.GroupLayout(btnCar);
-        btnCar.setLayout(btnCarLayout);
-        btnCarLayout.setHorizontalGroup(
-            btnCarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(btnCarLayout.createSequentialGroup()
+        javax.swing.GroupLayout btnRentalLayout = new javax.swing.GroupLayout(btnRental);
+        btnRental.setLayout(btnRentalLayout);
+        btnRentalLayout.setHorizontalGroup(
+            btnRentalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(btnRentalLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
-        btnCarLayout.setVerticalGroup(
-            btnCarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(btnCarLayout.createSequentialGroup()
+        btnRentalLayout.setVerticalGroup(
+            btnRentalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(btnRentalLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(btnCarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(btnRentalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, 52, Short.MAX_VALUE)
                     .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
-        btnContract.setBackground(new java.awt.Color(0, 79, 225));
-        btnContract.addMouseListener(new java.awt.event.MouseAdapter() {
+        btnHistory.setBackground(new java.awt.Color(0, 79, 225));
+        btnHistory.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
-                btnContractMousePressed(evt);
+                btnHistoryMousePressed(evt);
             }
         });
 
@@ -136,22 +164,22 @@ public class PanelUser extends javax.swing.JPanel {
         jLabel10.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         jLabel10.setText("Lịch sử đặt xe");
 
-        javax.swing.GroupLayout btnContractLayout = new javax.swing.GroupLayout(btnContract);
-        btnContract.setLayout(btnContractLayout);
-        btnContractLayout.setHorizontalGroup(
-            btnContractLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(btnContractLayout.createSequentialGroup()
+        javax.swing.GroupLayout btnHistoryLayout = new javax.swing.GroupLayout(btnHistory);
+        btnHistory.setLayout(btnHistoryLayout);
+        btnHistoryLayout.setHorizontalGroup(
+            btnHistoryLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(btnHistoryLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
-        btnContractLayout.setVerticalGroup(
-            btnContractLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(btnContractLayout.createSequentialGroup()
+        btnHistoryLayout.setVerticalGroup(
+            btnHistoryLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(btnHistoryLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(btnContractLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(btnHistoryLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel10, javax.swing.GroupLayout.DEFAULT_SIZE, 52, Short.MAX_VALUE)
                     .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
@@ -190,8 +218,8 @@ public class PanelUser extends javax.swing.JPanel {
         sidePanelLayout.setHorizontalGroup(
             sidePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(btnProfile, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(btnCar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(btnContract, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(btnRental, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(btnHistory, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(sidePanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(sidePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -207,13 +235,228 @@ public class PanelUser extends javax.swing.JPanel {
                 .addGap(18, 18, 18)
                 .addComponent(btnProfile, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnCar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnRental, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnContract, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 317, Short.MAX_VALUE)
+                .addComponent(btnHistory, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnLogout, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(17, 17, 17))
         );
+
+        contentPanel.setLayout(new java.awt.CardLayout());
+
+        jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 48)); // NOI18N
+        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel3.setText("Thông tin cá nhân");
+
+        jLabel4.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabel4.setText("Tên đăng nhập:");
+
+        jLabel11.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        jLabel11.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabel11.setText("Mật khẩu");
+
+        jLabel12.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        jLabel12.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabel12.setText("Họ và tên:");
+
+        jLabel13.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        jLabel13.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabel13.setText("Số ĐT:");
+
+        jLabel14.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        jLabel14.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabel14.setText("Số CCCD:");
+
+        jLabel15.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        jLabel15.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabel15.setText("Số GPLX:");
+
+        jLabel16.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        jLabel16.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabel16.setText("Địa chỉ:");
+
+        txtProfileUsername.setEditable(false);
+
+        txtProfileName.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                txtProfileNameMousePressed(evt);
+            }
+        });
+
+        txtProfilePhone.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                txtProfilePhoneMousePressed(evt);
+            }
+        });
+
+        txtProfileID.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                txtProfileIDMousePressed(evt);
+            }
+        });
+
+        txtProfileDriver.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                txtProfileDriverMousePressed(evt);
+            }
+        });
+
+        txtProfileAddress.setColumns(20);
+        txtProfileAddress.setRows(5);
+        txtProfileAddress.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                txtProfileAddressMousePressed(evt);
+            }
+        });
+        jScrollPane1.setViewportView(txtProfileAddress);
+
+        jLabel17.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel17.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/user/car64.png"))); // NOI18N
+
+        jLabel18.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel18.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/user/profile64.png"))); // NOI18N
+
+        btnProfileEditUsername.setBackground(new java.awt.Color(0, 79, 225));
+        btnProfileEditUsername.setText("Sửa");
+        btnProfileEditUsername.addActionListener(this::btnProfileEditUsernameActionPerformed);
+
+        btnProfileEditPassword.setBackground(new java.awt.Color(0, 79, 225));
+        btnProfileEditPassword.setText("Sửa");
+        btnProfileEditPassword.addActionListener(this::btnProfileEditPasswordActionPerformed);
+
+        btnProfileSave.setBackground(new java.awt.Color(0, 79, 225));
+        btnProfileSave.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        btnProfileSave.setText("Lưu");
+        btnProfileSave.addActionListener(this::btnProfileSaveActionPerformed);
+
+        lblProfileStatus.setBackground(new java.awt.Color(70, 73, 75));
+        lblProfileStatus.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        lblProfileStatus.setForeground(new java.awt.Color(0, 255, 0));
+        lblProfileStatus.setText("Đã lưu");
+
+        txtProfilePassword.setEditable(false);
+
+        javax.swing.GroupLayout profilePanelLayout = new javax.swing.GroupLayout(profilePanel);
+        profilePanel.setLayout(profilePanelLayout);
+        profilePanelLayout.setHorizontalGroup(
+            profilePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(profilePanelLayout.createSequentialGroup()
+                .addGroup(profilePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(profilePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addGroup(profilePanelLayout.createSequentialGroup()
+                            .addGap(40, 40, 40)
+                            .addGroup(profilePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jLabel11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jLabel12, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jLabel13, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jLabel14, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jLabel15, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jLabel16, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGap(18, 18, 18)
+                            .addGroup(profilePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(profilePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addComponent(txtProfileDriver)
+                                    .addComponent(txtProfileID, javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(txtProfilePhone, javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 750, Short.MAX_VALUE)
+                                    .addComponent(txtProfileName, javax.swing.GroupLayout.Alignment.LEADING))
+                                .addGroup(profilePanelLayout.createSequentialGroup()
+                                    .addGroup(profilePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addComponent(txtProfileUsername)
+                                        .addComponent(txtProfilePassword, javax.swing.GroupLayout.DEFAULT_SIZE, 614, Short.MAX_VALUE))
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 40, Short.MAX_VALUE)
+                                    .addGroup(profilePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(btnProfileEditPassword, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(btnProfileEditUsername, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                        .addGroup(profilePanelLayout.createSequentialGroup()
+                            .addGap(50, 50, 50)
+                            .addComponent(jLabel18, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(profilePanelLayout.createSequentialGroup()
+                        .addGap(385, 385, 385)
+                        .addComponent(btnProfileSave, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(lblProfileStatus)))
+                .addContainerGap(43, Short.MAX_VALUE))
+        );
+        profilePanelLayout.setVerticalGroup(
+            profilePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(profilePanelLayout.createSequentialGroup()
+                .addGap(40, 40, 40)
+                .addComponent(jLabel3)
+                .addGap(20, 20, 20)
+                .addGroup(profilePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel18, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(20, 20, 20)
+                .addGroup(profilePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(txtProfileUsername)
+                    .addComponent(btnProfileEditUsername, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addGroup(profilePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(jLabel11, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnProfileEditPassword, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(txtProfilePassword, javax.swing.GroupLayout.Alignment.LEADING))
+                .addGap(18, 18, 18)
+                .addGroup(profilePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLabel12, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(txtProfileName))
+                .addGap(18, 18, 18)
+                .addGroup(profilePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLabel13, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(txtProfilePhone))
+                .addGap(18, 18, 18)
+                .addGroup(profilePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLabel14, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(txtProfileID))
+                .addGap(18, 18, 18)
+                .addGroup(profilePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLabel15, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(txtProfileDriver))
+                .addGap(18, 18, 18)
+                .addGroup(profilePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel16)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(36, 36, 36)
+                .addGroup(profilePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnProfileSave, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblProfileStatus))
+                .addContainerGap(40, Short.MAX_VALUE))
+        );
+
+        contentPanel.add(profilePanel, "cardProfile");
+
+        javax.swing.GroupLayout rentalPanelLayout = new javax.swing.GroupLayout(rentalPanel);
+        rentalPanel.setLayout(rentalPanelLayout);
+        rentalPanelLayout.setHorizontalGroup(
+            rentalPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 1017, Short.MAX_VALUE)
+        );
+        rentalPanelLayout.setVerticalGroup(
+            rentalPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 720, Short.MAX_VALUE)
+        );
+
+        contentPanel.add(rentalPanel, "cardRental");
+
+        javax.swing.GroupLayout historyPanelLayout = new javax.swing.GroupLayout(historyPanel);
+        historyPanel.setLayout(historyPanelLayout);
+        historyPanelLayout.setHorizontalGroup(
+            historyPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 1017, Short.MAX_VALUE)
+        );
+        historyPanelLayout.setVerticalGroup(
+            historyPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 720, Short.MAX_VALUE)
+        );
+
+        contentPanel.add(historyPanel, "cardHistory");
 
         javax.swing.GroupLayout mainPanelLayout = new javax.swing.GroupLayout(mainPanel);
         mainPanel.setLayout(mainPanelLayout);
@@ -221,11 +464,13 @@ public class PanelUser extends javax.swing.JPanel {
             mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(mainPanelLayout.createSequentialGroup()
                 .addComponent(sidePanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 1023, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(contentPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         mainPanelLayout.setVerticalGroup(
             mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(sidePanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(contentPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -243,23 +488,32 @@ public class PanelUser extends javax.swing.JPanel {
     private void btnProfileMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnProfileMousePressed
         // TODO add your handling code here:
         btnProfile.setBackground(new Color(51, 114, 231));
-        btnCar.setBackground(new Color(0, 79, 225));
-        btnContract.setBackground(new Color(0, 79, 225));
+        btnRental.setBackground(new Color(0, 79, 225));
+        btnHistory.setBackground(new Color(0, 79, 225));
+        
+        CardLayout layout = (CardLayout) contentPanel.getLayout();
+        layout.show(contentPanel, "cardProfile");
     }//GEN-LAST:event_btnProfileMousePressed
 
-    private void btnCarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCarMousePressed
+    private void btnRentalMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnRentalMousePressed
         // TODO add your handling code here:
         btnProfile.setBackground(new Color(0, 79, 225));
-        btnCar.setBackground(new Color(51, 114, 231));
-        btnContract.setBackground(new Color(0, 79, 225));
-    }//GEN-LAST:event_btnCarMousePressed
+        btnRental.setBackground(new Color(51, 114, 231));
+        btnHistory.setBackground(new Color(0, 79, 225));
+        
+        CardLayout layout = (CardLayout) contentPanel.getLayout();
+        layout.show(contentPanel, "cardRental");
+    }//GEN-LAST:event_btnRentalMousePressed
 
-    private void btnContractMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnContractMousePressed
+    private void btnHistoryMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnHistoryMousePressed
         // TODO add your handling code here:
         btnProfile.setBackground(new Color(0, 79, 225));
-        btnCar.setBackground(new Color(0, 79, 225));
-        btnContract.setBackground(new Color(51, 114, 231));
-    }//GEN-LAST:event_btnContractMousePressed
+        btnRental.setBackground(new Color(0, 79, 225));
+        btnHistory.setBackground(new Color(51, 114, 231));
+        
+        CardLayout layout = (CardLayout) contentPanel.getLayout();
+        layout.show(contentPanel, "cardHistory");
+    }//GEN-LAST:event_btnHistoryMousePressed
 
     private void btnLogoutMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnLogoutMousePressed
         // TODO add your handling code here:
@@ -271,21 +525,99 @@ public class PanelUser extends javax.swing.JPanel {
         loginFrame.setVisible(true);
     }//GEN-LAST:event_btnLogoutMousePressed
 
+    private void btnProfileEditUsernameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProfileEditUsernameActionPerformed
+        // TODO add your handling code here:
+        lblProfileStatus.setText("Chưa lưu");
+        lblProfileStatus.setForeground(Color.red);
+        txtProfileUsername.setEditable(true);
+    }//GEN-LAST:event_btnProfileEditUsernameActionPerformed
+
+    private void btnProfileEditPasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProfileEditPasswordActionPerformed
+        // TODO add your handling code here:
+        lblProfileStatus.setText("Chưa lưu");
+        lblProfileStatus.setForeground(Color.red);
+        txtProfilePassword.setEditable(true);
+    }//GEN-LAST:event_btnProfileEditPasswordActionPerformed
+
+    private void txtProfileNameMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtProfileNameMousePressed
+        // TODO add your handling code here:
+        lblProfileStatus.setText("Chưa lưu");
+        lblProfileStatus.setForeground(Color.red);
+    }//GEN-LAST:event_txtProfileNameMousePressed
+
+    private void txtProfilePhoneMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtProfilePhoneMousePressed
+        // TODO add your handling code here:
+        lblProfileStatus.setText("Chưa lưu");
+        lblProfileStatus.setForeground(Color.red);
+    }//GEN-LAST:event_txtProfilePhoneMousePressed
+
+    private void txtProfileIDMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtProfileIDMousePressed
+        // TODO add your handling code here:
+        lblProfileStatus.setText("Chưa lưu");
+        lblProfileStatus.setForeground(Color.red);
+    }//GEN-LAST:event_txtProfileIDMousePressed
+
+    private void txtProfileDriverMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtProfileDriverMousePressed
+        // TODO add your handling code here:
+        lblProfileStatus.setText("Chưa lưu");
+        lblProfileStatus.setForeground(Color.red);
+    }//GEN-LAST:event_txtProfileDriverMousePressed
+
+    private void txtProfileAddressMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtProfileAddressMousePressed
+        // TODO add your handling code here:
+        lblProfileStatus.setText("Chưa lưu");
+        lblProfileStatus.setForeground(Color.red);
+    }//GEN-LAST:event_txtProfileAddressMousePressed
+
+    private void btnProfileSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProfileSaveActionPerformed
+        // TODO add your handling code here:
+        lblProfileStatus.setText("Đã lưu");
+        lblProfileStatus.setForeground(Color.green);
+        txtProfileUsername.setEditable(false);
+        txtProfilePassword.setEditable(false);
+        JOptionPane.showMessageDialog(this, "Lưu thông tin thành công!", "Hồ sơ", JOptionPane.INFORMATION_MESSAGE);
+    }//GEN-LAST:event_btnProfileSaveActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JPanel btnCar;
-    private javax.swing.JPanel btnContract;
+    private javax.swing.JPanel btnHistory;
     private javax.swing.JPanel btnLogout;
     private javax.swing.JPanel btnProfile;
+    private javax.swing.JButton btnProfileEditPassword;
+    private javax.swing.JButton btnProfileEditUsername;
+    private javax.swing.JButton btnProfileSave;
+    private javax.swing.JPanel btnRental;
+    private javax.swing.JPanel contentPanel;
+    private javax.swing.JPanel historyPanel;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel16;
+    private javax.swing.JLabel jLabel17;
+    private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel lblProfileStatus;
     private javax.swing.JPanel mainPanel;
+    private javax.swing.JPanel profilePanel;
+    private javax.swing.JPanel rentalPanel;
     private javax.swing.JPanel sidePanel;
+    private javax.swing.JTextArea txtProfileAddress;
+    private javax.swing.JTextField txtProfileDriver;
+    private javax.swing.JTextField txtProfileID;
+    private javax.swing.JTextField txtProfileName;
+    private javax.swing.JPasswordField txtProfilePassword;
+    private javax.swing.JTextField txtProfilePhone;
+    private javax.swing.JTextField txtProfileUsername;
     // End of variables declaration//GEN-END:variables
 }

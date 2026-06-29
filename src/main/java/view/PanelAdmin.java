@@ -38,7 +38,6 @@ public class PanelAdmin extends javax.swing.JPanel {
         DateForeground.changeForeground(txtContractSearch);
         customerTableModel = (DefaultTableModel) jTable1.getModel();
         renderTableCustomer();
-
     }
 
     /**
@@ -782,7 +781,7 @@ public class PanelAdmin extends javax.swing.JPanel {
                             .addComponent(btnCustomerEdit, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btnCustomerClear, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(jScrollPane1))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(54, Short.MAX_VALUE))
         );
 
         contentPanel.add(customerPanel, "cardCustomer");

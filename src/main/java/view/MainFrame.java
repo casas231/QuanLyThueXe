@@ -80,7 +80,7 @@ public class MainFrame extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> new MainFrame("admin").setVisible(true));
+        java.awt.EventQueue.invokeLater(() -> new MainFrame("user").setVisible(true));
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
