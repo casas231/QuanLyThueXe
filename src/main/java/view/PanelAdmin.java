@@ -5,6 +5,7 @@
 package view;
 
 import controller.CustomerController;
+import dao.CustomerDAO;
 import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.Window;
@@ -37,6 +38,7 @@ public class PanelAdmin extends javax.swing.JPanel {
         DateForeground.changeForeground(txtContractSearch);
         customerTableModel = (DefaultTableModel) jTable1.getModel();
         renderTableCustomer();
+
     }
 
     /**
@@ -598,11 +600,11 @@ public class PanelAdmin extends javax.swing.JPanel {
 
             },
             new String [] {
-                "ID", "Họ tên", "SĐT", "CCCD", "GPLX", "Địa chỉ"
+                "ID", "Họ tên", "SĐT", "CCCD", "GPLX", "Địa chỉ", "account_ID"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false
+                false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -622,6 +624,7 @@ public class PanelAdmin extends javax.swing.JPanel {
             jTable1.getColumnModel().getColumn(3).setResizable(false);
             jTable1.getColumnModel().getColumn(4).setResizable(false);
             jTable1.getColumnModel().getColumn(5).setResizable(false);
+            jTable1.getColumnModel().getColumn(6).setResizable(false);
         }
 
         jLabel11.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
@@ -1295,9 +1298,14 @@ public class PanelAdmin extends javax.swing.JPanel {
             java.util.List<model.Customer> list = customerController.loadAllCustomers();
             for (model.Customer c : list) {
                 customerTableModel.addRow(new Object[]{
-                    c.getId(), c.getFullName(), c.getPhone(), c.getIdNumber(), c.getDriverLicense(), c.getAddress()
+                    c.getId(), c.getFullName(), c.getPhone(), c.getIdNumber(), c.getDriverLicense(), c.getAddress(), c.getAccountID()
                 });
             }
+            jTable1.getColumnModel().getColumn(6).setMinWidth(0);
+            jTable1.getColumnModel().getColumn(6).setMaxWidth(0);
+            jTable1.getColumnModel().getColumn(6).setPreferredWidth(0);
+            jLabel45.setText(Integer.toString(customerController.loadCustomerQuantity()));
+
         } catch (Exception e) {
             javax.swing.JOptionPane.showMessageDialog(this, "Lỗi tải bảng Khách hàng: " + e.getMessage());
         }
@@ -1333,7 +1341,8 @@ public class PanelAdmin extends javax.swing.JPanel {
         int confirm = javax.swing.JOptionPane.showConfirmDialog(this, "Bạn có chắc muốn xóa khách hàng này?", "Xác nhận", javax.swing.JOptionPane.YES_NO_OPTION);
         if (confirm == javax.swing.JOptionPane.YES_OPTION) {
             int id = Integer.parseInt(customerTableModel.getValueAt(selectedRow, 0).toString());
-            String res = customerController.removeCustomer(id);
+            int accountID = Integer.parseInt(customerTableModel.getValueAt(selectedRow, 6).toString());
+            String res = customerController.removeCustomer(id, accountID);
             renderTableCustomer();
             javax.swing.JOptionPane.showMessageDialog(this, res);
 

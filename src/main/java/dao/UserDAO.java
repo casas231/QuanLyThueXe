@@ -58,4 +58,12 @@ public class UserDAO {
             return -1;
         }
     }
+
+    public boolean deleteUser(int accountID, Connection conn) throws SQLException {
+        String sql = "DELETE FROM ACCOUNT WHERE id = ?";
+        try (PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setInt(1, accountID);
+            return ps.executeUpdate() > 0;
+        }
+    }
 }
