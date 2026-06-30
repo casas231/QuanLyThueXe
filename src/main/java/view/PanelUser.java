@@ -74,7 +74,6 @@ public class PanelUser extends javax.swing.JPanel {
         jLabel19 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
-        txtRentalLicensePlate = new javax.swing.JTextField();
         jLabel20 = new javax.swing.JLabel();
         jLabel21 = new javax.swing.JLabel();
         jLabel22 = new javax.swing.JLabel();
@@ -83,10 +82,11 @@ public class PanelUser extends javax.swing.JPanel {
         jLabel25 = new javax.swing.JLabel();
         lblRentalImage = new javax.swing.JLabel();
         jLabel27 = new javax.swing.JLabel();
-        txtRentalBrand = new javax.swing.JTextField();
-        txtRentalName = new javax.swing.JTextField();
-        spinnerRentalSeat = new javax.swing.JSpinner();
-        txtRentalPrice = new javax.swing.JTextField();
+        lblRentalLicensePlate = new javax.swing.JLabel();
+        lblRentalBrand = new javax.swing.JLabel();
+        lblRentalName = new javax.swing.JLabel();
+        lblRentalSeat = new javax.swing.JLabel();
+        lblRentalPrice = new javax.swing.JLabel();
         historyPanel = new javax.swing.JPanel();
 
         sidePanel.setBackground(new java.awt.Color(0, 79, 225));
@@ -478,8 +478,6 @@ public class PanelUser extends javax.swing.JPanel {
             jTable1.getColumnModel().getColumn(5).setResizable(false);
         }
 
-        txtRentalLicensePlate.setEnabled(false);
-
         jLabel20.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         jLabel20.setText("Biển số xe:");
 
@@ -504,13 +502,20 @@ public class PanelUser extends javax.swing.JPanel {
         jLabel27.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel27.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/user/car264.png"))); // NOI18N
 
-        txtRentalBrand.setEnabled(false);
+        lblRentalLicensePlate.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        lblRentalLicensePlate.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
 
-        txtRentalName.setEnabled(false);
+        lblRentalBrand.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        lblRentalBrand.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
 
-        spinnerRentalSeat.setEnabled(false);
+        lblRentalName.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        lblRentalName.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
 
-        txtRentalPrice.setEnabled(false);
+        lblRentalSeat.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        lblRentalSeat.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+
+        lblRentalPrice.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        lblRentalPrice.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
 
         javax.swing.GroupLayout rentalPanelLayout = new javax.swing.GroupLayout(rentalPanel);
         rentalPanel.setLayout(rentalPanelLayout);
@@ -534,11 +539,11 @@ public class PanelUser extends javax.swing.JPanel {
                             .addComponent(jLabel24, javax.swing.GroupLayout.Alignment.TRAILING))
                         .addGap(18, 18, 18)
                         .addGroup(rentalPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(txtRentalLicensePlate)
-                            .addComponent(txtRentalBrand)
-                            .addComponent(txtRentalName)
-                            .addComponent(spinnerRentalSeat, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtRentalPrice, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)))
+                            .addComponent(lblRentalLicensePlate, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
+                            .addComponent(lblRentalBrand, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(lblRentalName, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(lblRentalSeat, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(lblRentalPrice, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(rentalPanelLayout.createSequentialGroup()
                         .addGroup(rentalPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel25)
@@ -555,25 +560,27 @@ public class PanelUser extends javax.swing.JPanel {
                 .addGap(40, 40, 40)
                 .addGroup(rentalPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(rentalPanelLayout.createSequentialGroup()
-                        .addGroup(rentalPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(txtRentalLicensePlate, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel20, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGroup(rentalPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jLabel20, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(lblRentalLicensePlate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(18, 18, 18)
                         .addGroup(rentalPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jLabel21, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(txtRentalBrand))
+                            .addComponent(lblRentalBrand, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(18, 18, 18)
                         .addGroup(rentalPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jLabel22, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(txtRentalName))
+                            .addComponent(lblRentalName, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel22, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(18, 18, 18)
                         .addGroup(rentalPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jLabel23, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(spinnerRentalSeat))
+                            .addComponent(jLabel23)
+                            .addGroup(rentalPanelLayout.createSequentialGroup()
+                                .addComponent(lblRentalSeat, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGap(3, 3, 3)))
                         .addGap(18, 18, 18)
                         .addGroup(rentalPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jLabel24, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(txtRentalPrice))
+                            .addComponent(lblRentalPrice, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(18, 18, 18)
                         .addGroup(rentalPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(rentalPanelLayout.createSequentialGroup()
@@ -760,12 +767,16 @@ public class PanelUser extends javax.swing.JPanel {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTable1;
     private javax.swing.JLabel lblProfileStatus;
+    private javax.swing.JLabel lblRentalBrand;
     private javax.swing.JLabel lblRentalImage;
+    private javax.swing.JLabel lblRentalLicensePlate;
+    private javax.swing.JLabel lblRentalName;
+    private javax.swing.JLabel lblRentalPrice;
+    private javax.swing.JLabel lblRentalSeat;
     private javax.swing.JPanel mainPanel;
     private javax.swing.JPanel profilePanel;
     private javax.swing.JPanel rentalPanel;
     private javax.swing.JPanel sidePanel;
-    private javax.swing.JSpinner spinnerRentalSeat;
     private javax.swing.JTextArea txtProfileAddress;
     private javax.swing.JTextField txtProfileDriver;
     private javax.swing.JTextField txtProfileID;
@@ -773,9 +784,5 @@ public class PanelUser extends javax.swing.JPanel {
     private javax.swing.JPasswordField txtProfilePassword;
     private javax.swing.JTextField txtProfilePhone;
     private javax.swing.JTextField txtProfileUsername;
-    private javax.swing.JTextField txtRentalBrand;
-    private javax.swing.JTextField txtRentalLicensePlate;
-    private javax.swing.JTextField txtRentalName;
-    private javax.swing.JTextField txtRentalPrice;
     // End of variables declaration//GEN-END:variables
 }
