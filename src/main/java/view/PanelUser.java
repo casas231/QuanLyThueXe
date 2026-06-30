@@ -71,6 +71,22 @@ public class PanelUser extends javax.swing.JPanel {
         lblProfileStatus = new javax.swing.JLabel();
         txtProfilePassword = new javax.swing.JPasswordField();
         rentalPanel = new javax.swing.JPanel();
+        jLabel19 = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
+        txtRentalLicensePlate = new javax.swing.JTextField();
+        jLabel20 = new javax.swing.JLabel();
+        jLabel21 = new javax.swing.JLabel();
+        jLabel22 = new javax.swing.JLabel();
+        jLabel23 = new javax.swing.JLabel();
+        jLabel24 = new javax.swing.JLabel();
+        jLabel25 = new javax.swing.JLabel();
+        lblRentalImage = new javax.swing.JLabel();
+        jLabel27 = new javax.swing.JLabel();
+        txtRentalBrand = new javax.swing.JTextField();
+        txtRentalName = new javax.swing.JTextField();
+        spinnerRentalSeat = new javax.swing.JSpinner();
+        txtRentalPrice = new javax.swing.JTextField();
         historyPanel = new javax.swing.JPanel();
 
         sidePanel.setBackground(new java.awt.Color(0, 79, 225));
@@ -127,7 +143,7 @@ public class PanelUser extends javax.swing.JPanel {
         jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/admin/car.png"))); // NOI18N
 
         jLabel8.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        jLabel8.setText("Đặt xe");
+        jLabel8.setText("Thuê xe");
 
         javax.swing.GroupLayout btnRentalLayout = new javax.swing.GroupLayout(btnRental);
         btnRental.setLayout(btnRentalLayout);
@@ -162,7 +178,7 @@ public class PanelUser extends javax.swing.JPanel {
         jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/admin/contract.png"))); // NOI18N
 
         jLabel10.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        jLabel10.setText("Lịch sử đặt xe");
+        jLabel10.setText("Lịch sử thuê xe");
 
         javax.swing.GroupLayout btnHistoryLayout = new javax.swing.GroupLayout(btnHistory);
         btnHistory.setLayout(btnHistoryLayout);
@@ -277,7 +293,7 @@ public class PanelUser extends javax.swing.JPanel {
         jLabel16.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel16.setText("Địa chỉ:");
 
-        txtProfileUsername.setEditable(false);
+        txtProfileUsername.setEnabled(false);
 
         txtProfileName.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
@@ -336,7 +352,7 @@ public class PanelUser extends javax.swing.JPanel {
         lblProfileStatus.setForeground(new java.awt.Color(0, 255, 0));
         lblProfileStatus.setText("Đã lưu");
 
-        txtProfilePassword.setEditable(false);
+        txtProfilePassword.setEnabled(false);
 
         javax.swing.GroupLayout profilePanelLayout = new javax.swing.GroupLayout(profilePanel);
         profilePanel.setLayout(profilePanelLayout);
@@ -432,15 +448,141 @@ public class PanelUser extends javax.swing.JPanel {
 
         contentPanel.add(profilePanel, "cardProfile");
 
+        jLabel19.setFont(new java.awt.Font("Segoe UI", 1, 48)); // NOI18N
+        jLabel19.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel19.setText("Trang chủ thuê xe");
+
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "ID", "Biển số", "Hãng xe", "Tên xe", "Số chỗ", "Phí thuê"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane2.setViewportView(jTable1);
+        if (jTable1.getColumnModel().getColumnCount() > 0) {
+            jTable1.getColumnModel().getColumn(0).setResizable(false);
+            jTable1.getColumnModel().getColumn(1).setResizable(false);
+            jTable1.getColumnModel().getColumn(2).setResizable(false);
+            jTable1.getColumnModel().getColumn(3).setResizable(false);
+            jTable1.getColumnModel().getColumn(4).setResizable(false);
+            jTable1.getColumnModel().getColumn(5).setResizable(false);
+        }
+
+        txtRentalLicensePlate.setEnabled(false);
+
+        jLabel20.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        jLabel20.setText("Biển số xe:");
+
+        jLabel21.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        jLabel21.setText("Hãng xe:");
+
+        jLabel22.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        jLabel22.setText("Tên xe:");
+
+        jLabel23.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        jLabel23.setText("Số chỗ:");
+
+        jLabel24.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        jLabel24.setText("Phí thuê 1 ngày:");
+
+        jLabel25.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        jLabel25.setText("Ảnh xe:");
+
+        lblRentalImage.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblRentalImage.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)));
+
+        jLabel27.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel27.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/user/car264.png"))); // NOI18N
+
+        txtRentalBrand.setEnabled(false);
+
+        txtRentalName.setEnabled(false);
+
+        spinnerRentalSeat.setEnabled(false);
+
+        txtRentalPrice.setEnabled(false);
+
         javax.swing.GroupLayout rentalPanelLayout = new javax.swing.GroupLayout(rentalPanel);
         rentalPanel.setLayout(rentalPanelLayout);
         rentalPanelLayout.setHorizontalGroup(
             rentalPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1017, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, rentalPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel19, javax.swing.GroupLayout.DEFAULT_SIZE, 1005, Short.MAX_VALUE)
+                .addContainerGap())
+            .addGroup(rentalPanelLayout.createSequentialGroup()
+                .addGap(40, 40, 40)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 509, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(rentalPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(rentalPanelLayout.createSequentialGroup()
+                        .addGroup(rentalPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel20, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel21, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel22, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel23, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel24, javax.swing.GroupLayout.Alignment.TRAILING))
+                        .addGap(18, 18, 18)
+                        .addGroup(rentalPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(txtRentalLicensePlate)
+                            .addComponent(txtRentalBrand)
+                            .addComponent(txtRentalName)
+                            .addComponent(spinnerRentalSeat, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtRentalPrice, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)))
+                    .addGroup(rentalPanelLayout.createSequentialGroup()
+                        .addGroup(rentalPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel25)
+                            .addComponent(jLabel27, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addComponent(lblRentalImage, javax.swing.GroupLayout.PREFERRED_SIZE, 256, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(40, 40, 40))
         );
         rentalPanelLayout.setVerticalGroup(
             rentalPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 720, Short.MAX_VALUE)
+            .addGroup(rentalPanelLayout.createSequentialGroup()
+                .addGap(40, 40, 40)
+                .addComponent(jLabel19)
+                .addGap(40, 40, 40)
+                .addGroup(rentalPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(rentalPanelLayout.createSequentialGroup()
+                        .addGroup(rentalPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(txtRentalLicensePlate, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel20, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(18, 18, 18)
+                        .addGroup(rentalPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jLabel21, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(txtRentalBrand))
+                        .addGap(18, 18, 18)
+                        .addGroup(rentalPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jLabel22, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(txtRentalName))
+                        .addGap(18, 18, 18)
+                        .addGroup(rentalPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jLabel23, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(spinnerRentalSeat))
+                        .addGap(18, 18, 18)
+                        .addGroup(rentalPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jLabel24, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(txtRentalPrice))
+                        .addGap(18, 18, 18)
+                        .addGroup(rentalPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(rentalPanelLayout.createSequentialGroup()
+                                .addComponent(jLabel25)
+                                .addGap(18, 18, 18)
+                                .addComponent(jLabel27, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(lblRentalImage, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                .addContainerGap(182, Short.MAX_VALUE))
         );
 
         contentPanel.add(rentalPanel, "cardRental");
@@ -529,14 +671,14 @@ public class PanelUser extends javax.swing.JPanel {
         // TODO add your handling code here:
         lblProfileStatus.setText("Chưa lưu");
         lblProfileStatus.setForeground(Color.red);
-        txtProfileUsername.setEditable(true);
+        txtProfileUsername.setEnabled(true);
     }//GEN-LAST:event_btnProfileEditUsernameActionPerformed
 
     private void btnProfileEditPasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProfileEditPasswordActionPerformed
         // TODO add your handling code here:
         lblProfileStatus.setText("Chưa lưu");
         lblProfileStatus.setForeground(Color.red);
-        txtProfilePassword.setEditable(true);
+        txtProfilePassword.setEnabled(true);
     }//GEN-LAST:event_btnProfileEditPasswordActionPerformed
 
     private void txtProfileNameMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtProfileNameMousePressed
@@ -573,8 +715,8 @@ public class PanelUser extends javax.swing.JPanel {
         // TODO add your handling code here:
         lblProfileStatus.setText("Đã lưu");
         lblProfileStatus.setForeground(Color.green);
-        txtProfileUsername.setEditable(false);
-        txtProfilePassword.setEditable(false);
+        txtProfileUsername.setEnabled(false);
+        txtProfilePassword.setEnabled(false);
         JOptionPane.showMessageDialog(this, "Lưu thông tin thành công!", "Hồ sơ", JOptionPane.INFORMATION_MESSAGE);
     }//GEN-LAST:event_btnProfileSaveActionPerformed
 
@@ -598,7 +740,15 @@ public class PanelUser extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
+    private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel20;
+    private javax.swing.JLabel jLabel21;
+    private javax.swing.JLabel jLabel22;
+    private javax.swing.JLabel jLabel23;
+    private javax.swing.JLabel jLabel24;
+    private javax.swing.JLabel jLabel25;
+    private javax.swing.JLabel jLabel27;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -607,11 +757,15 @@ public class PanelUser extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JTable jTable1;
     private javax.swing.JLabel lblProfileStatus;
+    private javax.swing.JLabel lblRentalImage;
     private javax.swing.JPanel mainPanel;
     private javax.swing.JPanel profilePanel;
     private javax.swing.JPanel rentalPanel;
     private javax.swing.JPanel sidePanel;
+    private javax.swing.JSpinner spinnerRentalSeat;
     private javax.swing.JTextArea txtProfileAddress;
     private javax.swing.JTextField txtProfileDriver;
     private javax.swing.JTextField txtProfileID;
@@ -619,5 +773,9 @@ public class PanelUser extends javax.swing.JPanel {
     private javax.swing.JPasswordField txtProfilePassword;
     private javax.swing.JTextField txtProfilePhone;
     private javax.swing.JTextField txtProfileUsername;
+    private javax.swing.JTextField txtRentalBrand;
+    private javax.swing.JTextField txtRentalLicensePlate;
+    private javax.swing.JTextField txtRentalName;
+    private javax.swing.JTextField txtRentalPrice;
     // End of variables declaration//GEN-END:variables
 }

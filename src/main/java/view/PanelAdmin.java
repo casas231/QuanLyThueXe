@@ -649,7 +649,7 @@ public class PanelAdmin extends javax.swing.JPanel {
         txtCustomerName.addActionListener(this::txtCustomerNameActionPerformed);
 
         jLabel20.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel20.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/customer/search.png"))); // NOI18N
+        jLabel20.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/admin/search.png"))); // NOI18N
 
         btnCustomerSearch.setBackground(new java.awt.Color(0, 79, 225));
         btnCustomerSearch.setText("Tìm");
