@@ -1268,7 +1268,7 @@ public class PanelAdmin extends javax.swing.JPanel {
     private void btnCarImageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCarImageActionPerformed
         // TODO add your handling code here:
         JFileChooser fileChooser = new JFileChooser();
-        fileChooser.setCurrentDirectory(new File("src/main/resources/image/admin"));
+        fileChooser.setCurrentDirectory(new File("src/main/resources/image/car"));
         int result = fileChooser.showOpenDialog(this);
         if (result == JFileChooser.APPROVE_OPTION) {
             File selectedFile = fileChooser.getSelectedFile();
