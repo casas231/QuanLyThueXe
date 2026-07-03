@@ -10,6 +10,7 @@ package model;
  */
 public class Car {
 
+    private int id;
     private String licensePlate;
     private String carBrand;
     private String carName;
@@ -26,6 +27,25 @@ public class Car {
         this.price = price;
         this.status = status;
         this.image = image;
+    }
+
+    public Car(int id, String licensePlate, String carBrand, String carName, int seatQuantity, int price, String status, String image) {
+        this.id = id;
+        this.licensePlate = licensePlate;
+        this.carBrand = carBrand;
+        this.carName = carName;
+        this.seatQuantity = seatQuantity;
+        this.price = price;
+        this.status = status;
+        this.image = image;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getCarBrand() {

@@ -8,7 +8,10 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import model.Car;
+import utils.SQLConnect;
 
 /**
  *
@@ -38,5 +41,47 @@ public class CarDAO {
             System.err.println(e);
             return -1;
         }
+    }
+
+    public List<Car> getAllCar() throws SQLException {
+        List<Car> list = new ArrayList<>();
+        String sql = "SELECT * FROM CAR";
+
+        try (Connection conn = SQLConnect.connect(); PreparedStatement ps = conn.prepareStatement(sql); ResultSet rs = ps.executeQuery()) {
+            while (rs.next()) {
+                Car c = new Car(
+                        rs.getInt("id"),
+                        rs.getString("license_plate"),
+                        rs.getString("car_brand"),
+                        rs.getString("car_name"),
+                        rs.getInt("seat"),
+                        rs.getInt("price"),
+                        rs.getString("status"),
+                        rs.getString("image")
+                );
+
+                list.add(c);
+            }
+        }
+        return list;
+    }
+
+    public boolean deleteCar(int id) throws SQLException {
+        String sql = "DELETE FROM CAR WHERE id = ?";
+        Connection conn = null;
+        try {
+            conn = SQLConnect.connect();
+            PreparedStatement psCar = conn.prepareStatement(sql);
+            psCar.setInt(1, id);
+            psCar.executeUpdate();
+            return true;
+        } catch (SQLException e) {
+            System.err.println(e);
+        } finally {
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return false;
     }
 }

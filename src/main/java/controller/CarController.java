@@ -7,6 +7,7 @@ package controller;
 import dao.CarDAO;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.List;
 import model.Car;
 import utils.SQLConnect;
 
@@ -20,6 +21,10 @@ public class CarController {
 
     public CarController() {
         this.carDAO = new CarDAO();
+    }
+
+    public List<Car> loadAllCar() throws Exception {
+        return carDAO.getAllCar();
     }
 
     public String createCar(String licensePlate, String carBrand, String carName, String seatQuantityStr, String priceStr, String status, String image) throws Exception {
@@ -47,6 +52,16 @@ public class CarController {
             return "Lỗi hệ thông";
         } finally {
             conn.close();
+        }
+    }
+
+    public String removeCar(int id) {
+        try {
+            boolean isDeleted = carDAO.deleteCar(id);
+            return isDeleted ? "Xóa xe thành công!" : "Xóa xe thất bại.";
+        } catch (SQLException e) {
+            System.err.println(e);
+            return "Không thể xóa xe";
         }
     }
 }

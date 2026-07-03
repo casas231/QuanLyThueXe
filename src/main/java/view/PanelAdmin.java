@@ -29,6 +29,7 @@ public class PanelAdmin extends javax.swing.JPanel {
     private final CustomerController customerController = new CustomerController();
     private final CarController carController = new CarController();
     private final DefaultTableModel customerTableModel;
+    private final DefaultTableModel carTableModel;
 
     /**
      * Creates new form PanelAdmin
@@ -40,7 +41,9 @@ public class PanelAdmin extends javax.swing.JPanel {
         DateForeground.changeForeground(txtContractEnd);
         DateForeground.changeForeground(txtContractSearch);
         customerTableModel = (DefaultTableModel) jTable1.getModel();
+        carTableModel = (DefaultTableModel) jTable2.getModel();
         renderTableCustomer();
+        renderTableCar();
     }
 
     /**
@@ -828,15 +831,20 @@ public class PanelAdmin extends javax.swing.JPanel {
 
             },
             new String [] {
-                "ID", "Biển số", "Hãng xe", "Tên xe", "Số chỗ", "Phí thuê", "Trạng thái"
+                "ID", "Biển số", "Hãng xe", "Tên xe", "Số chỗ", "Phí thuê", "Trạng thái", "Ảnh xe"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false
+                false, false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
+            }
+        });
+        jTable2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTable2MouseClicked(evt);
             }
         });
         jScrollPane3.setViewportView(jTable2);
@@ -848,6 +856,7 @@ public class PanelAdmin extends javax.swing.JPanel {
             jTable2.getColumnModel().getColumn(4).setResizable(false);
             jTable2.getColumnModel().getColumn(5).setResizable(false);
             jTable2.getColumnModel().getColumn(6).setResizable(false);
+            jTable2.getColumnModel().getColumn(7).setResizable(false);
         }
 
         btnCarImage.setBackground(new java.awt.Color(0, 79, 225));
@@ -1265,6 +1274,23 @@ public class PanelAdmin extends javax.swing.JPanel {
         layout.show(contentPanel, "cardContract");
     }//GEN-LAST:event_btnContractMousePressed
 
+    private void renderTableCar() {
+        carTableModel.setRowCount(0);
+        try {
+            java.util.List<model.Car> list = carController.loadAllCar();
+            for (model.Car c : list) {
+                carTableModel.addRow(new Object[]{
+                    c.getId(), c.getLicensePlate(), c.getCarBrand(), c.getCarName(), c.getSeatQuantity(), c.getPrice(), c.getStatus(), c.getImage()
+                });
+            }
+            jTable2.getColumnModel().getColumn(7).setMinWidth(0);
+            jTable2.getColumnModel().getColumn(7).setMaxWidth(0);
+            jTable2.getColumnModel().getColumn(7).setPreferredWidth(0);
+            lblTotalCar.setText(Integer.toString(list.size()));
+        } catch (Exception e) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Lỗi tải bảng xe: " + e.getMessage());
+        }
+    }
     private void btnCarImageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCarImageActionPerformed
         // TODO add your handling code here:
         JFileChooser fileChooser = new JFileChooser();
@@ -1294,6 +1320,7 @@ public class PanelAdmin extends javax.swing.JPanel {
 
         try {
             String message = carController.createCar(licensePlateText, carBrandText, carNameText, seatQuantityText, priceText, statusText, imageText);
+            renderTableCar();
             JOptionPane.showMessageDialog(this, message);
         } catch (Exception ex) {
             System.err.println(ex);
@@ -1303,6 +1330,19 @@ public class PanelAdmin extends javax.swing.JPanel {
 
     private void btnCarDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCarDeleteActionPerformed
         // TODO add your handling code here:
+        int selectedRow = jTable2.getSelectedRow();
+        if (selectedRow == -1) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Vui lòng chọn 1 xe để xóa!");
+            return;
+        }
+
+        int confirm = javax.swing.JOptionPane.showConfirmDialog(this, "Bạn có chắc muốn xóa xe này?", "Xác nhận", javax.swing.JOptionPane.YES_NO_OPTION);
+        if (confirm == javax.swing.JOptionPane.YES_OPTION) {
+            int id = Integer.parseInt(carTableModel.getValueAt(selectedRow, 0).toString());
+            String res = carController.removeCar(id);
+            renderTableCar();
+            javax.swing.JOptionPane.showMessageDialog(this, res);
+        }
     }//GEN-LAST:event_btnCarDeleteActionPerformed
 
     private void btnCarEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCarEditActionPerformed
@@ -1459,6 +1499,29 @@ public class PanelAdmin extends javax.swing.JPanel {
             txtCustomerAddress.setText(customerTableModel.getValueAt(selectedRow, 5).toString());
         }
     }//GEN-LAST:event_jTable1MouseClicked
+
+    private void jTable2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable2MouseClicked
+        // TODO add your handling code here:
+        int selectedRow = jTable2.getSelectedRow();
+        if (selectedRow != -1) {
+
+            txtCarLicensePlate.setText(carTableModel.getValueAt(selectedRow, 1).toString());
+            txtCarBrand.setText(carTableModel.getValueAt(selectedRow, 2).toString());
+            txtCarName.setText(carTableModel.getValueAt(selectedRow, 3).toString());
+            spinnerCarSeat.setValue(carTableModel.getValueAt(selectedRow, 4));
+            txtCarPrice.setText(carTableModel.getValueAt(selectedRow, 5).toString());
+            cbCarStatus.setSelectedItem(carTableModel.getValueAt(selectedRow, 6).toString());
+            txtCarImageName.setText(carTableModel.getValueAt(selectedRow, 7).toString());
+            File imageFile = new File("src/main/resources/image/car/" + txtCarImageName.getText());
+            if (imageFile != null) {
+                int width = lblCarImage.getWidth();
+                int height = lblCarImage.getHeight();
+                ImageIcon image = ImageHelper.scaleImage(imageFile, width, height);
+                lblCarImage.setIcon(image);
+            }
+
+        }
+    }//GEN-LAST:event_jTable2MouseClicked
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel btnCar;
