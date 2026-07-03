@@ -1358,6 +1358,7 @@ public class PanelAdmin extends javax.swing.JPanel {
         txtCarPrice.setText("");
         cbCarStatus.setSelectedIndex(0);
         lblCarImage.setIcon(null);
+        txtCarImageName.setText("");
     }//GEN-LAST:event_btnCarClearActionPerformed
 
     private void renderTableCustomer() {

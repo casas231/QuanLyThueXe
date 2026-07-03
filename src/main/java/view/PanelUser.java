@@ -32,6 +32,9 @@ public class PanelUser extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        QrPay = new javax.swing.JDialog();
+        jLabel28 = new javax.swing.JLabel();
+        jLabel29 = new javax.swing.JLabel();
         mainPanel = new javax.swing.JPanel();
         sidePanel = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
@@ -87,7 +90,48 @@ public class PanelUser extends javax.swing.JPanel {
         lblRentalName = new javax.swing.JLabel();
         lblRentalSeat = new javax.swing.JLabel();
         lblRentalPrice = new javax.swing.JLabel();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        jTable2 = new javax.swing.JTable();
+        btnRentalAdd = new javax.swing.JButton();
+        btnRentalPay = new javax.swing.JButton();
+        jLabel26 = new javax.swing.JLabel();
+        txtRentalSearch = new javax.swing.JTextField();
+        btnRentalSearch = new javax.swing.JButton();
+        jPanel1 = new javax.swing.JPanel();
+        lblRentalTotal = new javax.swing.JLabel();
         historyPanel = new javax.swing.JPanel();
+
+        QrPay.setModal(true);
+
+        jLabel28.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel28.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/user/momo.png"))); // NOI18N
+
+        jLabel29.setText("Con cặc");
+
+        javax.swing.GroupLayout QrPayLayout = new javax.swing.GroupLayout(QrPay.getContentPane());
+        QrPay.getContentPane().setLayout(QrPayLayout);
+        QrPayLayout.setHorizontalGroup(
+            QrPayLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(QrPayLayout.createSequentialGroup()
+                .addGap(67, 67, 67)
+                .addComponent(jLabel28, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(33, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, QrPayLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel29, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(173, 173, 173))
+        );
+        QrPayLayout.setVerticalGroup(
+            QrPayLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(QrPayLayout.createSequentialGroup()
+                .addGap(20, 20, 20)
+                .addComponent(jLabel29)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel28, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(44, Short.MAX_VALUE))
+        );
+
+        setPreferredSize(new java.awt.Dimension(1280, 720));
 
         sidePanel.setBackground(new java.awt.Color(0, 79, 225));
 
@@ -443,7 +487,7 @@ public class PanelUser extends javax.swing.JPanel {
                 .addGroup(profilePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnProfileSave, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblProfileStatus))
-                .addContainerGap(40, Short.MAX_VALUE))
+                .addContainerGap(46, Short.MAX_VALUE))
         );
 
         contentPanel.add(profilePanel, "cardProfile");
@@ -473,9 +517,13 @@ public class PanelUser extends javax.swing.JPanel {
             jTable1.getColumnModel().getColumn(0).setResizable(false);
             jTable1.getColumnModel().getColumn(1).setResizable(false);
             jTable1.getColumnModel().getColumn(2).setResizable(false);
+            jTable1.getColumnModel().getColumn(2).setHeaderValue("Hãng xe");
             jTable1.getColumnModel().getColumn(3).setResizable(false);
+            jTable1.getColumnModel().getColumn(3).setHeaderValue("Tên xe");
             jTable1.getColumnModel().getColumn(4).setResizable(false);
+            jTable1.getColumnModel().getColumn(4).setHeaderValue("Số chỗ");
             jTable1.getColumnModel().getColumn(5).setResizable(false);
+            jTable1.getColumnModel().getColumn(5).setHeaderValue("Phí thuê");
         }
 
         jLabel20.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
@@ -517,6 +565,66 @@ public class PanelUser extends javax.swing.JPanel {
         lblRentalPrice.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         lblRentalPrice.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
 
+        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "ID", "Biển số"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane3.setViewportView(jTable2);
+        if (jTable2.getColumnModel().getColumnCount() > 0) {
+            jTable2.getColumnModel().getColumn(0).setResizable(false);
+            jTable2.getColumnModel().getColumn(1).setResizable(false);
+        }
+
+        btnRentalAdd.setBackground(new java.awt.Color(0, 79, 225));
+        btnRentalAdd.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        btnRentalAdd.setText("Lựa chọn xe");
+
+        btnRentalPay.setBackground(new java.awt.Color(0, 79, 225));
+        btnRentalPay.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        btnRentalPay.setText("Thanh toán");
+        btnRentalPay.addActionListener(this::btnRentalPayActionPerformed);
+
+        jLabel26.setText("Tìm theo hãng xe:");
+
+        btnRentalSearch.setBackground(new java.awt.Color(0, 79, 225));
+        btnRentalSearch.setText("Tìm");
+        btnRentalSearch.addActionListener(this::btnRentalSearchActionPerformed);
+
+        jPanel1.setBackground(new java.awt.Color(234, 67, 53));
+
+        lblRentalTotal.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        lblRentalTotal.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblRentalTotal.setText("Tổng tiền: 0đ");
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(lblRentalTotal, javax.swing.GroupLayout.DEFAULT_SIZE, 186, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(lblRentalTotal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+
         javax.swing.GroupLayout rentalPanelLayout = new javax.swing.GroupLayout(rentalPanel);
         rentalPanel.setLayout(rentalPanelLayout);
         rentalPanelLayout.setHorizontalGroup(
@@ -527,10 +635,21 @@ public class PanelUser extends javax.swing.JPanel {
                 .addContainerGap())
             .addGroup(rentalPanelLayout.createSequentialGroup()
                 .addGap(40, 40, 40)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 509, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(rentalPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(rentalPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(rentalPanelLayout.createSequentialGroup()
+                        .addComponent(btnRentalAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(40, 40, 40)
+                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 509, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(rentalPanelLayout.createSequentialGroup()
+                        .addComponent(jLabel26)
+                        .addGap(18, 18, 18)
+                        .addComponent(txtRentalSearch)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnRentalSearch)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(rentalPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, rentalPanelLayout.createSequentialGroup()
                         .addGroup(rentalPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel20, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jLabel21, javax.swing.GroupLayout.Alignment.TRAILING)
@@ -544,12 +663,16 @@ public class PanelUser extends javax.swing.JPanel {
                             .addComponent(lblRentalName, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(lblRentalSeat, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(lblRentalPrice, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                    .addGroup(rentalPanelLayout.createSequentialGroup()
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, rentalPanelLayout.createSequentialGroup()
                         .addGroup(rentalPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel25)
                             .addComponent(jLabel27, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
-                        .addComponent(lblRentalImage, javax.swing.GroupLayout.PREFERRED_SIZE, 256, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(lblRentalImage, javax.swing.GroupLayout.PREFERRED_SIZE, 256, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, rentalPanelLayout.createSequentialGroup()
+                        .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(40, 40, 40)
+                        .addComponent(btnRentalPay, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(40, 40, 40))
         );
         rentalPanelLayout.setVerticalGroup(
@@ -557,13 +680,18 @@ public class PanelUser extends javax.swing.JPanel {
             .addGroup(rentalPanelLayout.createSequentialGroup()
                 .addGap(40, 40, 40)
                 .addComponent(jLabel19)
-                .addGap(40, 40, 40)
-                .addGroup(rentalPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGap(37, 37, 37)
+                .addGroup(rentalPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(rentalPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(jLabel20, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(lblRentalLicensePlate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(rentalPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel26)
+                        .addComponent(txtRentalSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnRentalSearch)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(rentalPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(rentalPanelLayout.createSequentialGroup()
-                        .addGroup(rentalPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jLabel20, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(lblRentalLicensePlate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(18, 18, 18)
                         .addGroup(rentalPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jLabel21, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(lblRentalBrand, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -573,14 +701,12 @@ public class PanelUser extends javax.swing.JPanel {
                             .addComponent(jLabel22, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(18, 18, 18)
                         .addGroup(rentalPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jLabel23)
-                            .addGroup(rentalPanelLayout.createSequentialGroup()
-                                .addComponent(lblRentalSeat, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addGap(3, 3, 3)))
+                            .addComponent(jLabel23, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(lblRentalSeat, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(18, 18, 18)
                         .addGroup(rentalPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jLabel24, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(lblRentalPrice, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(lblRentalPrice, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addGroup(rentalPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(rentalPanelLayout.createSequentialGroup()
@@ -589,7 +715,20 @@ public class PanelUser extends javax.swing.JPanel {
                                 .addComponent(jLabel27, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(lblRentalImage, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
-                .addContainerGap(182, Short.MAX_VALUE))
+                .addGroup(rentalPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(rentalPanelLayout.createSequentialGroup()
+                        .addGap(40, 40, 40)
+                        .addGroup(rentalPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(rentalPanelLayout.createSequentialGroup()
+                                .addGap(33, 33, 33)
+                                .addComponent(btnRentalAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(rentalPanelLayout.createSequentialGroup()
+                        .addGap(73, 73, 73)
+                        .addGroup(rentalPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(btnRentalPay, javax.swing.GroupLayout.DEFAULT_SIZE, 50, Short.MAX_VALUE)
+                            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                .addGap(40, 40, 40))
         );
 
         contentPanel.add(rentalPanel, "cardRental");
@@ -602,7 +741,7 @@ public class PanelUser extends javax.swing.JPanel {
         );
         historyPanelLayout.setVerticalGroup(
             historyPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 720, Short.MAX_VALUE)
+            .addGap(0, 726, Short.MAX_VALUE)
         );
 
         contentPanel.add(historyPanel, "cardHistory");
@@ -727,7 +866,18 @@ public class PanelUser extends javax.swing.JPanel {
         JOptionPane.showMessageDialog(this, "Lưu thông tin thành công!", "Hồ sơ", JOptionPane.INFORMATION_MESSAGE);
     }//GEN-LAST:event_btnProfileSaveActionPerformed
 
+    private void btnRentalSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRentalSearchActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnRentalSearchActionPerformed
+
+    private void btnRentalPayActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRentalPayActionPerformed
+        // TODO add your handling code here:
+        QRPay qr = new QRPay("36000000đ", "0559230145 CK");
+        qr.setVisible(true);
+    }//GEN-LAST:event_btnRentalPayActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JDialog QrPay;
     private javax.swing.JPanel btnHistory;
     private javax.swing.JPanel btnLogout;
     private javax.swing.JPanel btnProfile;
@@ -735,6 +885,9 @@ public class PanelUser extends javax.swing.JPanel {
     private javax.swing.JButton btnProfileEditUsername;
     private javax.swing.JButton btnProfileSave;
     private javax.swing.JPanel btnRental;
+    private javax.swing.JButton btnRentalAdd;
+    private javax.swing.JButton btnRentalPay;
+    private javax.swing.JButton btnRentalSearch;
     private javax.swing.JPanel contentPanel;
     private javax.swing.JPanel historyPanel;
     private javax.swing.JLabel jLabel1;
@@ -755,7 +908,10 @@ public class PanelUser extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel23;
     private javax.swing.JLabel jLabel24;
     private javax.swing.JLabel jLabel25;
+    private javax.swing.JLabel jLabel26;
     private javax.swing.JLabel jLabel27;
+    private javax.swing.JLabel jLabel28;
+    private javax.swing.JLabel jLabel29;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -763,9 +919,12 @@ public class PanelUser extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTable jTable1;
+    private javax.swing.JTable jTable2;
     private javax.swing.JLabel lblProfileStatus;
     private javax.swing.JLabel lblRentalBrand;
     private javax.swing.JLabel lblRentalImage;
@@ -773,6 +932,7 @@ public class PanelUser extends javax.swing.JPanel {
     private javax.swing.JLabel lblRentalName;
     private javax.swing.JLabel lblRentalPrice;
     private javax.swing.JLabel lblRentalSeat;
+    private javax.swing.JLabel lblRentalTotal;
     private javax.swing.JPanel mainPanel;
     private javax.swing.JPanel profilePanel;
     private javax.swing.JPanel rentalPanel;
@@ -784,5 +944,6 @@ public class PanelUser extends javax.swing.JPanel {
     private javax.swing.JPasswordField txtProfilePassword;
     private javax.swing.JTextField txtProfilePhone;
     private javax.swing.JTextField txtProfileUsername;
+    private javax.swing.JTextField txtRentalSearch;
     // End of variables declaration//GEN-END:variables
 }
