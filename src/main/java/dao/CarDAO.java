@@ -84,4 +84,21 @@ public class CarDAO {
         }
         return false;
     }
+
+    public boolean updateCar(int id, String licensePlate, String carBrand, String carName, int seatQuantityStr, int priceStr, String status, String image) throws SQLException {
+        String sql = "UPDATE CAR SET license_plate = ?, car_brand = ?, car_name = ?, seat = ?, price = ?, status = ?, image = ? WHERE id = ?";
+        try (Connection conn = SQLConnect.connect(); PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setString(1, licensePlate);
+            ps.setString(2, carBrand);
+            ps.setString(3, carName);
+            ps.setInt(4, seatQuantityStr);
+            ps.setInt(5, priceStr);
+            ps.setString(6, status);
+            ps.setString(7, image);
+            ps.setInt(8, id);
+
+            return ps.executeUpdate() > 0;
+        }
+    }
+
 }

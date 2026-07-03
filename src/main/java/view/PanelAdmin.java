@@ -1347,6 +1347,23 @@ public class PanelAdmin extends javax.swing.JPanel {
 
     private void btnCarEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCarEditActionPerformed
         // TODO add your handling code here:
+        int selectedRow = jTable2.getSelectedRow();
+        if (selectedRow == -1) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Vui lòng chọn 1 xe trên bảng để sửa!");
+            return;
+        }
+
+        int id = Integer.parseInt(carTableModel.getValueAt(selectedRow, 0).toString());
+        String licensePlateText = txtCarLicensePlate.getText();
+        String carBrandText = txtCarBrand.getText();
+        String carNameText = txtCarName.getText();
+        String seatQuantityText = spinnerCarSeat.getValue().toString();
+        String priceText = txtCarPrice.getText();
+        String statusText = cbCarStatus.getSelectedItem().toString();
+        String imageText = txtCarImageName.getText();
+        String res = carController.updateCar(id, licensePlateText, carBrandText, carNameText, seatQuantityText, priceText, statusText, imageText);
+        renderTableCar();
+        javax.swing.JOptionPane.showMessageDialog(this, res);
     }//GEN-LAST:event_btnCarEditActionPerformed
 
     private void btnCarClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCarClearActionPerformed

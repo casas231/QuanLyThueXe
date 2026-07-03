@@ -53,6 +53,21 @@ public class CarController {
         } finally {
             conn.close();
         }
+
+    }
+
+    public String updateCar(int id, String licensePlate, String carBrand, String carName, String seatQuantityStr, String priceStr, String status, String image) {
+        if (licensePlate.trim().isEmpty() || carBrand.trim().isEmpty() || carName.trim().isEmpty() || seatQuantityStr.equals("0") || priceStr.trim().isEmpty() || status.trim().isEmpty() || image.trim().isEmpty()) {
+            return "Thông tin không được để trống!";
+        }
+        int seatQuantity = Integer.parseInt(seatQuantityStr);
+        int price = Integer.parseInt(priceStr);
+        try {
+            boolean isUpdated = carDAO.updateCar(id, licensePlate, carBrand, carName, seatQuantity, price, status, image);
+            return isUpdated ? "Cập nhật xe thành công!" : "Không tìm thấy xe để cập nhật.";
+        } catch (SQLException e) {
+            return "Lỗi cập nhật: " + e.getMessage();
+        }
     }
 
     public String removeCar(int id) {
