@@ -5,12 +5,14 @@
 package view;
 
 import controller.CarController;
+import controller.ContractController;
 import controller.CustomerController;
 import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.Window;
 import java.io.File;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
@@ -28,8 +30,10 @@ public class PanelAdmin extends javax.swing.JPanel {
 
     private final CustomerController customerController = new CustomerController();
     private final CarController carController = new CarController();
+    private final ContractController contractController = new ContractController();
     private final DefaultTableModel customerTableModel;
     private final DefaultTableModel carTableModel;
+    private final DefaultTableModel contractTableModel;
 
     /**
      * Creates new form PanelAdmin
@@ -42,8 +46,10 @@ public class PanelAdmin extends javax.swing.JPanel {
         DateForeground.changeForeground(txtContractSearch);
         customerTableModel = (DefaultTableModel) jTable1.getModel();
         carTableModel = (DefaultTableModel) jTable2.getModel();
+        contractTableModel = (DefaultTableModel) jTable3.getModel();
         renderTableCustomer();
         renderTableCar();
+        renderTableContract();
     }
 
     /**
@@ -1068,11 +1074,11 @@ public class PanelAdmin extends javax.swing.JPanel {
 
             },
             new String [] {
-                "ID khách", "ID xe", "Ngày thuê", "Ngày trả", "Tổng tiền", "Trạng thái"
+                "ID", "ID khách", "ID xe", "Ngày thuê", "Ngày trả", "Tổng tiền", "Trạng thái"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false
+                false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -1087,6 +1093,7 @@ public class PanelAdmin extends javax.swing.JPanel {
             jTable3.getColumnModel().getColumn(3).setResizable(false);
             jTable3.getColumnModel().getColumn(4).setResizable(false);
             jTable3.getColumnModel().getColumn(5).setResizable(false);
+            jTable3.getColumnModel().getColumn(6).setResizable(false);
         }
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tìm theo ngày thuê", "Tìm theo ngày trả" }));
@@ -1479,9 +1486,41 @@ public class PanelAdmin extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_btnCustomerSearchActionPerformed
 
+    private void renderTableContract() {
+        contractTableModel.setRowCount(0);
+        try {
+            java.util.List<model.Contract> list = contractController.loadAllContract();
+            for (model.Contract c : list) {
+                contractTableModel.addRow(new Object[]{
+                    c.getId(), c.getCustomerId(), c.getCarId(), c.getStartDate(), c.getEndDate(), c.getTotalPrice(), c.getStatus()
+                });
+            }
+            jTable3.getColumnModel().getColumn(0).setMinWidth(0);
+            jTable3.getColumnModel().getColumn(0).setMaxWidth(0);
+            jTable3.getColumnModel().getColumn(0).setPreferredWidth(0);
+            lblTotalContract.setText(Integer.toString(list.size()));
+        } catch (Exception e) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Lỗi tải bảng hợp đồng: " + e.getMessage());
+        }
+    }
     private void btnContractAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnContractAddActionPerformed
         // TODO add your handling code here:
-        JOptionPane.showMessageDialog(carPanel, "Thêm hợp đồng thành công!");
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        String idCustomerText = txtContractCustomer.getText();
+        String idCarText = txtContractCar.getText();
+        String startDateText = sdf.format(txtContractStart.getDate());
+        String endDateText = sdf.format(txtContractEnd.getDate());
+        String contractPriceText = txtContractPrice.getText();
+        String contractStatusText = cbContractStatus.getSelectedItem().toString();
+
+        try {
+            String message = contractController.createContract(idCustomerText, idCarText, startDateText, endDateText, contractPriceText, contractStatusText);
+            renderTableContract();
+            JOptionPane.showMessageDialog(this, message);
+        } catch (Exception ex) {
+            System.err.println(ex);
+        }
+
     }//GEN-LAST:event_btnContractAddActionPerformed
 
     private void btnContractDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnContractDeleteActionPerformed
