@@ -1621,7 +1621,7 @@
                                   <EmptySpace type="separate" max="-2" attributes="0"/>
                                   <Component id="txtContractSearch" min="-2" pref="200" max="-2" attributes="0"/>
                                   <EmptySpace type="separate" max="-2" attributes="0"/>
-                                  <Component id="jButton1" min="-2" max="-2" attributes="0"/>
+                                  <Component id="btnContractSearch" min="-2" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                           <EmptySpace min="-2" pref="40" max="-2" attributes="0"/>
@@ -1638,7 +1638,7 @@
                               <Component id="jLabel30" min="-2" pref="64" max="-2" attributes="0"/>
                               <Component id="jComboBox1" min="-2" max="-2" attributes="0"/>
                               <Component id="txtContractSearch" min="-2" max="-2" attributes="0"/>
-                              <Component id="jButton1" min="-2" max="-2" attributes="0"/>
+                              <Component id="btnContractSearch" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace type="separate" min="-2" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
@@ -1905,6 +1905,9 @@
                           <TableHeader reorderingAllowed="true" resizingAllowed="true"/>
                         </Property>
                       </Properties>
+                      <Events>
+                        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jTable3MouseClicked"/>
+                      </Events>
                     </Component>
                   </SubComponents>
                 </Container>
@@ -1923,13 +1926,16 @@
                 </Component>
                 <Component class="com.toedter.calendar.JDateChooser" name="txtContractSearch">
                 </Component>
-                <Component class="javax.swing.JButton" name="jButton1">
+                <Component class="javax.swing.JButton" name="btnContractSearch">
                   <Properties>
                     <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="e1" green="4f" red="0" type="rgb"/>
                     </Property>
                     <Property name="text" type="java.lang.String" value="T&#xec;m"/>
                   </Properties>
+                  <Events>
+                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btnContractSearchMouseClicked"/>
+                  </Events>
                 </Component>
               </SubComponents>
             </Container>

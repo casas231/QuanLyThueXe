@@ -53,4 +53,61 @@ public class ContractController {
             return "Lỗi: " + e.getMessage();
         }
     }
+
+    public String updateContract(int id, String customerIdRaw, String carIdRaw, String startDate, String endDate, String totalPriceStr, String status) {
+        if (customerIdRaw.trim().isEmpty() || carIdRaw.trim().isEmpty() || startDate.trim().isEmpty() || endDate.trim().isEmpty() || totalPriceStr.trim().isEmpty()) {
+            return "Vui lòng nhập đầy đủ tất cả các thông tin hợp đồng!";
+        }
+
+        int customerID = Integer.parseInt(customerIdRaw.trim());
+        int carID = Integer.parseInt(carIdRaw.trim());
+        int totalPrice = Integer.parseInt(totalPriceStr.trim());
+
+        try {
+            int result = contractDAO.updateContract(id, customerID, carID, startDate, endDate, totalPrice, status);
+
+            switch (result) {
+                case -1:
+                    return "Lỗi hệ thống! Sửa hợp đồng thất bại.";
+                case -2:
+                    return "Sửa hợp đồng thất bại: Mã xe " + carID + " không tồn tại trên hệ thống!";
+                case -3:
+                    return "Sửa hợp đồng thất bại: Mã khách hàng " + customerID + " không tồn tại!";
+                default:
+                    if (result > 0) {
+                        return "Sửa hợp đồng thành công!";
+                    } else {
+                        return "Lỗi sửa hợp đồng.";
+                    }
+            }
+
+        } catch (SQLException e) {
+            System.err.println(e.getMessage());
+            return "Lỗi: " + e.getMessage();
+        }
+    }
+
+    public String removeContract(int id) {
+        try {
+            boolean isDeleted = contractDAO.deleteContract(id);
+            return isDeleted ? "Xóa hợp đồng thành công!" : "Xóa hợp đồng thất bại.";
+        } catch (SQLException e) {
+            System.err.println(e);
+            return "Không thể xóa hợp đồng";
+        }
+    }
+
+    public Contract fillContract(String option, String dateStr) throws SQLException {
+        Contract c = null;
+        switch (option) {
+            case "Tìm theo ngày thuê":
+                c = contractDAO.findContract("start_date", dateStr);
+                break;
+            case "Tìm theo ngày trả":
+                c = contractDAO.findContract("end_date", dateStr);
+                break;
+        }
+        return c;
+    }
+
 }
