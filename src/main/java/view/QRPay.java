@@ -6,6 +6,7 @@ package view;
 
 import com.formdev.flatlaf.themes.FlatMacDarkLaf;
 import javax.swing.JOptionPane;
+import utils.ImageHelper;
 
 /**
  *
@@ -22,6 +23,7 @@ public class QRPay extends javax.swing.JFrame {
         initComponents();
         setResizable(false);
         setLocationRelativeTo(null);
+        this.setIconImage(ImageHelper.getAppIcon());
         lblPayTotal.setText(total);
         lblPayContent.setText(content);
     }
@@ -46,6 +48,7 @@ public class QRPay extends javax.swing.JFrame {
         btnPayCompleted = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Thanh toán");
 
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/user/momo.png"))); // NOI18N
