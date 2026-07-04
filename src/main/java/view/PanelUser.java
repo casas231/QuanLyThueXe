@@ -1020,6 +1020,7 @@ public class PanelUser extends javax.swing.JPanel {
         try {
             Customer c = customerController.fillCustomerById(currentUserId);
             if (c == null) {
+                txtProfileUsername.setText(currentUserUsername);
                 UserSession.getInstance().setHasProfie(false);
                 return;
             }
@@ -1116,13 +1117,20 @@ public class PanelUser extends javax.swing.JPanel {
 
     private void btnProfileSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProfileSaveActionPerformed
         // TODO add your handling code here:
-        int customerId = Integer.parseInt(txtProfileId.getText());
-        int accountId = Integer.parseInt(txtProfileAccountId.getText());
+        String res = null;
+        System.out.println(UserSession.getInstance().isHasProfie());
 
+        int accountId = UserSession.getInstance().getUserId();
+        System.out.println(accountId);
         String newPassword = new String(txtProfilePassword.getPassword());
         String resChangePassword = authController.changePassword(accountId, newPassword);
+        if (UserSession.getInstance().isHasProfie() == false) {
+            res = customerController.createCustomerProfile(accountId, txtProfileName.getText(), txtProfilePhone.getText(), txtProfileID.getText(), txtProfileDriver.getText(), txtProfileAddress.getText());
+        } else {
+            int customerId = Integer.parseInt(txtProfileId.getText());
+            res = customerController.updateCustomer(customerId, txtProfileName.getText(), txtProfilePhone.getText(), txtProfileID.getText(), txtProfileDriver.getText(), txtProfileAddress.getText());
 
-        String res = customerController.updateCustomer(customerId, txtProfileName.getText(), txtProfilePhone.getText(), txtProfileID.getText(), txtProfileDriver.getText(), txtProfileAddress.getText());
+        }
 
         if (resChangePassword != null) {
             res = resChangePassword;

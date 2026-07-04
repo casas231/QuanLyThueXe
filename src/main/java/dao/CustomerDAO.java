@@ -167,4 +167,27 @@ public class CustomerDAO {
             return null;
         }
     }
+
+    public boolean insertCustomerProfile(int accountID, String fullName, String phone, String idNumber, String driverLicense, String address) throws SQLException {
+        String insertCustomerSQL = "INSERT INTO customer(account_id, name, phone, id_number, driver_license, address) VALUES(?, ?, ?, ?, ?, ?)";
+        Connection conn = null;
+        try {
+            conn = SQLConnect.connect();
+            PreparedStatement psCustomer = conn.prepareStatement(insertCustomerSQL);
+            psCustomer.setInt(1, accountID);
+            psCustomer.setString(2, fullName);
+            psCustomer.setString(3, phone);
+            psCustomer.setString(4, idNumber);
+            psCustomer.setString(5, driverLicense);
+            psCustomer.setString(6, address);
+            psCustomer.executeUpdate();
+            return true;
+        } catch (SQLException e) {
+            System.err.println(e);
+        } finally {
+            conn.close();
+        }
+        return false;
+    }
+
 }
