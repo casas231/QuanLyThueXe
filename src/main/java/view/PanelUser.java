@@ -4,12 +4,16 @@
  */
 package view;
 
+import controller.AuthController;
+import controller.CustomerController;
 import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.Window;
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
+import model.Customer;
 import utils.DateForeground;
+import utils.UserSession;
 
 /**
  *
@@ -17,12 +21,18 @@ import utils.DateForeground;
  */
 public class PanelUser extends javax.swing.JPanel {
 
+    private final CustomerController customerController = new CustomerController();
+    private final AuthController authController = new AuthController();
+
     /**
      * Creates new form PanelUser
      */
     public PanelUser() {
         initComponents();
         DateForeground.changeForeground(txtHistorySearch);
+        txtProfileId.setVisible(false);
+        txtProfileAccountId.setVisible(false);
+        getUserProfie();
     }
 
     /**
@@ -70,11 +80,12 @@ public class PanelUser extends javax.swing.JPanel {
         txtProfileAddress = new javax.swing.JTextArea();
         jLabel17 = new javax.swing.JLabel();
         jLabel18 = new javax.swing.JLabel();
-        btnProfileEditUsername = new javax.swing.JButton();
         btnProfileEditPassword = new javax.swing.JButton();
         btnProfileSave = new javax.swing.JButton();
         lblProfileStatus = new javax.swing.JLabel();
         txtProfilePassword = new javax.swing.JPasswordField();
+        txtProfileAccountId = new javax.swing.JTextField();
+        txtProfileId = new javax.swing.JTextField();
         rentalPanel = new javax.swing.JPanel();
         jLabel19 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
@@ -406,10 +417,6 @@ public class PanelUser extends javax.swing.JPanel {
         jLabel18.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel18.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/user/profile64.png"))); // NOI18N
 
-        btnProfileEditUsername.setBackground(new java.awt.Color(0, 79, 225));
-        btnProfileEditUsername.setText("Sửa");
-        btnProfileEditUsername.addActionListener(this::btnProfileEditUsernameActionPerformed);
-
         btnProfileEditPassword.setBackground(new java.awt.Color(0, 79, 225));
         btnProfileEditPassword.setText("Sửa");
         btnProfileEditPassword.addActionListener(this::btnProfileEditPasswordActionPerformed);
@@ -433,59 +440,68 @@ public class PanelUser extends javax.swing.JPanel {
             .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(profilePanelLayout.createSequentialGroup()
                 .addGroup(profilePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(profilePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addGroup(profilePanelLayout.createSequentialGroup()
-                            .addGap(40, 40, 40)
-                            .addGroup(profilePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jLabel11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jLabel12, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jLabel13, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jLabel14, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jLabel15, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jLabel16, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addGap(18, 18, 18)
-                            .addGroup(profilePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(profilePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addComponent(txtProfileDriver)
-                                    .addComponent(txtProfileID, javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(txtProfilePhone, javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 750, Short.MAX_VALUE)
-                                    .addComponent(txtProfileName, javax.swing.GroupLayout.Alignment.LEADING))
-                                .addGroup(profilePanelLayout.createSequentialGroup()
-                                    .addGroup(profilePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                        .addComponent(txtProfileUsername)
-                                        .addComponent(txtProfilePassword, javax.swing.GroupLayout.DEFAULT_SIZE, 614, Short.MAX_VALUE))
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 40, Short.MAX_VALUE)
-                                    .addGroup(profilePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(btnProfileEditPassword, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(btnProfileEditUsername, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                        .addGroup(profilePanelLayout.createSequentialGroup()
-                            .addGap(50, 50, 50)
-                            .addComponent(jLabel18, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(profilePanelLayout.createSequentialGroup()
+                        .addGroup(profilePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(profilePanelLayout.createSequentialGroup()
+                                .addGap(40, 40, 40)
+                                .addGroup(profilePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jLabel11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jLabel12, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jLabel13, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jLabel14, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jLabel15, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jLabel16, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                            .addGroup(profilePanelLayout.createSequentialGroup()
+                                .addGap(50, 50, 50)
+                                .addComponent(jLabel18, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(18, 18, 18)
+                        .addGroup(profilePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addGroup(profilePanelLayout.createSequentialGroup()
+                                .addGroup(profilePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(txtProfileAccountId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txtProfileId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(txtProfileDriver)
+                            .addComponent(txtProfileID, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtProfilePhone, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 750, Short.MAX_VALUE)
+                            .addComponent(txtProfileName, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, profilePanelLayout.createSequentialGroup()
+                                .addGroup(profilePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(txtProfileUsername)
+                                    .addComponent(txtProfilePassword, javax.swing.GroupLayout.DEFAULT_SIZE, 614, Short.MAX_VALUE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 40, Short.MAX_VALUE)
+                                .addComponent(btnProfileEditPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(profilePanelLayout.createSequentialGroup()
                         .addGap(385, 385, 385)
                         .addComponent(btnProfileSave, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(lblProfileStatus)))
-                .addContainerGap(43, Short.MAX_VALUE))
+                .addContainerGap(50, Short.MAX_VALUE))
         );
         profilePanelLayout.setVerticalGroup(
             profilePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(profilePanelLayout.createSequentialGroup()
                 .addGap(40, 40, 40)
                 .addComponent(jLabel3)
-                .addGap(20, 20, 20)
-                .addGroup(profilePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel18, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(20, 20, 20)
+                .addGroup(profilePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(profilePanelLayout.createSequentialGroup()
+                        .addGap(20, 20, 20)
+                        .addGroup(profilePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel18, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(20, 20, 20))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, profilePanelLayout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtProfileId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(15, 15, 15)
+                        .addComponent(txtProfileAccountId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)))
                 .addGroup(profilePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(txtProfileUsername)
-                    .addComponent(btnProfileEditUsername, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(txtProfileUsername))
                 .addGap(18, 18, 18)
                 .addGroup(profilePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addComponent(jLabel11, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -998,12 +1014,35 @@ public class PanelUser extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void getUserProfie() {
+        int currentUserId = UserSession.getInstance().getUserId();
+        String currentUserUsername = UserSession.getInstance().getUsername();
+        try {
+            Customer c = customerController.fillCustomerById(currentUserId);
+            if (c == null) {
+                UserSession.getInstance().setHasProfie(false);
+                return;
+            }
+            UserSession.getInstance().setHasProfie(true);
+            txtProfileId.setText(Integer.toString(c.getId()));
+            txtProfileAccountId.setText(Integer.toString(c.getAccountID()));
+            txtProfileUsername.setText(currentUserUsername);
+            txtProfileName.setText(c.getFullName());
+            txtProfilePhone.setText(c.getPhone());
+            txtProfileID.setText(c.getIdNumber());
+            txtProfileDriver.setText(c.getDriverLicense());
+            txtProfileAddress.setText(c.getAddress());
+        } catch (Exception e) {
+            System.err.println(e);
+        }
+
+    }
     private void btnProfileMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnProfileMousePressed
         // TODO add your handling code here:
         btnProfile.setBackground(new Color(51, 114, 231));
         btnRental.setBackground(new Color(0, 79, 225));
         btnHistory.setBackground(new Color(0, 79, 225));
-        
+
         CardLayout layout = (CardLayout) contentPanel.getLayout();
         layout.show(contentPanel, "cardProfile");
     }//GEN-LAST:event_btnProfileMousePressed
@@ -1013,7 +1052,7 @@ public class PanelUser extends javax.swing.JPanel {
         btnProfile.setBackground(new Color(0, 79, 225));
         btnRental.setBackground(new Color(51, 114, 231));
         btnHistory.setBackground(new Color(0, 79, 225));
-        
+
         CardLayout layout = (CardLayout) contentPanel.getLayout();
         layout.show(contentPanel, "cardRental");
     }//GEN-LAST:event_btnRentalMousePressed
@@ -1023,7 +1062,7 @@ public class PanelUser extends javax.swing.JPanel {
         btnProfile.setBackground(new Color(0, 79, 225));
         btnRental.setBackground(new Color(0, 79, 225));
         btnHistory.setBackground(new Color(51, 114, 231));
-        
+
         CardLayout layout = (CardLayout) contentPanel.getLayout();
         layout.show(contentPanel, "cardHistory");
     }//GEN-LAST:event_btnHistoryMousePressed
@@ -1037,13 +1076,6 @@ public class PanelUser extends javax.swing.JPanel {
         LoginFrame loginFrame = new LoginFrame();
         loginFrame.setVisible(true);
     }//GEN-LAST:event_btnLogoutMousePressed
-
-    private void btnProfileEditUsernameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProfileEditUsernameActionPerformed
-        // TODO add your handling code here:
-        lblProfileStatus.setText("Chưa lưu");
-        lblProfileStatus.setForeground(Color.red);
-        txtProfileUsername.setEnabled(true);
-    }//GEN-LAST:event_btnProfileEditUsernameActionPerformed
 
     private void btnProfileEditPasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProfileEditPasswordActionPerformed
         // TODO add your handling code here:
@@ -1084,11 +1116,23 @@ public class PanelUser extends javax.swing.JPanel {
 
     private void btnProfileSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProfileSaveActionPerformed
         // TODO add your handling code here:
+        int customerId = Integer.parseInt(txtProfileId.getText());
+        int accountId = Integer.parseInt(txtProfileAccountId.getText());
+
+        String newPassword = new String(txtProfilePassword.getPassword());
+        String resChangePassword = authController.changePassword(accountId, newPassword);
+
+        String res = customerController.updateCustomer(customerId, txtProfileName.getText(), txtProfilePhone.getText(), txtProfileID.getText(), txtProfileDriver.getText(), txtProfileAddress.getText());
+
+        if (resChangePassword != null) {
+            res = resChangePassword;
+        }
         lblProfileStatus.setText("Đã lưu");
         lblProfileStatus.setForeground(Color.green);
         txtProfileUsername.setEnabled(false);
         txtProfilePassword.setEnabled(false);
-        JOptionPane.showMessageDialog(this, "Lưu thông tin thành công!", "Hồ sơ", JOptionPane.INFORMATION_MESSAGE);
+        JOptionPane.showMessageDialog(this, res, "Hồ sơ", JOptionPane.INFORMATION_MESSAGE);
+        getUserProfie();
     }//GEN-LAST:event_btnProfileSaveActionPerformed
 
     private void btnRentalSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRentalSearchActionPerformed
@@ -1113,7 +1157,7 @@ public class PanelUser extends javax.swing.JPanel {
         lblHistoryStartDate.setText("");
         lblHistoryEndDate.setText("");
         lblHistoryTotal.setText("");
-        
+
     }//GEN-LAST:event_btnHistoryDeleteActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -1123,7 +1167,6 @@ public class PanelUser extends javax.swing.JPanel {
     private javax.swing.JPanel btnLogout;
     private javax.swing.JPanel btnProfile;
     private javax.swing.JButton btnProfileEditPassword;
-    private javax.swing.JButton btnProfileEditUsername;
     private javax.swing.JButton btnProfileSave;
     private javax.swing.JPanel btnRental;
     private javax.swing.JButton btnRentalAdd;
@@ -1203,9 +1246,11 @@ public class PanelUser extends javax.swing.JPanel {
     private javax.swing.JPanel rentalPanel;
     private javax.swing.JPanel sidePanel;
     private com.toedter.calendar.JDateChooser txtHistorySearch;
+    private javax.swing.JTextField txtProfileAccountId;
     private javax.swing.JTextArea txtProfileAddress;
     private javax.swing.JTextField txtProfileDriver;
     private javax.swing.JTextField txtProfileID;
+    private javax.swing.JTextField txtProfileId;
     private javax.swing.JTextField txtProfileName;
     private javax.swing.JPasswordField txtProfilePassword;
     private javax.swing.JTextField txtProfilePhone;

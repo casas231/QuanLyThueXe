@@ -10,13 +10,14 @@ import java.awt.Container;
 import java.awt.Window;
 import javax.swing.SwingUtilities;
 import model.User;
+import utils.UserSession;
 
 /**
  *
  * @author ducanh123
  */
 public class PanelLogin extends javax.swing.JPanel {
-    
+
     private AuthController authController = new AuthController();
 
     /**
@@ -128,13 +129,14 @@ public class PanelLogin extends javax.swing.JPanel {
         String passText = new String(txtPassword.getPassword());
         try {
             User loggedIn = authController.login(userText, passText);
-            
+
             if (loggedIn != null) {
                 lblWrong.setVisible(false);
                 Window frame = SwingUtilities.getWindowAncestor(this);
                 if (frame != null) {
                     frame.dispose();
                 }
+                UserSession.getInstance().createUserSession(loggedIn.getId(), loggedIn.getUsername());
                 MainFrame mainFrame = new MainFrame(loggedIn.getRole());
                 mainFrame.setVisible(true);
             }
@@ -150,7 +152,6 @@ public class PanelLogin extends javax.swing.JPanel {
         CardLayout layout = (CardLayout) parent.getLayout();
         layout.show(parent, "cardRegister");
     }//GEN-LAST:event_btnToRegisterActionPerformed
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnLogin;
