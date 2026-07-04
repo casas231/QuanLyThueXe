@@ -23,7 +23,8 @@ public class ContractDAO {
         List<Contract> list = new ArrayList<>();
         String sql = "SELECT * FROM CONTRACT";
 
-        try (Connection conn = SQLConnect.connect(); PreparedStatement ps = conn.prepareStatement(sql); ResultSet rs = ps.executeQuery()) {
+        try (Connection conn = SQLConnect.connect(); PreparedStatement ps = conn.prepareStatement(sql)) {
+            ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 Contract c = new Contract(
                         rs.getInt("id"),
@@ -168,12 +169,14 @@ public class ContractDAO {
         return false;
     }
 
-    public Contract findContract(String option, String value) throws SQLException {
+    public List<Contract> findContract(String option, String value) throws SQLException {
+        List<Contract> list = new ArrayList<>();
         String sql = "SELECT * FROM CONTRACT WHERE " + option + " = ?";
+        
         try (Connection conn = SQLConnect.connect(); PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setString(1, value);
             ResultSet rs = ps.executeQuery();
-            if (rs.next()) {
+            while (rs.next()) {
                 Contract c = new Contract(
                         rs.getInt("id"),
                         rs.getInt("customer_id"),
@@ -184,9 +187,9 @@ public class ContractDAO {
                         rs.getString("status")
                 );
 
-                return c;
+                list.add(c);
             }
-            return null;
         }
+        return list;
     }
 }

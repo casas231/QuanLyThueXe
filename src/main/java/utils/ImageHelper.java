@@ -30,7 +30,7 @@ public class ImageHelper {
             }
         }
         catch (Exception e) {
-            e.printStackTrace();
+            System.err.println(e);
             return null;
         }
     }
@@ -42,7 +42,7 @@ public class ImageHelper {
             return new ImageIcon(scaledImage);
         }
         catch (IOException e) {
-            e.printStackTrace();
+            System.err.println(e);
             return null;
         }
     }

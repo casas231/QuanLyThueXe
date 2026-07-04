@@ -15,7 +15,7 @@ import model.Contract;
  */
 public class ContractController {
 
-    private ContractDAO contractDAO = new ContractDAO();
+    private final ContractDAO contractDAO = new ContractDAO();
 
     public List<Contract> loadAllContract() throws Exception {
         return contractDAO.getAllContract();
@@ -97,17 +97,14 @@ public class ContractController {
         }
     }
 
-    public Contract fillContract(String option, String dateStr) throws SQLException {
-        Contract c = null;
-        switch (option) {
-            case "Tìm theo ngày thuê":
-                c = contractDAO.findContract("start_date", dateStr);
-                break;
-            case "Tìm theo ngày trả":
-                c = contractDAO.findContract("end_date", dateStr);
-                break;
+    public List<Contract> fillContract(String option, String dateStr) throws SQLException {
+        if (option.equals("Tìm theo ngày thuê")) {
+                return contractDAO.findContract("start_date", dateStr);
         }
-        return c;
+        else if (option.equals("Tìm theo ngày trả")) {
+                return contractDAO.findContract("end_date", dateStr);
+        }
+        return null;
     }
 
 }
