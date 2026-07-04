@@ -1611,12 +1611,12 @@
                               <Component id="jLabel30" alignment="0" min="-2" pref="64" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace pref="74" max="32767" attributes="0"/>
-                          <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
                               <Component id="jScrollPane4" min="-2" pref="529" max="-2" attributes="0"/>
                               <Group type="102" attributes="0">
                                   <Component id="cbContractSearch" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace type="separate" max="-2" attributes="0"/>
-                                  <Component id="txtContractSearch" min="-2" pref="200" max="-2" attributes="0"/>
+                                  <Component id="txtContractSearch" max="32767" attributes="0"/>
                                   <EmptySpace type="separate" max="-2" attributes="0"/>
                                   <Component id="btnContractSearch" min="-2" max="-2" attributes="0"/>
                               </Group>
@@ -1634,8 +1634,10 @@
                           <Group type="103" groupAlignment="1" attributes="0">
                               <Component id="jLabel30" min="-2" pref="64" max="-2" attributes="0"/>
                               <Component id="cbContractSearch" min="-2" max="-2" attributes="0"/>
-                              <Component id="txtContractSearch" min="-2" max="-2" attributes="0"/>
-                              <Component id="btnContractSearch" min="-2" max="-2" attributes="0"/>
+                              <Group type="103" alignment="1" groupAlignment="0" attributes="0">
+                                  <Component id="btnContractSearch" min="-2" max="-2" attributes="0"/>
+                                  <Component id="txtContractSearch" min="-2" max="-2" attributes="0"/>
+                              </Group>
                           </Group>
                           <EmptySpace type="separate" min="-2" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
@@ -1682,7 +1684,7 @@
                               </Group>
                               <Component id="jScrollPane4" min="-2" pref="461" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace max="32767" attributes="0"/>
+                          <EmptySpace pref="49" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>

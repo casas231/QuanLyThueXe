@@ -5,6 +5,7 @@
 package view;
 
 import com.formdev.flatlaf.themes.FlatMacDarkLaf;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import utils.ImageHelper;
 
@@ -23,6 +24,7 @@ public class QRPay extends javax.swing.JFrame {
         initComponents();
         setResizable(false);
         setLocationRelativeTo(null);
+        this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         this.setIconImage(ImageHelper.getAppIcon());
         lblPayTotal.setText(total);
         lblPayContent.setText(content);
@@ -147,7 +149,7 @@ public class QRPay extends javax.swing.JFrame {
     private void btnPayCompletedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPayCompletedActionPerformed
         // TODO add your handling code here:
         this.dispose();
-        JOptionPane.showMessageDialog(this, "Thanh toán thành công! Chúng tôi sẽ liên lạc với bạn trong khoảng 30-60 phút!", "Thanh toán", JOptionPane.INFORMATION_MESSAGE);
+        JOptionPane.showMessageDialog(this, "Chúng tôi sẽ liên lạc với bạn trong khoảng 30-60 phút sau khi ghi nhận thanh toán!", "Thanh toán", JOptionPane.INFORMATION_MESSAGE);
     }//GEN-LAST:event_btnPayCompletedActionPerformed
 
     /**
