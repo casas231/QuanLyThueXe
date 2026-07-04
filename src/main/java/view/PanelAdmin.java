@@ -5,17 +5,21 @@
 package view;
 
 import controller.CarController;
+import controller.ContractController;
 import controller.CustomerController;
 import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.Window;
 import java.io.File;
 import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 import javax.swing.table.DefaultTableModel;
+import model.Contract;
 import model.Customer;
 import utils.DateForeground;
 import utils.ImageHelper;
@@ -28,8 +32,10 @@ public class PanelAdmin extends javax.swing.JPanel {
 
     private final CustomerController customerController = new CustomerController();
     private final CarController carController = new CarController();
+    private final ContractController contractController = new ContractController();
     private final DefaultTableModel customerTableModel;
     private final DefaultTableModel carTableModel;
+    private final DefaultTableModel contractTableModel;
 
     /**
      * Creates new form PanelAdmin
@@ -42,8 +48,10 @@ public class PanelAdmin extends javax.swing.JPanel {
         DateForeground.changeForeground(txtContractSearch);
         customerTableModel = (DefaultTableModel) jTable1.getModel();
         carTableModel = (DefaultTableModel) jTable2.getModel();
+        contractTableModel = (DefaultTableModel) jTable3.getModel();
         renderTableCustomer();
         renderTableCar();
+        renderTableContract();
     }
 
     /**
@@ -163,7 +171,7 @@ public class PanelAdmin extends javax.swing.JPanel {
         jTable3 = new javax.swing.JTable();
         jComboBox1 = new javax.swing.JComboBox<>();
         txtContractSearch = new com.toedter.calendar.JDateChooser();
-        jButton1 = new javax.swing.JButton();
+        btnContractSearch = new javax.swing.JButton();
 
         sidePanel.setBackground(new java.awt.Color(0, 79, 225));
 
@@ -1068,15 +1076,20 @@ public class PanelAdmin extends javax.swing.JPanel {
 
             },
             new String [] {
-                "ID khách", "ID xe", "Ngày thuê", "Ngày trả", "Tổng tiền", "Trạng thái"
+                "ID", "ID khách", "ID xe", "Ngày thuê", "Ngày trả", "Tổng tiền", "Trạng thái"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false
+                false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
+            }
+        });
+        jTable3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTable3MouseClicked(evt);
             }
         });
         jScrollPane4.setViewportView(jTable3);
@@ -1087,12 +1100,18 @@ public class PanelAdmin extends javax.swing.JPanel {
             jTable3.getColumnModel().getColumn(3).setResizable(false);
             jTable3.getColumnModel().getColumn(4).setResizable(false);
             jTable3.getColumnModel().getColumn(5).setResizable(false);
+            jTable3.getColumnModel().getColumn(6).setResizable(false);
         }
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tìm theo ngày thuê", "Tìm theo ngày trả" }));
 
-        jButton1.setBackground(new java.awt.Color(0, 79, 225));
-        jButton1.setText("Tìm");
+        btnContractSearch.setBackground(new java.awt.Color(0, 79, 225));
+        btnContractSearch.setText("Tìm");
+        btnContractSearch.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnContractSearchMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout contractPanelLayout = new javax.swing.GroupLayout(contractPanel);
         contractPanel.setLayout(contractPanelLayout);
@@ -1139,7 +1158,7 @@ public class PanelAdmin extends javax.swing.JPanel {
                         .addGap(18, 18, 18)
                         .addComponent(txtContractSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(jButton1)))
+                        .addComponent(btnContractSearch)))
                 .addGap(40, 40, 40))
         );
         contractPanelLayout.setVerticalGroup(
@@ -1152,7 +1171,7 @@ public class PanelAdmin extends javax.swing.JPanel {
                     .addComponent(jLabel30, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtContractSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1))
+                    .addComponent(btnContractSearch))
                 .addGap(18, 18, 18)
                 .addGroup(contractPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(contractPanelLayout.createSequentialGroup()
@@ -1479,17 +1498,78 @@ public class PanelAdmin extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_btnCustomerSearchActionPerformed
 
+    private void renderTableContract() {
+        contractTableModel.setRowCount(0);
+        try {
+            java.util.List<model.Contract> list = contractController.loadAllContract();
+            for (model.Contract c : list) {
+                contractTableModel.addRow(new Object[]{
+                    c.getId(), c.getCustomerId(), c.getCarId(), c.getStartDate(), c.getEndDate(), c.getTotalPrice(), c.getStatus()
+                });
+            }
+            jTable3.getColumnModel().getColumn(0).setMinWidth(0);
+            jTable3.getColumnModel().getColumn(0).setMaxWidth(0);
+            jTable3.getColumnModel().getColumn(0).setPreferredWidth(0);
+            lblTotalContract.setText(Integer.toString(list.size()));
+        } catch (Exception e) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Lỗi tải bảng hợp đồng: " + e.getMessage());
+        }
+    }
     private void btnContractAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnContractAddActionPerformed
         // TODO add your handling code here:
-        JOptionPane.showMessageDialog(carPanel, "Thêm hợp đồng thành công!");
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        String idCustomerText = txtContractCustomer.getText();
+        String idCarText = txtContractCar.getText();
+        String startDateText = sdf.format(txtContractStart.getDate());
+        String endDateText = sdf.format(txtContractEnd.getDate());
+        String contractPriceText = txtContractPrice.getText();
+        String contractStatusText = cbContractStatus.getSelectedItem().toString();
+
+        try {
+            String message = contractController.createContract(idCustomerText, idCarText, startDateText, endDateText, contractPriceText, contractStatusText);
+            renderTableContract();
+            JOptionPane.showMessageDialog(this, message);
+        } catch (Exception ex) {
+            System.err.println(ex);
+        }
+
     }//GEN-LAST:event_btnContractAddActionPerformed
 
     private void btnContractDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnContractDeleteActionPerformed
         // TODO add your handling code here:
+        int selectedRow = jTable3.getSelectedRow();
+        if (selectedRow == -1) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Vui lòng chọn 1 hợp đồng để xóa!");
+            return;
+        }
+
+        int confirm = javax.swing.JOptionPane.showConfirmDialog(this, "Bạn có chắc muốn xóa hợp đồng này?", "Xác nhận", javax.swing.JOptionPane.YES_NO_OPTION);
+        if (confirm == javax.swing.JOptionPane.YES_OPTION) {
+            int id = Integer.parseInt(contractTableModel.getValueAt(selectedRow, 0).toString());
+            String res = contractController.removeContract(id);
+            renderTableContract();
+            javax.swing.JOptionPane.showMessageDialog(this, res);
+        }
     }//GEN-LAST:event_btnContractDeleteActionPerformed
 
     private void btnContractEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnContractEditActionPerformed
         // TODO add your handling code here:
+        int selectedRow = jTable3.getSelectedRow();
+        if (selectedRow == -1) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Vui lòng chọn 1 hợp đồng trên bảng để sửa!");
+            return;
+        }
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        int id = Integer.parseInt(contractTableModel.getValueAt(selectedRow, 0).toString());
+        String idCustomerText = txtContractCustomer.getText();
+        String idCarText = txtContractCar.getText();
+        String startDateText = sdf.format(txtContractStart.getDate());
+        String endDateText = sdf.format(txtContractEnd.getDate());
+        String contractPriceText = txtContractPrice.getText();
+        String contractStatusText = cbContractStatus.getSelectedItem().toString();
+        String res = contractController.updateContract(id, idCustomerText, idCarText, startDateText, endDateText, contractPriceText, contractStatusText);
+        renderTableContract();
+        javax.swing.JOptionPane.showMessageDialog(this, res);
     }//GEN-LAST:event_btnContractEditActionPerformed
 
     private void btnContractClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnContractClearActionPerformed
@@ -1541,6 +1621,50 @@ public class PanelAdmin extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_jTable2MouseClicked
 
+    private void jTable3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable3MouseClicked
+        // TODO add your handling code here:
+        int selectedRow = jTable3.getSelectedRow();
+        if (selectedRow != -1) {
+
+            txtContractCustomer.setText(contractTableModel.getValueAt(selectedRow, 1).toString());
+            txtContractCar.setText(contractTableModel.getValueAt(selectedRow, 2).toString());
+            try {
+                SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+                txtContractStart.setDate(sdf.parse(contractTableModel.getValueAt(selectedRow, 3).toString()));
+                txtContractEnd.setDate(sdf.parse(contractTableModel.getValueAt(selectedRow, 4).toString()));
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+            txtContractPrice.setText(contractTableModel.getValueAt(selectedRow, 5).toString());
+            cbContractStatus.setSelectedItem(contractTableModel.getValueAt(selectedRow, 6).toString());
+
+        }
+    }//GEN-LAST:event_jTable3MouseClicked
+
+    private void btnContractSearchMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnContractSearchMouseClicked
+        // TODO add your handling code here:
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        if (txtContractSearch.getDate() == null) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Vui lòng nhập ngày để tìm hợp đồng.");
+            return;
+        }
+        String fillerDate = sdf.format(txtContractSearch.getDate());
+        contractTableModel.setRowCount(0);
+        try {
+            Contract c = contractController.fillContract(jComboBox1.getSelectedItem().toString(), fillerDate);
+            if (c == null) {
+                javax.swing.JOptionPane.showMessageDialog(this, "Không tìm thấy hợp đồng");
+                renderTableContract();
+                return;
+            }
+            contractTableModel.addRow(new Object[]{
+                c.getId(), c.getCustomerId(), c.getCarId(), c.getStartDate(), c.getEndDate(), c.getTotalPrice(), c.getStatus()
+            });
+        } catch (SQLException e) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Lỗi tải bảng hợp đồng: " + e.getMessage());
+        }
+    }//GEN-LAST:event_btnContractSearchMouseClicked
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel btnCar;
     private javax.swing.JButton btnCarAdd;
@@ -1553,6 +1677,7 @@ public class PanelAdmin extends javax.swing.JPanel {
     private javax.swing.JButton btnContractClear;
     private javax.swing.JButton btnContractDelete;
     private javax.swing.JButton btnContractEdit;
+    private javax.swing.JButton btnContractSearch;
     private javax.swing.JPanel btnCustomer;
     private javax.swing.JButton btnCustomerAdd;
     private javax.swing.JButton btnCustomerClear;
@@ -1574,7 +1699,6 @@ public class PanelAdmin extends javax.swing.JPanel {
     private javax.swing.JPanel homePanelContractTitle;
     private javax.swing.JPanel homePanelCustomer;
     private javax.swing.JPanel homePanelCustomerTitle;
-    private javax.swing.JButton jButton1;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
