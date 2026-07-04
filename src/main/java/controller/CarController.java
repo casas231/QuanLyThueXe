@@ -27,6 +27,10 @@ public class CarController {
         return carDAO.getAllCar();
     }
 
+    public List<Car> loadAllCarUser() throws Exception {
+        return carDAO.getAllCarUser();
+    }
+
     public String createCar(String licensePlate, String carBrand, String carName, String seatQuantityStr, String priceStr, String status, String image) throws Exception {
 
         if (licensePlate.trim().isEmpty() || carBrand.trim().isEmpty() || carName.trim().isEmpty() || seatQuantityStr.equals("0") || priceStr.trim().isEmpty() || status.trim().isEmpty() || image.trim().isEmpty()) {
