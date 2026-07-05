@@ -18,6 +18,7 @@ import utils.SQLConnect;
  * @author Admin
  */
 public class ContractDAO {
+
     public List<Contract> getAllContract() throws SQLException {
         List<Contract> list = new ArrayList<>();
         String sql = "SELECT * FROM CONTRACT";
@@ -26,19 +27,19 @@ public class ContractDAO {
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 Contract c = new Contract(
-                    rs.getInt("id"),
-                    rs.getInt("customer_id"),
-                    rs.getInt("car_id"),
-                    rs.getString("start_date"),
-                    rs.getString("end_date"),
-                    rs.getInt("total_price"),
-                    rs.getString("status")
+                        rs.getInt("id"),
+                        rs.getInt("customer_id"),
+                        rs.getInt("car_id"),
+                        rs.getString("start_date"),
+                        rs.getString("end_date"),
+                        rs.getInt("total_price"),
+                        rs.getString("status")
                 );
 
                 list.add(c);
             }
         }
-        
+
         return list;
     }
 
@@ -47,16 +48,16 @@ public class ContractDAO {
         String existCarSQL = "SELECT * FROM CAR WHERE id = ?";
         String sql = "INSERT INTO CONTRACT(customer_id, car_id, start_date, end_date, total_price, status) VALUES(?,?,?,?,?,?) RETURNING id";
 
-        try (Connection conn = SQLConnect.connect()) {
-            PreparedStatement psExistCustomer = conn.prepareStatement(existCustomerSQL);
+        try (Connection conn = SQLConnect.connect(); PreparedStatement psExistCustomer = conn.prepareStatement(existCustomerSQL);) {
+
             psExistCustomer.setInt(1, customerID);
-            
+
             ResultSet rsCustomer = psExistCustomer.executeQuery();
             if (rsCustomer.next()) {
                 try {
                     PreparedStatement psExistCar = conn.prepareStatement(existCarSQL);
                     psExistCar.setInt(1, carID);
-                    
+
                     ResultSet rsCar = psExistCar.executeQuery();
                     if (rsCar.next()) {
                         try {
@@ -82,15 +83,15 @@ public class ContractDAO {
                     }
                     return -2;
                 } catch (SQLException e) {
-                    System.err.println(e.getMessage());  
+                    System.err.println(e.getMessage());
                     return -1;
                 }
-            }   
+            }
             return -3;
         } catch (SQLException e) {
             System.err.println(e.getMessage());
         }
-        
+
         return -1;
     }
 
@@ -102,13 +103,13 @@ public class ContractDAO {
         try (Connection conn = SQLConnect.connect()) {
             PreparedStatement psExistCustomer = conn.prepareStatement(existCustomerSQL);
             psExistCustomer.setInt(1, customerID);
-            
+
             ResultSet rsCustomer = psExistCustomer.executeQuery();
             if (rsCustomer.next()) {
                 try {
                     PreparedStatement psExistCar = conn.prepareStatement(existCarSQL);
                     psExistCar.setInt(1, carID);
-                    
+
                     ResultSet rsCar = psExistCar.executeQuery();
                     if (rsCar.next()) {
                         try {
@@ -129,18 +130,18 @@ public class ContractDAO {
                             System.err.println(e.getMessage());
                             return -1;
                         }
-                    }    
+                    }
                     return -2;
                 } catch (SQLException e) {
-                    System.err.println(e.getMessage());          
+                    System.err.println(e.getMessage());
                     return -1;
                 }
-            }    
+            }
             return -3;
         } catch (SQLException e) {
             System.err.println(e.getMessage());
         }
-        
+
         return -1;
     }
 
@@ -154,32 +155,32 @@ public class ContractDAO {
         } catch (SQLException e) {
             System.err.println(e.getMessage());
         }
-        
+
         return false;
     }
 
     public List<Contract> findContract(String option, String value) throws SQLException {
         List<Contract> list = new ArrayList<>();
         String sql = "SELECT * FROM CONTRACT WHERE " + option + " = ?";
-        
+
         try (Connection conn = SQLConnect.connect(); PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setString(1, value);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 Contract c = new Contract(
-                    rs.getInt("id"),
-                    rs.getInt("customer_id"),
-                    rs.getInt("car_id"),
-                    rs.getString("start_date"),
-                    rs.getString("end_date"),
-                    rs.getInt("total_price"),
-                    rs.getString("status")
+                        rs.getInt("id"),
+                        rs.getInt("customer_id"),
+                        rs.getInt("car_id"),
+                        rs.getString("start_date"),
+                        rs.getString("end_date"),
+                        rs.getInt("total_price"),
+                        rs.getString("status")
                 );
 
                 list.add(c);
             }
         }
-        
+
         return list;
     }
 }

@@ -6,16 +6,21 @@ package view;
 
 import controller.AuthController;
 import controller.CarController;
+import controller.ContractController;
 import controller.CustomerController;
 import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.Window;
 import java.io.File;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.List;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 import javax.swing.table.DefaultTableModel;
+import model.Car;
 import model.Customer;
 import utils.DateForeground;
 import utils.ImageHelper;
@@ -26,12 +31,14 @@ import utils.UserSession;
  * @author ducanh123
  */
 public class PanelUser extends javax.swing.JPanel {
-    
+
     private final CustomerController customerController = new CustomerController();
     private final AuthController authController = new AuthController();
     private final CarController carController = new CarController();
+    private final ContractController contractController = new ContractController();
 
     private final DefaultTableModel carTableModel;
+    private final DefaultTableModel carSelectTableModel;
 
     /**
      * Creates new form PanelUser
@@ -45,6 +52,7 @@ public class PanelUser extends javax.swing.JPanel {
         txtProfileAccountId.setVisible(false);
         txtRentalImageName.setVisible(false);
         carTableModel = (DefaultTableModel) jTable1.getModel();
+        carSelectTableModel = (DefaultTableModel) jTable2.getModel();
         getUserProfie();
         renderTableCar();
     }
@@ -565,11 +573,11 @@ public class PanelUser extends javax.swing.JPanel {
 
             },
             new String [] {
-                "ID", "Biển số", "Hãng xe", "Tên xe", "Số chỗ", "Phí thuê", "Ảnh xe"
+                "ID", "Biển số", "Hãng xe", "Tên xe", "Số chỗ", "Phí thuê", "Trạng thái", "Ảnh xe"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false
+                false, false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -590,6 +598,7 @@ public class PanelUser extends javax.swing.JPanel {
             jTable1.getColumnModel().getColumn(4).setResizable(false);
             jTable1.getColumnModel().getColumn(5).setResizable(false);
             jTable1.getColumnModel().getColumn(6).setResizable(false);
+            jTable1.getColumnModel().getColumn(7).setResizable(false);
         }
 
         jLabel20.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
@@ -636,11 +645,11 @@ public class PanelUser extends javax.swing.JPanel {
 
             },
             new String [] {
-                "ID", "Biển số"
+                "ID", "Biển số", "Ngày thuê", "Ngày trả"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false
+                false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -651,11 +660,17 @@ public class PanelUser extends javax.swing.JPanel {
         if (jTable2.getColumnModel().getColumnCount() > 0) {
             jTable2.getColumnModel().getColumn(0).setResizable(false);
             jTable2.getColumnModel().getColumn(1).setResizable(false);
+            jTable2.getColumnModel().getColumn(2).setResizable(false);
         }
 
         btnRentalAdd.setBackground(new java.awt.Color(0, 79, 225));
         btnRentalAdd.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         btnRentalAdd.setText("Lựa chọn xe");
+        btnRentalAdd.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnRentalAddMouseClicked(evt);
+            }
+        });
 
         btnRentalPay.setBackground(new java.awt.Color(0, 79, 225));
         btnRentalPay.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
@@ -680,7 +695,7 @@ public class PanelUser extends javax.swing.JPanel {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(lblRentalTotal, javax.swing.GroupLayout.DEFAULT_SIZE, 186, Short.MAX_VALUE)
+                .addComponent(lblRentalTotal, javax.swing.GroupLayout.DEFAULT_SIZE, 251, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -702,6 +717,11 @@ public class PanelUser extends javax.swing.JPanel {
         btnRentalDelete.setBackground(new java.awt.Color(0, 79, 225));
         btnRentalDelete.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         btnRentalDelete.setText("Xóa xe");
+        btnRentalDelete.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnRentalDeleteMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout rentalPanelLayout = new javax.swing.GroupLayout(rentalPanel);
         rentalPanel.setLayout(rentalPanelLayout);
@@ -716,9 +736,9 @@ public class PanelUser extends javax.swing.JPanel {
                 .addGroup(rentalPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(rentalPanelLayout.createSequentialGroup()
                         .addGroup(rentalPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(btnRentalAdd, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)
+                            .addComponent(btnRentalAdd, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(btnRentalDelete, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(40, 40, 40)
+                        .addGap(18, 18, 18)
                         .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                     .addGroup(rentalPanelLayout.createSequentialGroup()
                         .addComponent(jLabel26)
@@ -727,42 +747,43 @@ public class PanelUser extends javax.swing.JPanel {
                         .addGap(18, 18, 18)
                         .addComponent(btnRentalSearch))
                     .addComponent(jScrollPane2))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 44, Short.MAX_VALUE)
                 .addGroup(rentalPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, rentalPanelLayout.createSequentialGroup()
-                        .addGroup(rentalPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(jLabel41, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel42, javax.swing.GroupLayout.DEFAULT_SIZE, 170, Short.MAX_VALUE))
-                        .addGap(18, 18, 18)
-                        .addGroup(rentalPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(txtRentalStartDate, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
-                            .addComponent(txtRentalEndDate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, rentalPanelLayout.createSequentialGroup()
-                        .addGroup(rentalPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel25)
-                            .addComponent(jLabel27, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtRentalImageName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addComponent(lblRentalImage, javax.swing.GroupLayout.PREFERRED_SIZE, 256, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, rentalPanelLayout.createSequentialGroup()
+                    .addGroup(rentalPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, rentalPanelLayout.createSequentialGroup()
+                            .addGroup(rentalPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(jLabel41, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jLabel42, javax.swing.GroupLayout.DEFAULT_SIZE, 170, Short.MAX_VALUE))
+                            .addGap(18, 18, 18)
+                            .addGroup(rentalPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(txtRentalStartDate, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
+                                .addComponent(txtRentalEndDate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, rentalPanelLayout.createSequentialGroup()
+                            .addGroup(rentalPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel25)
+                                .addComponent(jLabel27, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(txtRentalImageName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGap(18, 18, 18)
+                            .addComponent(lblRentalImage, javax.swing.GroupLayout.PREFERRED_SIZE, 256, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, rentalPanelLayout.createSequentialGroup()
+                            .addGroup(rentalPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(jLabel20)
+                                .addComponent(jLabel21)
+                                .addComponent(jLabel22)
+                                .addComponent(jLabel23)
+                                .addComponent(jLabel24, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGap(18, 18, 18)
+                            .addGroup(rentalPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(lblRentalLicensePlate, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
+                                .addComponent(lblRentalBrand, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(lblRentalName, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(lblRentalSeat, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(lblRentalPrice, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                    .addGroup(rentalPanelLayout.createSequentialGroup()
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(42, 42, 42)
-                        .addComponent(btnRentalPay, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, rentalPanelLayout.createSequentialGroup()
-                        .addGroup(rentalPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel20)
-                            .addComponent(jLabel21)
-                            .addComponent(jLabel22)
-                            .addComponent(jLabel23)
-                            .addComponent(jLabel24, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(rentalPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(lblRentalLicensePlate, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
-                            .addComponent(lblRentalBrand, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(lblRentalName, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(lblRentalSeat, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(lblRentalPrice, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                .addGap(40, 40, 40))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnRentalPay, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(17, 17, 17))
         );
         rentalPanelLayout.setVerticalGroup(
             rentalPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1091,7 +1112,7 @@ public class PanelUser extends javax.swing.JPanel {
             System.err.println(e.getMessage());
         }
     }
-    
+
     private void btnProfileMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnProfileMousePressed
         // TODO add your handling code here:
         btnProfile.setBackground(new Color(51, 114, 231));
@@ -1175,7 +1196,7 @@ public class PanelUser extends javax.swing.JPanel {
         int accountId = UserSession.getInstance().getUserId();
         String newPassword = new String(txtProfilePassword.getPassword());
         String resChangePassword = authController.changePassword(accountId, newPassword);
-        
+
         if (UserSession.getInstance().isHasProfie() == false) {
             res = customerController.createCustomerProfile(accountId, txtProfileName.getText(), txtProfilePhone.getText(), txtProfileID.getText(), txtProfileDriver.getText(), txtProfileAddress.getText());
         } else {
@@ -1186,7 +1207,7 @@ public class PanelUser extends javax.swing.JPanel {
         if (resChangePassword != null) {
             res = resChangePassword;
         }
-        
+
         lblProfileStatus.setText("Đã lưu");
         lblProfileStatus.setForeground(Color.green);
         txtProfileUsername.setEnabled(false);
@@ -1197,28 +1218,95 @@ public class PanelUser extends javax.swing.JPanel {
 
     private void renderTableCar() {
         carTableModel.setRowCount(0);
-        
+
         try {
             java.util.List<model.Car> list = carController.loadAllCarUser();
             for (model.Car c : list) {
                 carTableModel.addRow(new Object[]{
-                    c.getId(), c.getLicensePlate(), c.getCarBrand(), c.getCarName(), c.getSeatQuantity(), c.getPrice(), c.getImage()
+                    c.getId(), c.getLicensePlate(), c.getCarBrand(), c.getCarName(), c.getSeatQuantity(), c.getPrice(), c.getStatus(), c.getImage()
                 });
             }
             jTable1.getColumnModel().getColumn(6).setMinWidth(0);
             jTable1.getColumnModel().getColumn(6).setMaxWidth(0);
             jTable1.getColumnModel().getColumn(6).setPreferredWidth(0);
+            jTable1.getColumnModel().getColumn(7).setMinWidth(0);
+            jTable1.getColumnModel().getColumn(7).setMaxWidth(0);
+            jTable1.getColumnModel().getColumn(7).setPreferredWidth(0);
         } catch (Exception e) {
             javax.swing.JOptionPane.showMessageDialog(this, "Lỗi tải bảng xe: " + e.getMessage());
         }
     }
     private void btnRentalSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRentalSearchActionPerformed
         // TODO add your handling code here:
+        if (txtRentalSearch.getText().trim().equals("")) {
+            JOptionPane.showMessageDialog(this, "Vui lòng nhập hãng xe để lọc!");
+            renderTableCar();
+            return;
+        }
+        try {
+            carTableModel.setRowCount(0);
+            List<Car> listCar = carController.fillCarByBrand(txtRentalSearch.getText());
+            for (model.Car c : listCar) {
+                carTableModel.addRow(new Object[]{
+                    c.getId(), c.getLicensePlate(), c.getCarBrand(), c.getCarName(), c.getSeatQuantity(), c.getPrice(), c.getStatus(), c.getImage()
+                });
+            }
+            jTable1.getColumnModel().getColumn(6).setMinWidth(0);
+            jTable1.getColumnModel().getColumn(6).setMaxWidth(0);
+            jTable1.getColumnModel().getColumn(6).setPreferredWidth(0);
+            jTable1.getColumnModel().getColumn(7).setMinWidth(0);
+            jTable1.getColumnModel().getColumn(7).setMaxWidth(0);
+            jTable1.getColumnModel().getColumn(7).setPreferredWidth(0);
+        } catch (Exception e) {
+            System.err.println(e);
+        }
     }//GEN-LAST:event_btnRentalSearchActionPerformed
 
     private void btnRentalPayActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRentalPayActionPerformed
         // TODO add your handling code here:
-        QRPay qr = new QRPay("36000000đ", "0559230145 CK");
+
+        if (UserSession.getInstance().isHasProfie() == false) {
+            JOptionPane.showMessageDialog(this, "Vui lòng nhập thông tin cá nhân!");
+            return;
+        }
+        if (caculateTotal(carTableModel, carSelectTableModel) == 0) {
+            JOptionPane.showMessageDialog(this, "Vui lòng chọn xe để thuê!");
+            return;
+        }
+        if (txtRentalStartDate.getDate() == null || txtRentalEndDate.getDate() == null) {
+            JOptionPane.showMessageDialog(this, "Vui lòng nhập đầy đủ thời gian thuê!");
+            return;
+        }
+        int currentUserId = UserSession.getInstance().getUserId();
+        try {
+            Customer c = customerController.fillCustomerById(currentUserId);
+            if (c != null) {
+                for (int i = 0; i < carSelectTableModel.getRowCount(); i++) {
+                    String carID = carSelectTableModel.getValueAt(i, 0).toString();
+                    try {
+                        Car car = carController.fillCarById(Integer.parseInt(carID));
+                        String startDateSelectTable = carSelectTableModel.getValueAt(i, 2).toString();
+                        String endDateSelectTable = carSelectTableModel.getValueAt(i, 3).toString();
+                        try {
+                            String res = contractController.createContract(Integer.toString(c.getId()), carID, startDateSelectTable, endDateSelectTable, Integer.toString(caculateTotal(carTableModel, carSelectTableModel)), "Chờ duyệt");
+                            if (res.equals("Thêm mới hợp đồng thành công!")) {
+                                String resUpdateCar = carController.updateCar(Integer.parseInt(carID), car.getLicensePlate(), car.getCarBrand(), car.getCarName(), Integer.toString(car.getSeatQuantity()), Integer.toString(car.getPrice()), "Đang thuê", car.getImage());
+                                renderTableCar();
+                            }
+                        } catch (Exception e) {
+                            System.err.println(e);
+                        }
+                    } catch (Exception e) {
+                        System.err.println(e);
+                    }
+
+                }
+            }
+        } catch (Exception e) {
+            System.err.println(e);
+        }
+
+        QRPay qr = new QRPay(Integer.toString(caculateTotal(carTableModel, carSelectTableModel)), txtProfilePhone.getText() + " CK");
         qr.setVisible(true);
     }//GEN-LAST:event_btnRentalPayActionPerformed
 
@@ -1240,17 +1328,17 @@ public class PanelUser extends javax.swing.JPanel {
     private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
         // TODO add your handling code here:
         int selectedRow = jTable1.getSelectedRow();
-        
+
         if (selectedRow != -1) {
             lblRentalLicensePlate.setText(carTableModel.getValueAt(selectedRow, 1).toString());
             lblRentalBrand.setText(carTableModel.getValueAt(selectedRow, 2).toString());
             lblRentalName.setText(carTableModel.getValueAt(selectedRow, 3).toString());
             lblRentalSeat.setText(carTableModel.getValueAt(selectedRow, 4).toString());
             lblRentalPrice.setText(carTableModel.getValueAt(selectedRow, 5).toString());
-            txtRentalImageName.setText(carTableModel.getValueAt(selectedRow, 6).toString());
-            
+            txtRentalImageName.setText(carTableModel.getValueAt(selectedRow, 7).toString());
+
             File imageFile = new File("src/main/resources/image/car/" + txtRentalImageName.getText());
-            
+
             if (imageFile != null) {
                 int width = lblRentalImage.getWidth();
                 int height = lblRentalImage.getHeight();
@@ -1258,7 +1346,95 @@ public class PanelUser extends javax.swing.JPanel {
                 lblRentalImage.setIcon(image);
             }
         }
+
     }//GEN-LAST:event_jTable1MouseClicked
+
+    private boolean isCarDuplicate(DefaultTableModel model, int idToCheck) {
+        for (int i = 0; i < model.getRowCount(); i++) {
+            int idInTable = (Integer) model.getValueAt(i, 0);
+            if (idInTable == idToCheck) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private long caculateDay(String startDate, String endDate) {
+        SimpleDateFormat sdf = new SimpleDateFormat("d/M/yyyy");
+        try {
+            Date date1 = sdf.parse(startDate);
+            Date date2 = sdf.parse(endDate);
+            long diff = date2.getTime() - date1.getTime();
+            long days = diff / (1000 * 60 * 60 * 24);
+            return days;
+        } catch (Exception e) {
+            System.err.println(e);
+        }
+        return 0;
+    }
+
+    private int caculateTotal(DefaultTableModel tableCar, DefaultTableModel selectTable) {
+        int total = 0;
+        for (int i = 0; i < selectTable.getRowCount(); i++) {
+            int idSelectTable = (Integer) selectTable.getValueAt(i, 0);
+            String startDateSelectTable = selectTable.getValueAt(i, 2).toString();
+            String endDateSelectTable = selectTable.getValueAt(i, 3).toString();
+            for (int j = 0; j < tableCar.getRowCount(); j++) {
+                int idTableCar = (Integer) tableCar.getValueAt(j, 0);
+                if (idSelectTable == idTableCar) {
+                    int price = (Integer) tableCar.getValueAt(j, 5);
+                    total += price * caculateDay(startDateSelectTable, endDateSelectTable);
+                }
+            }
+        }
+        return total;
+    }
+    private void btnRentalAddMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnRentalAddMouseClicked
+        // TODO add your handling code here:
+
+        if (txtRentalStartDate.getDate() == null || txtRentalEndDate.getDate() == null) {
+            JOptionPane.showMessageDialog(this, "Vui lòng nhập đầy đủ thời gian thuê trước khi chọn xe!");
+            return;
+        }
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        String startDateText = sdf.format(txtRentalStartDate.getDate());
+        String endDateText = sdf.format(txtRentalEndDate.getDate());
+        if (caculateDay(startDateText, endDateText) < 1) {
+            JOptionPane.showMessageDialog(this, "Vui lòng nhập thời gian thuê hợp lệ!");
+            return;
+        }
+        int selectedRow = jTable1.getSelectedRow();
+        if (selectedRow == -1) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Vui lòng chọn 1 xe trên bảng!");
+            return;
+        }
+
+        int id = Integer.parseInt(carTableModel.getValueAt(selectedRow, 0).toString());
+        int price = Integer.parseInt(carTableModel.getValueAt(selectedRow, 5).toString());
+        String licensePlateText = lblRentalLicensePlate.getText();
+        if (isCarDuplicate(carSelectTableModel, id)) {
+            JOptionPane.showMessageDialog(this, "Xe này đã được thêm trước đó!");
+        } else {
+            carSelectTableModel.addRow(new Object[]{
+                id, licensePlateText, startDateText, endDateText
+            });
+        }
+        String textHienThi = String.format("Tổng tiền: %,d đ", caculateTotal(carTableModel, carSelectTableModel));
+        lblRentalTotal.setText(textHienThi);
+
+    }//GEN-LAST:event_btnRentalAddMouseClicked
+
+    private void btnRentalDeleteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnRentalDeleteMouseClicked
+        // TODO add your handling code here:
+        int selectedRow = jTable2.getSelectedRow();
+        if (selectedRow != -1) {
+            carSelectTableModel.removeRow(selectedRow);
+            String textHienThi = String.format("Tổng tiền: %,d đ", caculateTotal(carTableModel, carSelectTableModel));
+            lblRentalTotal.setText(textHienThi);
+        } else {
+            JOptionPane.showMessageDialog(this, "Vui lòng chọn một dòng để xóa!");
+        }
+    }//GEN-LAST:event_btnRentalDeleteMouseClicked
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JDialog QrPay;

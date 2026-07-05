@@ -9,12 +9,14 @@ package utils;
  * @author tanghaian
  */
 public class UserSession {
+
     private static UserSession instance;
     private int id;
     private String username;
     private boolean hasProfie;
 
-    private UserSession() {}
+    private UserSession() {
+    }
 
     public static UserSession getInstance() {
         if (instance == null) {
@@ -32,7 +34,9 @@ public class UserSession {
         this.id = 0;
     }
 
-    public int getUserId() { return id; }
+    public int getUserId() {
+        return id;
+    }
 
     public String getUsername() {
         return username;
@@ -41,7 +45,7 @@ public class UserSession {
     public void setUsername(String username) {
         this.username = username;
     }
-    
+
     public boolean isHasProfie() {
         return hasProfie;
     }

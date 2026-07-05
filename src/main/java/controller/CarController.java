@@ -16,6 +16,7 @@ import utils.SQLConnect;
  * @author Admin
  */
 public class CarController {
+
     private final CarDAO carDAO;
 
     public CarController() {
@@ -57,10 +58,10 @@ public class CarController {
         if (licensePlate.trim().isEmpty() || carBrand.trim().isEmpty() || carName.trim().isEmpty() || seatQuantityStr.equals("0") || priceStr.trim().isEmpty() || status.trim().isEmpty() || image.trim().isEmpty()) {
             return "Thông tin không được để trống!";
         }
-        
+
         int seatQuantity = Integer.parseInt(seatQuantityStr);
         int price = Integer.parseInt(priceStr);
-        
+
         try {
             boolean isUpdated = carDAO.updateCar(id, licensePlate, carBrand, carName, seatQuantity, price, status, image);
             return isUpdated ? "Cập nhật xe thành công!" : "Không tìm thấy xe để cập nhật.";
@@ -77,5 +78,14 @@ public class CarController {
             System.err.println(e.getMessage());
             return "Không thể xóa xe";
         }
+    }
+
+    public List<Car> fillCarByBrand(String brand) throws SQLException {
+        return carDAO.findCarByBrand(brand);
+    }
+
+    public Car fillCarById(int id) throws SQLException {
+        Car c = carDAO.findCarById(id);
+        return c;
     }
 }
