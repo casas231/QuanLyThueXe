@@ -14,7 +14,6 @@ public class UserSession {
     private String username;
     private boolean hasProfie;
 
-
     private UserSession() {}
 
     public static UserSession getInstance() {
@@ -50,7 +49,4 @@ public class UserSession {
     public void setHasProfie(boolean hasProfie) {
         this.hasProfie = hasProfie;
     }
-    
-    
-  
 }

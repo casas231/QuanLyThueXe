@@ -9,7 +9,6 @@ package model;
  * @author Admin
  */
 public class Car {
-
     private int id;
     private String licensePlate;
     private String carBrand;
@@ -103,5 +102,4 @@ public class Car {
     public void setStatus(String status) {
         this.status = status;
     }
-
 }

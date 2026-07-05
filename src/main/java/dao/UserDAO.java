@@ -27,60 +27,63 @@ public class UserDAO {
             try (ResultSet rs = pstmt.executeQuery()) {
                 if (rs.next()) {
                     return new User(
-                            rs.getInt("id"),
-                            rs.getString("username"),
-                            rs.getString("password"),
-                            rs.getString("role")
+                        rs.getInt("id"),
+                        rs.getString("username"),
+                        rs.getString("password"),
+                        rs.getString("role")
                     );
                 }
             }
         } catch (SQLException e) {
-            System.err.println(e);
+            System.err.println(e.getMessage());
         }
+        
         return null;
     }
 
     public int insertUser(Connection conn, User user) throws SQLException {
         String sql = "INSERT INTO ACCOUNT(username, password, role) VALUES(?,?,?) RETURNING id";
+        
         try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
             int generatedId = -1;
+            
             pstmt.setString(1, user.getUsername());
             pstmt.setString(2, user.getPassword());
             pstmt.setString(3, "user");
+            
             try (ResultSet rs = pstmt.executeQuery()) {
                 if (rs.next()) {
                     generatedId = rs.getInt("id");
                 }
             }
+            
             return generatedId;
         } catch (SQLException e) {
-            System.err.println(e);
+            System.err.println(e.getMessage());
             return -1;
         }
     }
 
     public boolean deleteUser(int accountID, Connection conn) throws SQLException {
         String sql = "DELETE FROM ACCOUNT WHERE id = ?";
+        
         try (PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setInt(1, accountID);
             return ps.executeUpdate() > 0;
         }
     }
 
-    public boolean updatePassword(Connection conn, int id, String password) throws SQLException {
+    public boolean updatePassword(Connection conn, int id, String password) {
         String sql = "UPDATE ACCOUNT SET password = ? WHERE id = ?";
-        try {
-            PreparedStatement pstmt = conn.prepareStatement(sql);
+        
+        try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setString(1, password);
             pstmt.setInt(2, id);
 
             return pstmt.executeUpdate() > 0;
-
-        } catch (Exception e) {
-            System.err.println(e);
+        } catch (SQLException e) {
+            System.err.println(e.getMessage());
             return false;
-        } finally {
-            conn.close();
         }
     }
 }

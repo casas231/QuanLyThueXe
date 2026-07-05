@@ -13,7 +13,6 @@ import view.LoginFrame;
  * @author ducanh123
  */
 public class QuanLyThueXe {
-    
     public static void main(String[] args) {
         FlatMacDarkLaf.setup();
         EventQueue.invokeLater(new Runnable() {

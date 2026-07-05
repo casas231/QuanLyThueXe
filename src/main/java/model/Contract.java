@@ -9,7 +9,6 @@ package model;
  * @author Admin
  */
 public class Contract {
-
     private int id;
     private int customerId;
     private int carId;

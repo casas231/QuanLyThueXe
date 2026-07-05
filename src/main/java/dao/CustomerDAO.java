@@ -27,59 +27,75 @@ public class CustomerDAO {
         try (Connection conn = SQLConnect.connect(); PreparedStatement ps = conn.prepareStatement(sql); ResultSet rs = ps.executeQuery()) {
             while (rs.next()) {
                 Customer c = new Customer(
-                        rs.getInt("id"),
-                        rs.getInt("account_id"),
-                        rs.getString("name"),
-                        rs.getString("phone"),
-                        rs.getString("id_number"),
-                        rs.getString("driver_license"),
-                        rs.getString("address")
+                    rs.getInt("id"),
+                    rs.getInt("account_id"),
+                    rs.getString("name"),
+                    rs.getString("phone"),
+                    rs.getString("id_number"),
+                    rs.getString("driver_license"),
+                    rs.getString("address")
                 );
                 list.add(c);
             }
         }
+        
         return list;
     }
 
-    public boolean insertCustomer(User user, String fullName, String phone, String idNumber, String driverLicense, String address) throws SQLException {
+    public boolean insertCustomer(User user, String fullName, String phone, String idNumber, String driverLicense, String address) {
         String insertCustomerSQL = "INSERT INTO customer(account_id, name, phone, id_number, driver_license, address) VALUES(?, ?, ?, ?, ?, ?)";
         Connection conn = null;
         try {
             conn = SQLConnect.connect();
             conn.setAutoCommit(false);
+            
             UserDAO userDAO = new UserDAO();
             int generatedUserId = userDAO.insertUser(conn, user);
-            if (generatedUserId != -1) {
-                PreparedStatement psCustomer = conn.prepareStatement(insertCustomerSQL);
+            
+            if (generatedUserId == -1) {
+                conn.rollback();
+                return false;
+            }
+            try (PreparedStatement psCustomer = conn.prepareStatement(insertCustomerSQL)) {
                 psCustomer.setInt(1, generatedUserId);
                 psCustomer.setString(2, fullName);
                 psCustomer.setString(3, phone);
                 psCustomer.setString(4, idNumber);
                 psCustomer.setString(5, driverLicense);
                 psCustomer.setString(6, address);
+                
                 psCustomer.executeUpdate();
-                conn.commit();
-                return true;
+
             }
+            
+            conn.commit();
+            return true;
         } catch (SQLException e) {
             if (conn != null) {
                 try {
                     conn.rollback();
                 } catch (SQLException ex) {
-                    System.err.println(ex);
+                    System.err.println(ex.getMessage());
                 }
             }
-            System.err.println(e);
+            
+            System.err.println(e.getMessage());
+            return false;
         } finally {
             if (conn != null) {
-                conn.close();
+                try {
+                    conn.close();
+                }
+                catch (SQLException e) {
+                    System.err.println(e.getMessage());
+                }
             }
         }
-        return false;
     }
 
     public boolean updateCustomer(int id, String fullName, String phone, String idNumber, String driverLicense, String address) throws SQLException {
         String sql = "UPDATE CUSTOMER SET name = ?, phone = ?, id_number = ?, driver_license = ?, address = ? WHERE id = ?";
+        
         try (Connection conn = SQLConnect.connect(); PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setString(1, fullName);
             ps.setString(2, phone);
@@ -94,12 +110,15 @@ public class CustomerDAO {
 
     public boolean deleteCustomer(int id, int accountID) throws SQLException {
         String sql = "DELETE FROM CUSTOMER WHERE id = ?";
+        
         Connection conn = null;
         try {
             conn = SQLConnect.connect();
             conn.setAutoCommit(false);
+            
             UserDAO userDAO = new UserDAO();
             boolean isSuccess = userDAO.deleteUser(accountID, conn);
+            
             if (isSuccess) {
                 PreparedStatement psCustomer = conn.prepareStatement(sql);
                 psCustomer.setInt(1, id);
@@ -112,67 +131,71 @@ public class CustomerDAO {
                 try {
                     conn.rollback();
                 } catch (SQLException ex) {
-                    System.err.println(ex);
+                    System.err.println(ex.getMessage());
                 }
             }
-            System.err.println(e);
+            System.err.println(e.getMessage());
         } finally {
             if (conn != null) {
                 conn.close();
             }
         }
+        
         return false;
     }
 
     public Customer findCustomer(String idNumber) throws SQLException {
         String sql = "SELECT * FROM CUSTOMER WHERE id_number = ?";
+        
         try (Connection conn = SQLConnect.connect(); PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setString(1, idNumber);
             ResultSet rs = ps.executeQuery();
+            
             if (rs.next()) {
                 Customer c = new Customer(
-                        rs.getInt("id"),
-                        rs.getInt("account_id"),
-                        rs.getString("name"),
-                        rs.getString("phone"),
-                        rs.getString("id_number"),
-                        rs.getString("driver_license"),
-                        rs.getString("address")
+                    rs.getInt("id"),
+                    rs.getInt("account_id"),
+                    rs.getString("name"),
+                    rs.getString("phone"),
+                    rs.getString("id_number"),
+                    rs.getString("driver_license"),
+                    rs.getString("address")
                 );
-
                 return c;
             }
+            
             return null;
         }
     }
 
     public Customer findCustomerById(int id) throws SQLException {
         String sql = "SELECT * FROM CUSTOMER WHERE account_id = ?";
+        
         try (Connection conn = SQLConnect.connect(); PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setInt(1, id);
             ResultSet rs = ps.executeQuery();
+            
             if (rs.next()) {
                 Customer c = new Customer(
-                        rs.getInt("id"),
-                        rs.getInt("account_id"),
-                        rs.getString("name"),
-                        rs.getString("phone"),
-                        rs.getString("id_number"),
-                        rs.getString("driver_license"),
-                        rs.getString("address")
+                    rs.getInt("id"),
+                    rs.getInt("account_id"),
+                    rs.getString("name"),
+                    rs.getString("phone"),
+                    rs.getString("id_number"),
+                    rs.getString("driver_license"),
+                    rs.getString("address")
                 );
-
                 return c;
             }
+            
             return null;
         }
     }
 
-    public boolean insertCustomerProfile(int accountID, String fullName, String phone, String idNumber, String driverLicense, String address) throws SQLException {
+    public boolean insertCustomerProfile(int accountID, String fullName, String phone, String idNumber, String driverLicense, String address) {
         String insertCustomerSQL = "INSERT INTO customer(account_id, name, phone, id_number, driver_license, address) VALUES(?, ?, ?, ?, ?, ?)";
-        Connection conn = null;
-        try {
-            conn = SQLConnect.connect();
+        
+        try (Connection conn = SQLConnect.connect()) {
             PreparedStatement psCustomer = conn.prepareStatement(insertCustomerSQL);
             psCustomer.setInt(1, accountID);
             psCustomer.setString(2, fullName);
@@ -183,10 +206,9 @@ public class CustomerDAO {
             psCustomer.executeUpdate();
             return true;
         } catch (SQLException e) {
-            System.err.println(e);
-        } finally {
-            conn.close();
+            System.err.println(e.getMessage());
         }
+        
         return false;
     }
 

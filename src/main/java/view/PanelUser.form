@@ -425,11 +425,11 @@
                                       <Component id="txtProfileName" alignment="0" max="32767" attributes="0"/>
                                       <Group type="102" alignment="0" attributes="0">
                                           <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                              <Component id="txtProfileUsername" max="32767" attributes="0"/>
-                                              <Component id="txtProfilePassword" pref="614" max="32767" attributes="0"/>
+                                              <Component id="txtProfileUsername" pref="609" max="32767" attributes="0"/>
+                                              <Component id="txtProfilePassword" max="32767" attributes="0"/>
                                           </Group>
-                                          <EmptySpace pref="40" max="32767" attributes="0"/>
-                                          <Component id="btnProfileEditPassword" min="-2" pref="96" max="-2" attributes="0"/>
+                                          <EmptySpace max="32767" attributes="0"/>
+                                          <Component id="btnProfileEditPassword" min="-2" max="-2" attributes="0"/>
                                       </Group>
                                   </Group>
                               </Group>
@@ -440,7 +440,7 @@
                                   <Component id="lblProfileStatus" min="-2" max="-2" attributes="0"/>
                               </Group>
                           </Group>
-                          <EmptySpace pref="50" max="32767" attributes="0"/>
+                          <EmptySpace pref="43" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -648,7 +648,7 @@
                     <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="e1" green="4f" red="0" type="rgb"/>
                     </Property>
-                    <Property name="text" type="java.lang.String" value="S&#x1eed;a"/>
+                    <Property name="text" type="java.lang.String" value="&#x110;&#x1ed5;i m&#x1ead;t kh&#x1ea9;u"/>
                   </Properties>
                   <Events>
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnProfileEditPasswordActionPerformed"/>

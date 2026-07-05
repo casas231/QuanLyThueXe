@@ -28,7 +28,7 @@ import utils.ImageHelper;
  * @author ducanh123
  */
 public class PanelAdmin extends javax.swing.JPanel {
-
+    
     private final CustomerController customerController = new CustomerController();
     private final CarController carController = new CarController();
     private final ContractController contractController = new ContractController();
@@ -1340,7 +1340,7 @@ public class PanelAdmin extends javax.swing.JPanel {
             renderTableCar();
             JOptionPane.showMessageDialog(this, message);
         } catch (Exception ex) {
-            System.err.println(ex);
+            System.err.println(ex.getMessage());
         }
 
         btnCarClearActionPerformed(evt);
@@ -1432,7 +1432,7 @@ public class PanelAdmin extends javax.swing.JPanel {
             renderTableCustomer();
             JOptionPane.showMessageDialog(this, message);
         } catch (Exception ex) {
-            System.err.println(ex);
+            System.err.println(ex.getMessage());
         }
         
         btnCustomerClearActionPerformed(evt);
@@ -1541,7 +1541,7 @@ public class PanelAdmin extends javax.swing.JPanel {
             renderTableContract();
             JOptionPane.showMessageDialog(this, message);
         } catch (Exception ex) {
-            System.err.println(ex);
+            System.err.println(ex.getMessage());
         }
         
         btnContractClearActionPerformed(evt);
@@ -1647,7 +1647,7 @@ public class PanelAdmin extends javax.swing.JPanel {
                 txtContractStart.setDate(sdf.parse(contractTableModel.getValueAt(selectedRow, 3).toString()));
                 txtContractEnd.setDate(sdf.parse(contractTableModel.getValueAt(selectedRow, 4).toString()));
             } catch (ParseException e) {
-                System.err.println(e);
+                System.err.println(e.getMessage());
             }
             txtContractPrice.setText(contractTableModel.getValueAt(selectedRow, 5).toString());
             cbContractStatus.setSelectedItem(contractTableModel.getValueAt(selectedRow, 6).toString());

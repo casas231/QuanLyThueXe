@@ -11,6 +11,7 @@ import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.Window;
 import java.io.File;
+import java.sql.SQLException;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
@@ -25,7 +26,7 @@ import utils.UserSession;
  * @author ducanh123
  */
 public class PanelUser extends javax.swing.JPanel {
-
+    
     private final CustomerController customerController = new CustomerController();
     private final AuthController authController = new AuthController();
     private final CarController carController = new CarController();
@@ -430,7 +431,7 @@ public class PanelUser extends javax.swing.JPanel {
         jLabel18.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/user/profile64.png"))); // NOI18N
 
         btnProfileEditPassword.setBackground(new java.awt.Color(0, 79, 225));
-        btnProfileEditPassword.setText("Sửa");
+        btnProfileEditPassword.setText("Đổi mật khẩu");
         btnProfileEditPassword.addActionListener(this::btnProfileEditPasswordActionPerformed);
 
         btnProfileSave.setBackground(new java.awt.Color(0, 79, 225));
@@ -482,16 +483,16 @@ public class PanelUser extends javax.swing.JPanel {
                             .addComponent(txtProfileName, javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, profilePanelLayout.createSequentialGroup()
                                 .addGroup(profilePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(txtProfileUsername)
-                                    .addComponent(txtProfilePassword, javax.swing.GroupLayout.DEFAULT_SIZE, 614, Short.MAX_VALUE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 40, Short.MAX_VALUE)
-                                .addComponent(btnProfileEditPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                    .addComponent(txtProfileUsername, javax.swing.GroupLayout.DEFAULT_SIZE, 609, Short.MAX_VALUE)
+                                    .addComponent(txtProfilePassword))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(btnProfileEditPassword))))
                     .addGroup(profilePanelLayout.createSequentialGroup()
                         .addGap(385, 385, 385)
                         .addComponent(btnProfileSave, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(lblProfileStatus)))
-                .addContainerGap(50, Short.MAX_VALUE))
+                .addContainerGap(43, Short.MAX_VALUE))
         );
         profilePanelLayout.setVerticalGroup(
             profilePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1051,11 +1052,11 @@ public class PanelUser extends javax.swing.JPanel {
             txtProfileID.setText(c.getIdNumber());
             txtProfileDriver.setText(c.getDriverLicense());
             txtProfileAddress.setText(c.getAddress());
-        } catch (Exception e) {
-            System.err.println(e);
+        } catch (SQLException e) {
+            System.err.println(e.getMessage());
         }
-
     }
+    
     private void btnProfileMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnProfileMousePressed
         // TODO add your handling code here:
         btnProfile.setBackground(new Color(51, 114, 231));
@@ -1135,21 +1136,22 @@ public class PanelUser extends javax.swing.JPanel {
 
     private void btnProfileSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProfileSaveActionPerformed
         // TODO add your handling code here:
-        String res = null;
+        String res;
         int accountId = UserSession.getInstance().getUserId();
         String newPassword = new String(txtProfilePassword.getPassword());
         String resChangePassword = authController.changePassword(accountId, newPassword);
+        
         if (UserSession.getInstance().isHasProfie() == false) {
             res = customerController.createCustomerProfile(accountId, txtProfileName.getText(), txtProfilePhone.getText(), txtProfileID.getText(), txtProfileDriver.getText(), txtProfileAddress.getText());
         } else {
             int customerId = Integer.parseInt(txtProfileId.getText());
             res = customerController.updateCustomer(customerId, txtProfileName.getText(), txtProfilePhone.getText(), txtProfileID.getText(), txtProfileDriver.getText(), txtProfileAddress.getText());
-
         }
 
         if (resChangePassword != null) {
             res = resChangePassword;
         }
+        
         lblProfileStatus.setText("Đã lưu");
         lblProfileStatus.setForeground(Color.green);
         txtProfileUsername.setEnabled(false);
@@ -1160,6 +1162,7 @@ public class PanelUser extends javax.swing.JPanel {
 
     private void renderTableCar() {
         carTableModel.setRowCount(0);
+        
         try {
             java.util.List<model.Car> list = carController.loadAllCarUser();
             for (model.Car c : list) {
@@ -1202,15 +1205,17 @@ public class PanelUser extends javax.swing.JPanel {
     private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
         // TODO add your handling code here:
         int selectedRow = jTable1.getSelectedRow();
+        
         if (selectedRow != -1) {
-
             lblRentalLicensePlate.setText(carTableModel.getValueAt(selectedRow, 1).toString());
             lblRentalBrand.setText(carTableModel.getValueAt(selectedRow, 2).toString());
             lblRentalName.setText(carTableModel.getValueAt(selectedRow, 3).toString());
             lblRentalSeat.setText(carTableModel.getValueAt(selectedRow, 4).toString());
             lblRentalPrice.setText(carTableModel.getValueAt(selectedRow, 5).toString());
             txtRentalImageName.setText(carTableModel.getValueAt(selectedRow, 6).toString());
+            
             File imageFile = new File("src/main/resources/image/car/" + txtRentalImageName.getText());
+            
             if (imageFile != null) {
                 int width = lblRentalImage.getWidth();
                 int height = lblRentalImage.getHeight();

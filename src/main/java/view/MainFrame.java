@@ -25,7 +25,7 @@ public class MainFrame extends javax.swing.JFrame {
         setLocationRelativeTo(null);
         this.setIconImage(ImageHelper.getAppIcon());
         CardLayout layout = (CardLayout) parentFrame.getLayout();
-        if (role.equals("admin")) {
+        if ("admin".equals(role)) {
             layout.show(parentFrame, "cardAdmin");
         }
         else {

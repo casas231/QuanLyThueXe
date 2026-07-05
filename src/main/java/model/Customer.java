@@ -9,7 +9,6 @@ package model;
  * @author Admin
  */
 public class Customer {
-
     private int id;
     private int accountID;
     private String fullName;

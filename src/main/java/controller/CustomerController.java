@@ -16,7 +16,6 @@ import model.User;
  * @author Admin
  */
 public class CustomerController {
-
     private final CustomerDAO customerDAO;
 
     public CustomerController() {
@@ -34,6 +33,7 @@ public class CustomerController {
 
         String generatedUsername = Normalizer.normalize(fullName, Normalizer.Form.NFD).toLowerCase().replace("đ", "d").replaceAll("\\W", "") + idNumber;
         User newUser = new User(generatedUsername, "123456", "user");
+        
         boolean isSuccess = customerDAO.insertCustomer(newUser, fullName, phone, idNumber, driverLicense, address);
         if (isSuccess) {
             return "Thêm khách hàng thành công!";
@@ -46,6 +46,7 @@ public class CustomerController {
         if (fullName.trim().isEmpty() || phone.trim().isEmpty() || idNumber.trim().isEmpty() || driverLicense.trim().isEmpty() || address.trim().isEmpty()) {
             return "Thông tin không được để trống!";
         }
+        
         try {
             boolean isUpdated = customerDAO.updateCustomer(id, fullName, phone, idNumber, driverLicense, address);
             return isUpdated ? "Cập nhật thông tin thành công!" : "Không tìm thấy khách hàng để cập nhật.";
@@ -59,7 +60,7 @@ public class CustomerController {
             boolean isDeleted = customerDAO.deleteCustomer(id, accountID);
             return isDeleted ? "Xóa khách hàng thành công!" : "Xóa khách hàng thất bại.";
         } catch (SQLException e) {
-            System.err.println(e);
+            System.err.println(e.getMessage());
             return "Không thể xóa khách hàng";
         }
     }
@@ -82,7 +83,7 @@ public class CustomerController {
         try {
             boolean isSuccess = customerDAO.insertCustomerProfile(accountID, fullName, phone, idNumber, driverLicense, address);
             return isSuccess ? "Thêm thông tin thành công!" : "Thêm thông tin thất bại!";
-        } catch (SQLException e) {
+        } catch (Exception e) {
             return "Lỗi thêm thông tin: " + e.getMessage();
         }
     }

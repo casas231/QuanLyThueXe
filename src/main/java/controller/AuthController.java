@@ -15,7 +15,6 @@ import utils.SQLConnect;
  * @author Admin
  */
 public class AuthController {
-
     private final UserDAO userDAO;
 
     public AuthController() {
@@ -59,7 +58,7 @@ public class AuthController {
                 return "Tài khoản đã tồn tại trên hệ thống!";
             }
         } catch (SQLException e) {
-            System.err.println(e);
+            System.err.println(e.getMessage());
             return "Lỗi hệ thông";
         }
     }
@@ -73,15 +72,18 @@ public class AuthController {
             return "Mật khẩu phải từ 6 ký tự trở lên!";
         }
 
-        Connection conn = null;
         try {
-            conn = SQLConnect.connect();
+            Connection conn = SQLConnect.connect();
+            
             boolean isSuccess = userDAO.updatePassword(conn, id, password);
-
+            if (!isSuccess) {
+                return "Không thể đổi mật khẩu!";
+            }
         } catch (Exception e) {
-            System.err.println(e);
+            System.err.println(e.getMessage());
             return "Lỗi hệ thông";
         }
+        
         return null;
     }
 }

@@ -13,7 +13,6 @@ import java.awt.Color;
  * @author ducanh123
  */
 public class DateForeground {
-    
     public static void changeForeground(JDateChooser dateChooser) {
         dateChooser.getDateEditor().setEnabled(false);
         JTextFieldDateEditor editor = (JTextFieldDateEditor) dateChooser.getDateEditor();

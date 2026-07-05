@@ -14,7 +14,6 @@ import model.Contract;
  * @author Admin
  */
 public class ContractController {
-
     private final ContractDAO contractDAO = new ContractDAO();
 
     public List<Contract> loadAllContract() throws Exception {
@@ -33,22 +32,15 @@ public class ContractController {
         try {
             int result = contractDAO.insertContract(customerID, carID, startDate, endDate, totalPrice, status);
 
-            switch (result) {
-                case -1:
-                    return "Lỗi hệ thống! Thêm hợp đồng thất bại.";
-                case -2:
-                    return "Thêm thất bại: Mã xe " + carID + " không tồn tại trên hệ thống!";
-                case -3:
-                    return "Thêm thất bại: Mã khách hàng " + customerID + " không tồn tại!";
-                default:
-                    if (result > 0) {
-                        return "Thêm mới hợp đồng thành công!";
-                    } else {
-                        return "Lỗi thêm hợp đồng.";
-                    }
-            }
-
-        } catch (SQLException e) {
+            return switch (result) {
+                case -1 -> "Lỗi hệ thống! Thêm hợp đồng thất bại.";
+                case -2 -> "Thêm thất bại: Mã xe " + carID + " không tồn tại trên hệ thống!";
+                case -3 -> "Thêm thất bại: Mã khách hàng " + customerID + " không tồn tại!";
+                default -> result > 0
+                    ? "Thêm mới hợp đồng thành công!"
+                    : "Lỗi thêm hợp đồng.";
+            };
+        } catch (Exception e) {
             System.err.println(e.getMessage());
             return "Lỗi: " + e.getMessage();
         }
@@ -66,22 +58,15 @@ public class ContractController {
         try {
             int result = contractDAO.updateContract(id, customerID, carID, startDate, endDate, totalPrice, status);
 
-            switch (result) {
-                case -1:
-                    return "Lỗi hệ thống! Sửa hợp đồng thất bại.";
-                case -2:
-                    return "Sửa hợp đồng thất bại: Mã xe " + carID + " không tồn tại trên hệ thống!";
-                case -3:
-                    return "Sửa hợp đồng thất bại: Mã khách hàng " + customerID + " không tồn tại!";
-                default:
-                    if (result > 0) {
-                        return "Sửa hợp đồng thành công!";
-                    } else {
-                        return "Lỗi sửa hợp đồng.";
-                    }
-            }
-
-        } catch (SQLException e) {
+            return switch (result) {
+                case -1 -> "Lỗi hệ thống! Sửa hợp đồng thất bại.";
+                case -2 -> "Sửa hợp đồng thất bại: Mã xe " + carID + " không tồn tại trên hệ thống!";
+                case -3 -> "Sửa hợp đồng thất bại: Mã khách hàng " + customerID + " không tồn tại!";
+                default -> result > 0
+                    ? "Sửa hợp đồng thành công!"
+                    : "Lỗi sửa hợp đồng.";
+            };
+        } catch (Exception e) {
             System.err.println(e.getMessage());
             return "Lỗi: " + e.getMessage();
         }
@@ -91,20 +76,20 @@ public class ContractController {
         try {
             boolean isDeleted = contractDAO.deleteContract(id);
             return isDeleted ? "Xóa hợp đồng thành công!" : "Xóa hợp đồng thất bại.";
-        } catch (SQLException e) {
-            System.err.println(e);
+        } catch (Exception e) {
+            System.err.println(e.getMessage());
             return "Không thể xóa hợp đồng";
         }
     }
 
     public List<Contract> fillContract(String option, String dateStr) throws SQLException {
         if (option.equals("Tìm theo ngày thuê")) {
-                return contractDAO.findContract("start_date", dateStr);
+            return contractDAO.findContract("start_date", dateStr);
         }
         else if (option.equals("Tìm theo ngày trả")) {
-                return contractDAO.findContract("end_date", dateStr);
+            return contractDAO.findContract("end_date", dateStr);
         }
+        
         return null;
     }
-
 }

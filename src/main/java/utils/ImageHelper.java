@@ -17,20 +17,16 @@ import javax.swing.ImageIcon;
  *
  * @author ducanh123
  */
-public class ImageHelper {
-    
+public class ImageHelper {    
     public static Image getAppIcon() {
         try {
             URL urlIcon = ImageHelper.class.getResource("/image/kma.png");
             if (urlIcon != null) {
                 return Toolkit.getDefaultToolkit().createImage(urlIcon);
             }
-            else {
-                return null;
-            }
-        }
-        catch (Exception e) {
-            System.err.println(e);
+            else return null;
+        } catch (Exception e) {
+            System.err.println(e.getMessage());
             return null;
         }
     }
@@ -40,9 +36,8 @@ public class ImageHelper {
             BufferedImage orginalImage = ImageIO.read(imageFile);
             Image scaledImage = orginalImage.getScaledInstance(width, height, Image.SCALE_SMOOTH);
             return new ImageIcon(scaledImage);
-        }
-        catch (IOException e) {
-            System.err.println(e);
+        } catch (IOException e) {
+            System.err.println(e.getMessage());
             return null;
         }
     }
