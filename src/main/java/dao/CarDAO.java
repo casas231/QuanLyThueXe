@@ -66,6 +66,31 @@ public class CarDAO {
         return list;
     }
 
+    public List<Car> getAllCarUser() throws SQLException {
+        List<Car> list = new ArrayList<>();
+        String sql = "SELECT * FROM CAR WHERE status = ?";
+
+        try (Connection conn = SQLConnect.connect(); PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setString(1, "Sẵn sàng");
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Car c = new Car(
+                        rs.getInt("id"),
+                        rs.getString("license_plate"),
+                        rs.getString("car_brand"),
+                        rs.getString("car_name"),
+                        rs.getInt("seat"),
+                        rs.getInt("price"),
+                        rs.getString("status"),
+                        rs.getString("image")
+                );
+
+                list.add(c);
+            }
+        }
+        return list;
+    }
+
     public boolean deleteCar(int id) throws SQLException {
         String sql = "DELETE FROM CAR WHERE id = ?";
         Connection conn = null;

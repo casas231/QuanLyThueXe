@@ -71,7 +71,9 @@ public class CustomerDAO {
             }
             System.err.println(e);
         } finally {
-            if (conn != null) conn.close();
+            if (conn != null) {
+                conn.close();
+            }
         }
         return false;
     }
@@ -115,7 +117,9 @@ public class CustomerDAO {
             }
             System.err.println(e);
         } finally {
-            if (conn != null) conn.close();
+            if (conn != null) {
+                conn.close();
+            }
         }
         return false;
     }
@@ -141,4 +145,49 @@ public class CustomerDAO {
             return null;
         }
     }
+
+    public Customer findCustomerById(int id) throws SQLException {
+        String sql = "SELECT * FROM CUSTOMER WHERE account_id = ?";
+        try (Connection conn = SQLConnect.connect(); PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setInt(1, id);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                Customer c = new Customer(
+                        rs.getInt("id"),
+                        rs.getInt("account_id"),
+                        rs.getString("name"),
+                        rs.getString("phone"),
+                        rs.getString("id_number"),
+                        rs.getString("driver_license"),
+                        rs.getString("address")
+                );
+
+                return c;
+            }
+            return null;
+        }
+    }
+
+    public boolean insertCustomerProfile(int accountID, String fullName, String phone, String idNumber, String driverLicense, String address) throws SQLException {
+        String insertCustomerSQL = "INSERT INTO customer(account_id, name, phone, id_number, driver_license, address) VALUES(?, ?, ?, ?, ?, ?)";
+        Connection conn = null;
+        try {
+            conn = SQLConnect.connect();
+            PreparedStatement psCustomer = conn.prepareStatement(insertCustomerSQL);
+            psCustomer.setInt(1, accountID);
+            psCustomer.setString(2, fullName);
+            psCustomer.setString(3, phone);
+            psCustomer.setString(4, idNumber);
+            psCustomer.setString(5, driverLicense);
+            psCustomer.setString(6, address);
+            psCustomer.executeUpdate();
+            return true;
+        } catch (SQLException e) {
+            System.err.println(e);
+        } finally {
+            conn.close();
+        }
+        return false;
+    }
+
 }

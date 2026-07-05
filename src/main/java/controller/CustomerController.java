@@ -68,4 +68,22 @@ public class CustomerController {
         Customer c = customerDAO.findCustomer(idNumber);
         return c;
     }
+
+    public Customer fillCustomerById(int id) throws SQLException {
+        Customer c = customerDAO.findCustomerById(id);
+        return c;
+    }
+
+    public String createCustomerProfile(int accountID, String fullName, String phone, String idNumber, String driverLicense, String address) {
+        if (fullName.trim().isEmpty() || phone.trim().isEmpty() || idNumber.trim().isEmpty() || driverLicense.trim().isEmpty() || address.trim().isEmpty()) {
+            return "Thông tin không được để trống!";
+        }
+
+        try {
+            boolean isSuccess = customerDAO.insertCustomerProfile(accountID, fullName, phone, idNumber, driverLicense, address);
+            return isSuccess ? "Thêm thông tin thành công!" : "Thêm thông tin thất bại!";
+        } catch (SQLException e) {
+            return "Lỗi thêm thông tin: " + e.getMessage();
+        }
+    }
 }

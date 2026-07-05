@@ -63,4 +63,25 @@ public class AuthController {
             return "Lỗi hệ thông";
         }
     }
+
+    public String changePassword(int id, String password) {
+        if (password.trim().isEmpty()) {
+            return null;
+        }
+
+        if (password.length() < 6) {
+            return "Mật khẩu phải từ 6 ký tự trở lên!";
+        }
+
+        Connection conn = null;
+        try {
+            conn = SQLConnect.connect();
+            boolean isSuccess = userDAO.updatePassword(conn, id, password);
+
+        } catch (Exception e) {
+            System.err.println(e);
+            return "Lỗi hệ thông";
+        }
+        return null;
+    }
 }
