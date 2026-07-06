@@ -18,9 +18,10 @@ import utils.SQLConnect;
  * @author Admin
  */
 public class CarDAO {
+
     public int addCar(Connection conn, Car car) {
         String sql = "INSERT INTO CAR(license_plate, car_brand, car_name, seat, price, status, image) VALUES(?,?,?,?,?,?, ?) RETURNING id";
-        
+
         try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
             int generatedId = -1;
             pstmt.setString(1, car.getLicensePlate());
@@ -31,7 +32,7 @@ public class CarDAO {
             pstmt.setString(6, car.getStatus());
             pstmt.setString(7, car.getImage());
 
-            ResultSet rs = pstmt.executeQuery(); 
+            ResultSet rs = pstmt.executeQuery();
             if (rs.next()) {
                 generatedId = rs.getInt("id");
             }
@@ -49,20 +50,20 @@ public class CarDAO {
         try (Connection conn = SQLConnect.connect(); PreparedStatement ps = conn.prepareStatement(sql); ResultSet rs = ps.executeQuery()) {
             while (rs.next()) {
                 Car c = new Car(
-                    rs.getInt("id"),
-                    rs.getString("license_plate"),
-                    rs.getString("car_brand"),
-                    rs.getString("car_name"),
-                    rs.getInt("seat"),
-                    rs.getInt("price"),
-                    rs.getString("status"),
-                    rs.getString("image")
+                        rs.getInt("id"),
+                        rs.getString("license_plate"),
+                        rs.getString("car_brand"),
+                        rs.getString("car_name"),
+                        rs.getInt("seat"),
+                        rs.getInt("price"),
+                        rs.getString("status"),
+                        rs.getString("image")
                 );
 
                 list.add(c);
             }
         }
-        
+
         return list;
     }
 
@@ -75,20 +76,20 @@ public class CarDAO {
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 Car c = new Car(
-                    rs.getInt("id"),
-                    rs.getString("license_plate"),
-                    rs.getString("car_brand"),
-                    rs.getString("car_name"),
-                    rs.getInt("seat"),
-                    rs.getInt("price"),
-                    rs.getString("status"),
-                    rs.getString("image")
+                        rs.getInt("id"),
+                        rs.getString("license_plate"),
+                        rs.getString("car_brand"),
+                        rs.getString("car_name"),
+                        rs.getInt("seat"),
+                        rs.getInt("price"),
+                        rs.getString("status"),
+                        rs.getString("image")
                 );
 
                 list.add(c);
             }
         }
-        
+
         return list;
     }
 
@@ -103,13 +104,13 @@ public class CarDAO {
         } catch (SQLException e) {
             System.err.println(e.getMessage());
         }
-        
+
         return false;
     }
 
     public boolean updateCar(int id, String licensePlate, String carBrand, String carName, int seatQuantityStr, int priceStr, String status, String image) throws SQLException {
         String sql = "UPDATE CAR SET license_plate = ?, car_brand = ?, car_name = ?, seat = ?, price = ?, status = ?, image = ? WHERE id = ?";
-        
+
         try (Connection conn = SQLConnect.connect(); PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setString(1, licensePlate);
             ps.setString(2, carBrand);
@@ -120,6 +121,55 @@ public class CarDAO {
             ps.setString(7, image);
             ps.setInt(8, id);
             return ps.executeUpdate() > 0;
+        }
+    }
+
+    public List<Car> findCarByBrand(String brand) throws SQLException {
+        String sql = "SELECT * FROM CAR WHERE car_brand = ?";
+        List<Car> list = new ArrayList<>();
+        try (Connection conn = SQLConnect.connect(); PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setString(1, brand);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Car c = new Car(
+                        rs.getInt("id"),
+                        rs.getString("license_plate"),
+                        rs.getString("car_brand"),
+                        rs.getString("car_name"),
+                        rs.getInt("seat"),
+                        rs.getInt("price"),
+                        rs.getString("status"),
+                        rs.getString("image")
+                );
+                list.add(c);
+            }
+
+            return list;
+        }
+    }
+
+    public Car findCarById(int id) throws SQLException {
+        String sql = "SELECT * FROM CAR WHERE id = ?";
+
+        try (Connection conn = SQLConnect.connect(); PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setInt(1, id);
+            ResultSet rs = ps.executeQuery();
+
+            if (rs.next()) {
+                Car c = new Car(
+                        rs.getInt("id"),
+                        rs.getString("license_plate"),
+                        rs.getString("car_brand"),
+                        rs.getString("car_name"),
+                        rs.getInt("seat"),
+                        rs.getInt("price"),
+                        rs.getString("status"),
+                        rs.getString("image")
+                );
+                return c;
+            }
+
+            return null;
         }
     }
 

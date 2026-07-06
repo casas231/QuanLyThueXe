@@ -9,6 +9,7 @@ package model;
  * @author Admin
  */
 public class Car {
+
     private int id;
     private String licensePlate;
     private String carBrand;
