@@ -159,6 +159,57 @@ public class ContractDAO {
         return false;
     }
 
+    public boolean deleteContractAndUpdateCar(int contractID, int carID, String licensePlate, String carBrand, String carName, int seatQuantityStr, int priceStr, String status, String image) {
+        String updateCarSQL = "UPDATE CAR SET license_plate = ?, car_brand = ?, car_name = ?, seat = ?, price = ?, status = ?, image = ? WHERE id = ?";
+        Connection conn = null;
+        try {
+            conn = SQLConnect.connect();
+            conn.setAutoCommit(false);
+
+            boolean isSuccess = deleteContract(contractID);
+
+            if (isSuccess == false) {
+                conn.rollback();
+                return false;
+            }
+            try (PreparedStatement psContract = conn.prepareStatement(updateCarSQL)) {
+                psContract.setString(1, licensePlate);
+                psContract.setString(2, carBrand);
+                psContract.setString(3, carName);
+                psContract.setInt(4, seatQuantityStr);
+                psContract.setInt(5, priceStr);
+                psContract.setString(6, status);
+                psContract.setString(7, image);
+                psContract.setInt(8, carID);
+
+                psContract.executeUpdate();
+
+            }
+
+            conn.commit();
+            return true;
+        } catch (SQLException e) {
+            if (conn != null) {
+                try {
+                    conn.rollback();
+                } catch (SQLException ex) {
+                    System.err.println(ex.getMessage());
+                }
+            }
+
+            System.err.println(e.getMessage());
+            return false;
+        } finally {
+            if (conn != null) {
+                try {
+                    conn.close();
+                } catch (SQLException e) {
+                    System.err.println(e.getMessage());
+                }
+            }
+        }
+    }
+
     public List<Contract> findContract(String option, String value) throws SQLException {
         List<Contract> list = new ArrayList<>();
         String sql = "SELECT * FROM CONTRACT WHERE " + option + " = ?";
