@@ -14,11 +14,13 @@ import java.io.File;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 import javax.swing.table.DefaultTableModel;
+import model.Car;
 import model.Customer;
 import utils.DateForeground;
 import utils.ImageHelper;
@@ -28,7 +30,7 @@ import utils.ImageHelper;
  * @author ducanh123
  */
 public class PanelAdmin extends javax.swing.JPanel {
-    
+
     private final CustomerController customerController = new CustomerController();
     private final CarController carController = new CarController();
     private final ContractController contractController = new ContractController();
@@ -156,11 +158,9 @@ public class PanelAdmin extends javax.swing.JPanel {
         txtContractCar = new javax.swing.JTextField();
         jLabel33 = new javax.swing.JLabel();
         jLabel34 = new javax.swing.JLabel();
-        jLabel35 = new javax.swing.JLabel();
         jLabel36 = new javax.swing.JLabel();
         txtContractStart = new com.toedter.calendar.JDateChooser();
         txtContractEnd = new com.toedter.calendar.JDateChooser();
-        txtContractPrice = new javax.swing.JTextField();
         cbContractStatus = new javax.swing.JComboBox<>();
         btnContractAdd = new javax.swing.JButton();
         btnContractDelete = new javax.swing.JButton();
@@ -1038,10 +1038,6 @@ public class PanelAdmin extends javax.swing.JPanel {
         jLabel34.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel34.setText("Ngày trả:");
 
-        jLabel35.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        jLabel35.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jLabel35.setText("Tổng tiền:");
-
         jLabel36.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         jLabel36.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel36.setText("Trạng thái:");
@@ -1124,7 +1120,7 @@ public class PanelAdmin extends javax.swing.JPanel {
                     .addGroup(contractPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                         .addGroup(javax.swing.GroupLayout.Alignment.LEADING, contractPanelLayout.createSequentialGroup()
                             .addComponent(btnContractEdit, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 34, Short.MAX_VALUE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 41, Short.MAX_VALUE)
                             .addComponent(btnContractClear, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGroup(javax.swing.GroupLayout.Alignment.LEADING, contractPanelLayout.createSequentialGroup()
                             .addComponent(btnContractAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1135,7 +1131,6 @@ public class PanelAdmin extends javax.swing.JPanel {
                                 .addComponent(jLabel31, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(jLabel32, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(jLabel36, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jLabel35, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(jLabel34, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(jLabel33, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                             .addGap(18, 18, 18)
@@ -1143,11 +1138,10 @@ public class PanelAdmin extends javax.swing.JPanel {
                                 .addComponent(txtContractCustomer, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
                                 .addComponent(txtContractCar, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
                                 .addComponent(txtContractEnd, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
-                                .addComponent(txtContractPrice, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
                                 .addComponent(cbContractStatus, 0, 200, Short.MAX_VALUE)
                                 .addComponent(txtContractStart, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                     .addComponent(jLabel30, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 74, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 67, Short.MAX_VALUE)
                 .addGroup(contractPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 529, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(contractPanelLayout.createSequentialGroup()
@@ -1189,14 +1183,10 @@ public class PanelAdmin extends javax.swing.JPanel {
                             .addComponent(txtContractEnd, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jLabel34))
                         .addGap(18, 18, 18)
-                        .addGroup(contractPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jLabel35, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(txtContractPrice))
-                        .addGap(18, 18, 18)
-                        .addGroup(contractPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jLabel36, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(contractPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel36)
                             .addComponent(cbContractStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(40, 40, 40)
+                        .addGap(77, 77, 77)
                         .addGroup(contractPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(btnContractAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btnContractDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -1205,7 +1195,7 @@ public class PanelAdmin extends javax.swing.JPanel {
                             .addComponent(btnContractEdit, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btnContractClear, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 461, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(49, Short.MAX_VALUE))
+                .addContainerGap(47, Short.MAX_VALUE))
         );
 
         contentPanel.add(contractPanel, "cardContract");
@@ -1361,7 +1351,7 @@ public class PanelAdmin extends javax.swing.JPanel {
             renderTableCar();
             javax.swing.JOptionPane.showMessageDialog(this, res);
         }
-        
+
         btnCarClearActionPerformed(evt);
     }//GEN-LAST:event_btnCarDeleteActionPerformed
 
@@ -1384,7 +1374,7 @@ public class PanelAdmin extends javax.swing.JPanel {
         String res = carController.updateCar(id, licensePlateText, carBrandText, carNameText, seatQuantityText, priceText, statusText, imageText);
         renderTableCar();
         javax.swing.JOptionPane.showMessageDialog(this, res);
-        
+
         btnCarClearActionPerformed(evt);
     }//GEN-LAST:event_btnCarEditActionPerformed
 
@@ -1434,7 +1424,7 @@ public class PanelAdmin extends javax.swing.JPanel {
         } catch (Exception ex) {
             System.err.println(ex.getMessage());
         }
-        
+
         btnCustomerClearActionPerformed(evt);
     }//GEN-LAST:event_btnCustomerAddActionPerformed
 
@@ -1454,7 +1444,7 @@ public class PanelAdmin extends javax.swing.JPanel {
             renderTableCustomer();
             javax.swing.JOptionPane.showMessageDialog(this, res);
         }
-        
+
         btnCustomerClearActionPerformed(evt);
     }//GEN-LAST:event_btnCustomerDeleteActionPerformed
 
@@ -1471,7 +1461,7 @@ public class PanelAdmin extends javax.swing.JPanel {
         String res = customerController.updateCustomer(id, txtCustomerName.getText(), txtCustomerPhone.getText(), txtCustomerID.getText(), txtCustomerDriver.getText(), txtCustomerAddress.getText());
         renderTableCustomer();
         javax.swing.JOptionPane.showMessageDialog(this, res);
-        
+
         btnCustomerClearActionPerformed(evt);
     }//GEN-LAST:event_btnCustomerEditActionPerformed
 
@@ -1525,7 +1515,31 @@ public class PanelAdmin extends javax.swing.JPanel {
             javax.swing.JOptionPane.showMessageDialog(this, "Lỗi tải bảng hợp đồng: " + e.getMessage());
         }
     }
-    
+
+    private long caculateDay(String startDate, String endDate) {
+        SimpleDateFormat sdf = new SimpleDateFormat("d/M/yyyy");
+        try {
+            Date date1 = sdf.parse(startDate);
+            Date date2 = sdf.parse(endDate);
+            long diff = date2.getTime() - date1.getTime();
+            long days = diff / (1000 * 60 * 60 * 24);
+            return days;
+        } catch (Exception e) {
+            System.err.println(e);
+        }
+        return 0;
+    }
+
+    private long caculateTotal(String idCarText, String startDate, String endDate) {
+        try {
+            Car car = carController.fillCarById(Integer.parseInt(idCarText));
+            return car.getPrice() * caculateDay(startDate, endDate);
+        } catch (Exception e) {
+            System.err.println(e);
+        }
+        return 0;
+
+    }
     private void btnContractAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnContractAddActionPerformed
         // TODO add your handling code here:
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
@@ -1533,17 +1547,24 @@ public class PanelAdmin extends javax.swing.JPanel {
         String idCarText = txtContractCar.getText();
         String startDateText = sdf.format(txtContractStart.getDate());
         String endDateText = sdf.format(txtContractEnd.getDate());
-        String contractPriceText = txtContractPrice.getText();
-        String contractStatusText = cbContractStatus.getSelectedItem().toString();
 
         try {
-            String message = contractController.createContract(idCustomerText, idCarText, startDateText, endDateText, contractPriceText, contractStatusText);
-            renderTableContract();
-            JOptionPane.showMessageDialog(this, message);
+            Car car = carController.fillCarById(Integer.parseInt(idCarText));
+            try {
+                String message = contractController.createContract(idCustomerText, idCarText, startDateText, endDateText, Long.toString(car.getPrice() * caculateDay(startDateText, endDateText)), "Chờ duyệt");
+                if (message.equals("Thêm mới hợp đồng thành công!")) {
+                    String resUpdateCar = carController.updateCar(Integer.parseInt(idCarText), car.getLicensePlate(), car.getCarBrand(), car.getCarName(), Integer.toString(car.getSeatQuantity()), Integer.toString(car.getPrice()), "Đang thuê", car.getImage());
+                    JOptionPane.showMessageDialog(this, message);
+                }
+                renderTableContract();
+            } catch (Exception e) {
+                System.err.println(e);
+            }
+
         } catch (Exception ex) {
             System.err.println(ex.getMessage());
         }
-        
+
         btnContractClearActionPerformed(evt);
     }//GEN-LAST:event_btnContractAddActionPerformed
 
@@ -1562,7 +1583,7 @@ public class PanelAdmin extends javax.swing.JPanel {
             renderTableContract();
             javax.swing.JOptionPane.showMessageDialog(this, res);
         }
-        
+
         btnContractClearActionPerformed(evt);
     }//GEN-LAST:event_btnContractDeleteActionPerformed
 
@@ -1579,12 +1600,11 @@ public class PanelAdmin extends javax.swing.JPanel {
         String idCarText = txtContractCar.getText();
         String startDateText = sdf.format(txtContractStart.getDate());
         String endDateText = sdf.format(txtContractEnd.getDate());
-        String contractPriceText = txtContractPrice.getText();
         String contractStatusText = cbContractStatus.getSelectedItem().toString();
-        String res = contractController.updateContract(id, idCustomerText, idCarText, startDateText, endDateText, contractPriceText, contractStatusText);
+        String res = contractController.updateContract(id, idCustomerText, idCarText, startDateText, endDateText, Long.toString(caculateTotal(idCarText, startDateText, endDateText)), contractStatusText);
         renderTableContract();
         javax.swing.JOptionPane.showMessageDialog(this, res);
-        
+
         btnContractClearActionPerformed(evt);
     }//GEN-LAST:event_btnContractEditActionPerformed
 
@@ -1592,7 +1612,6 @@ public class PanelAdmin extends javax.swing.JPanel {
         // TODO add your handling code here:
         txtContractCustomer.setText("");
         txtContractCar.setText("");
-        txtContractPrice.setText("");
         txtContractStart.setDate(null);
         txtContractEnd.setDate(null);
         cbContractStatus.setSelectedIndex(0);
@@ -1649,7 +1668,6 @@ public class PanelAdmin extends javax.swing.JPanel {
             } catch (ParseException e) {
                 System.err.println(e.getMessage());
             }
-            txtContractPrice.setText(contractTableModel.getValueAt(selectedRow, 5).toString());
             cbContractStatus.setSelectedItem(contractTableModel.getValueAt(selectedRow, 6).toString());
         }
     }//GEN-LAST:event_jTable3MouseClicked
@@ -1744,7 +1762,6 @@ public class PanelAdmin extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel32;
     private javax.swing.JLabel jLabel33;
     private javax.swing.JLabel jLabel34;
-    private javax.swing.JLabel jLabel35;
     private javax.swing.JLabel jLabel36;
     private javax.swing.JLabel jLabel37;
     private javax.swing.JLabel jLabel38;
@@ -1782,7 +1799,6 @@ public class PanelAdmin extends javax.swing.JPanel {
     private javax.swing.JTextField txtContractCar;
     private javax.swing.JTextField txtContractCustomer;
     private com.toedter.calendar.JDateChooser txtContractEnd;
-    private javax.swing.JTextField txtContractPrice;
     private com.toedter.calendar.JDateChooser txtContractSearch;
     private com.toedter.calendar.JDateChooser txtContractStart;
     private javax.swing.JTextArea txtCustomerAddress;

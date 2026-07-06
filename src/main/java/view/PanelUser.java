@@ -1345,24 +1345,28 @@ public class PanelUser extends javax.swing.JPanel {
     private void renderTableHistory() {
         historyTableModel.setRowCount(0);
         try {
-            java.util.List<model.Contract> list = contractController.loadAllContract();
-            for (model.Contract c : list) {
-                Car car = carController.fillCarById(c.getCarId());
-                historyTableModel.addRow(new Object[]{
-                    c.getId(), c.getCarId(), c.getStartDate(), c.getEndDate(), car.getPrice(), car.getImage(), c.getTotalPrice()
-                });
+            if (txtProfileId.getText() != "") {
+                java.util.List<model.Contract> list = contractController.loadAllContractById(Integer.parseInt(txtProfileId.getText()));
+                for (model.Contract c : list) {
+                    Car car = carController.fillCarById(c.getCarId());
+                    historyTableModel.addRow(new Object[]{
+                        c.getId(), c.getCarId(), c.getStartDate(), c.getEndDate(), car.getPrice(), car.getImage(), c.getTotalPrice()
+                    });
+                }
+                jTable3.getColumnModel().getColumn(1).setMinWidth(0);
+                jTable3.getColumnModel().getColumn(1).setMaxWidth(0);
+                jTable3.getColumnModel().getColumn(1).setPreferredWidth(0);
+                jTable3.getColumnModel().getColumn(4).setMinWidth(0);
+                jTable3.getColumnModel().getColumn(4).setMaxWidth(0);
+                jTable3.getColumnModel().getColumn(4).setPreferredWidth(0);
+                jTable3.getColumnModel().getColumn(5).setMinWidth(0);
+                jTable3.getColumnModel().getColumn(5).setMaxWidth(0);
+                jTable3.getColumnModel().getColumn(5).setPreferredWidth(0);
+
             }
-            jTable3.getColumnModel().getColumn(1).setMinWidth(0);
-            jTable3.getColumnModel().getColumn(1).setMaxWidth(0);
-            jTable3.getColumnModel().getColumn(1).setPreferredWidth(0);
-            jTable3.getColumnModel().getColumn(4).setMinWidth(0);
-            jTable3.getColumnModel().getColumn(4).setMaxWidth(0);
-            jTable3.getColumnModel().getColumn(4).setPreferredWidth(0);
-            jTable3.getColumnModel().getColumn(5).setMinWidth(0);
-            jTable3.getColumnModel().getColumn(5).setMaxWidth(0);
-            jTable3.getColumnModel().getColumn(5).setPreferredWidth(0);
+
         } catch (Exception e) {
-            javax.swing.JOptionPane.showMessageDialog(this, "Lỗi tải bảng hợp đồng: " + e.getMessage());
+            System.err.println(e);
         }
     }
     private void btnHistoryDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHistoryDeleteActionPerformed

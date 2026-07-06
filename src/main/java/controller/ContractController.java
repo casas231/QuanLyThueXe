@@ -21,6 +21,10 @@ public class ContractController {
         return contractDAO.getAllContract();
     }
 
+    public List<Contract> loadAllContractById(int id) throws Exception {
+        return contractDAO.getAllContractById(id);
+    }
+
     public String createContract(String customerIdRaw, String carIdRaw, String startDate, String endDate, String totalPriceStr, String status) {
         if (customerIdRaw.trim().isEmpty() || carIdRaw.trim().isEmpty() || startDate.trim().isEmpty() || endDate.trim().isEmpty() || totalPriceStr.trim().isEmpty()) {
             return "Vui lòng nhập đầy đủ tất cả các thông tin hợp đồng!";

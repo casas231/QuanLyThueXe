@@ -43,6 +43,31 @@ public class ContractDAO {
         return list;
     }
 
+    public List<Contract> getAllContractById(int id) throws SQLException {
+        String sql = "SELECT * FROM CONTRACT WHERE customer_id = ?";
+        List<Contract> list = new ArrayList<>();
+        try (Connection conn = SQLConnect.connect(); PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setInt(1, id);
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                Contract c = new Contract(
+                        rs.getInt("id"),
+                        rs.getInt("customer_id"),
+                        rs.getInt("car_id"),
+                        rs.getString("start_date"),
+                        rs.getString("end_date"),
+                        rs.getInt("total_price"),
+                        rs.getString("status")
+                );
+
+                list.add(c);
+            }
+
+        }
+        return list;
+    }
+
     public int insertContract(int customerID, int carID, String startDate, String endDate, int totalPrice, String status) {
         String existCustomerSQL = "SELECT * FROM CUSTOMER WHERE id = ?";
         String existCarSQL = "SELECT * FROM CAR WHERE id = ?";
