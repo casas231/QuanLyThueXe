@@ -25,7 +25,7 @@ public class ContractDAO {
 
         try (Connection conn = SQLConnect.connect(); PreparedStatement ps = conn.prepareStatement(sql)) {
             ResultSet rs = ps.executeQuery();
-            
+
             while (rs.next()) {
                 Contract c = new Contract(
                         rs.getInt("id"),
@@ -47,7 +47,7 @@ public class ContractDAO {
     public List<Contract> getAllContractById(int id) throws SQLException {
         String sql = "SELECT * FROM CONTRACT WHERE customer_id = ?";
         List<Contract> list = new ArrayList<>();
-        
+
         try (Connection conn = SQLConnect.connect(); PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setInt(1, id);
             ResultSet rs = ps.executeQuery();
@@ -66,7 +66,7 @@ public class ContractDAO {
                 list.add(c);
             }
         }
-        
+
         return list;
     }
 
@@ -78,18 +78,18 @@ public class ContractDAO {
         try (Connection conn = SQLConnect.connect(); PreparedStatement psExistCustomer = conn.prepareStatement(existCustomerSQL);) {
             psExistCustomer.setInt(1, customerID);
             ResultSet rsCustomer = psExistCustomer.executeQuery();
-            
+
             if (rsCustomer.next()) {
                 try {
                     PreparedStatement psExistCar = conn.prepareStatement(existCarSQL);
                     psExistCar.setInt(1, carID);
                     ResultSet rsCar = psExistCar.executeQuery();
-                    
+
                     if (rsCar.next()) {
                         try {
                             PreparedStatement pstmt = conn.prepareStatement(sql);
                             int generatedId = -1;
-                            
+
                             pstmt.setInt(1, customerID);
                             pstmt.setInt(2, carID);
                             pstmt.setString(3, startDate);
@@ -102,21 +102,21 @@ public class ContractDAO {
                                 generatedId = rs.getInt("id");
                                 return generatedId;
                             }
-                            
+
                             return generatedId;
                         } catch (SQLException e) {
                             System.err.println(e.getMessage());
                             return -1;
                         }
                     }
-                    
+
                     return -2;
                 } catch (SQLException e) {
                     System.err.println(e.getMessage());
                     return -1;
                 }
             }
-            
+
             return -3;
         } catch (SQLException e) {
             System.err.println(e.getMessage());
@@ -134,17 +134,17 @@ public class ContractDAO {
             PreparedStatement psExistCustomer = conn.prepareStatement(existCustomerSQL);
             psExistCustomer.setInt(1, customerID);
             ResultSet rsCustomer = psExistCustomer.executeQuery();
-            
+
             if (rsCustomer.next()) {
                 try {
                     PreparedStatement psExistCar = conn.prepareStatement(existCarSQL);
                     psExistCar.setInt(1, carID);
                     ResultSet rsCar = psExistCar.executeQuery();
-                    
+
                     if (rsCar.next()) {
                         try {
                             PreparedStatement ps = conn.prepareStatement(sql);
-                            
+
                             ps.setInt(1, customerID);
                             ps.setInt(2, carID);
                             ps.setString(3, startDate);
@@ -154,7 +154,7 @@ public class ContractDAO {
                             ps.setInt(7, id);
 
                             int rs = ps.executeUpdate();
-                            
+
                             if (rs > 0) {
                                 return 1;
                             }
@@ -163,14 +163,14 @@ public class ContractDAO {
                             return -1;
                         }
                     }
-                    
+
                     return -2;
                 } catch (SQLException e) {
                     System.err.println(e.getMessage());
                     return -1;
                 }
             }
-            
+
             return -3;
         } catch (SQLException e) {
             System.err.println(e.getMessage());
@@ -181,12 +181,12 @@ public class ContractDAO {
 
     public boolean deleteContract(int id) {
         String sql = "DELETE FROM CONTRACT WHERE id = ?";
-        
+
         try (Connection conn = SQLConnect.connect()) {
             PreparedStatement psContract = conn.prepareStatement(sql);
             psContract.setInt(1, id);
             psContract.executeUpdate();
-            
+
             return true;
         } catch (SQLException e) {
             System.err.println(e.getMessage());
@@ -198,7 +198,7 @@ public class ContractDAO {
     public boolean deleteContractAndUpdateCar(int contractID, int carID, String licensePlate, String carBrand, String carName, int seatQuantityStr, int priceStr, String status, String image) {
         String updateCarSQL = "UPDATE CAR SET license_plate = ?, car_brand = ?, car_name = ?, seat = ?, price = ?, status = ?, image = ? WHERE id = ?";
         Connection conn = null;
-        
+
         try {
             conn = SQLConnect.connect();
             conn.setAutoCommit(false);
@@ -209,7 +209,7 @@ public class ContractDAO {
                 conn.rollback();
                 return false;
             }
-            
+
             try (PreparedStatement psContract = conn.prepareStatement(updateCarSQL)) {
                 psContract.setString(1, licensePlate);
                 psContract.setString(2, carBrand);
@@ -224,7 +224,7 @@ public class ContractDAO {
             }
 
             conn.commit();
-            
+
             return true;
         } catch (SQLException e) {
             if (conn != null) {
@@ -234,7 +234,7 @@ public class ContractDAO {
                     System.err.println(ex.getMessage());
                 }
             }
-            
+
             System.err.println(e.getMessage());
             return false;
         } finally {
@@ -255,7 +255,7 @@ public class ContractDAO {
         try (Connection conn = SQLConnect.connect(); PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setString(1, value);
             ResultSet rs = ps.executeQuery();
-            
+
             while (rs.next()) {
                 Contract c = new Contract(
                         rs.getInt("id"),
