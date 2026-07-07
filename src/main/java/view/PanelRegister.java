@@ -116,17 +116,17 @@ public class PanelRegister extends javax.swing.JPanel {
         // TODO add your handling code here:
         String userText = txtUsername.getText();
         String passText = new String(txtPassword.getPassword());
-        
         String message = authController.register(userText, passText);
         
         if (message.equals("Đăng ký tài khoản thành công!")) {
             lblMissing.setVisible(false);
+            
             JOptionPane.showMessageDialog(this, message, "Đăng ký", JOptionPane.INFORMATION_MESSAGE);
+            
             Container parent = this.getParent();
             CardLayout layout = (CardLayout) parent.getLayout();
             layout.show(parent, "cardLogin");
-        }
-        else {
+        } else {
             lblMissing.setText(message);
             lblMissing.setVisible(true);
         }

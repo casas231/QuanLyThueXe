@@ -35,6 +35,7 @@ public class CustomerController {
         User newUser = new User(generatedUsername, "123456", "user");
         
         boolean isSuccess = customerDAO.insertCustomer(newUser, fullName, phone, idNumber, driverLicense, address);
+        
         if (isSuccess) {
             return "Thêm khách hàng thành công!";
         } else {
@@ -66,13 +67,11 @@ public class CustomerController {
     }
 
     public Customer fillCustomer(String idNumber) throws SQLException {
-        Customer c = customerDAO.findCustomer(idNumber);
-        return c;
+        return customerDAO.findCustomer(idNumber);
     }
 
     public Customer fillCustomerById(int id) throws SQLException {
-        Customer c = customerDAO.findCustomerById(id);
-        return c;
+        return customerDAO.findCustomerById(id);
     }
 
     public String createCustomerProfile(int accountID, String fullName, String phone, String idNumber, String driverLicense, String address) {

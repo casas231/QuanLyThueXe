@@ -16,7 +16,6 @@ import utils.SQLConnect;
  * @author ducanh123
  */
 public class UserDAO {
-
     public User checkLogin(String username, String password) {
         String sql = "SELECT * FROM ACCOUNT WHERE username = ? AND password = ?";
 
@@ -69,6 +68,7 @@ public class UserDAO {
 
         try (PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setInt(1, accountID);
+            
             return ps.executeUpdate() > 0;
         }
     }

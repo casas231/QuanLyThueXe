@@ -16,7 +16,6 @@ import utils.SQLConnect;
  * @author Admin
  */
 public class CarController {
-
     private final CarDAO carDAO;
 
     public CarController() {
@@ -40,6 +39,7 @@ public class CarController {
         int price = Integer.parseInt(priceStr);
 
         Car newCar = new Car(licensePlate, carBrand, carName, seatQuantity, price, status, image);
+        
         try (Connection conn = SQLConnect.connect()) {
             int carID = carDAO.addCar(conn, newCar);
 

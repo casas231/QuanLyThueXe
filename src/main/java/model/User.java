@@ -9,7 +9,6 @@ package model;
  * @author ducanh123
  */
 public class User {
-
     private String username;
     private String password;
     private String role;

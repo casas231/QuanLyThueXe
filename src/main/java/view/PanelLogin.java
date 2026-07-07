@@ -127,16 +127,21 @@ public class PanelLogin extends javax.swing.JPanel {
         // TODO add your handling code here:
         String userText = txtUsername.getText();
         String passText = new String(txtPassword.getPassword());
+        
         try {
             User loggedIn = authController.login(userText, passText);
 
             if (loggedIn != null) {
                 lblWrong.setVisible(false);
+                
                 Window frame = SwingUtilities.getWindowAncestor(this);
+                
                 if (frame != null) {
                     frame.dispose();
                 }
+                
                 UserSession.getInstance().createUserSession(loggedIn.getId(), loggedIn.getUsername());
+                
                 MainFrame mainFrame = new MainFrame(loggedIn.getRole());
                 mainFrame.setVisible(true);
             }

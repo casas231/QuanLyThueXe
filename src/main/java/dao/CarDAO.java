@@ -24,6 +24,7 @@ public class CarDAO {
 
         try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
             int generatedId = -1;
+            
             pstmt.setString(1, car.getLicensePlate());
             pstmt.setString(2, car.getCarBrand());
             pstmt.setString(3, car.getCarName());
@@ -36,6 +37,7 @@ public class CarDAO {
             if (rs.next()) {
                 generatedId = rs.getInt("id");
             }
+            
             return generatedId;
         } catch (SQLException e) {
             System.err.println(e.getMessage());
@@ -47,7 +49,9 @@ public class CarDAO {
         List<Car> list = new ArrayList<>();
         String sql = "SELECT * FROM CAR";
 
-        try (Connection conn = SQLConnect.connect(); PreparedStatement ps = conn.prepareStatement(sql); ResultSet rs = ps.executeQuery()) {
+        try (Connection conn = SQLConnect.connect(); PreparedStatement ps = conn.prepareStatement(sql)) {
+            ResultSet rs = ps.executeQuery();
+                    
             while (rs.next()) {
                 Car c = new Car(
                         rs.getInt("id"),
@@ -74,6 +78,7 @@ public class CarDAO {
         try (Connection conn = SQLConnect.connect(); PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setString(1, "Sẵn sàng");
             ResultSet rs = ps.executeQuery();
+            
             while (rs.next()) {
                 Car c = new Car(
                         rs.getInt("id"),
@@ -100,6 +105,7 @@ public class CarDAO {
             PreparedStatement psCar = conn.prepareStatement(sql);
             psCar.setInt(1, id);
             psCar.executeUpdate();
+            
             return true;
         } catch (SQLException e) {
             System.err.println(e.getMessage());
@@ -120,6 +126,7 @@ public class CarDAO {
             ps.setString(6, status);
             ps.setString(7, image);
             ps.setInt(8, id);
+            
             return ps.executeUpdate() > 0;
         }
     }
@@ -127,9 +134,11 @@ public class CarDAO {
     public List<Car> findCarByBrand(String brand) throws SQLException {
         String sql = "SELECT * FROM CAR WHERE car_brand = ?";
         List<Car> list = new ArrayList<>();
+        
         try (Connection conn = SQLConnect.connect(); PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setString(1, brand);
             ResultSet rs = ps.executeQuery();
+            
             while (rs.next()) {
                 Car c = new Car(
                         rs.getInt("id"),
@@ -141,6 +150,7 @@ public class CarDAO {
                         rs.getString("status"),
                         rs.getString("image")
                 );
+                
                 list.add(c);
             }
 
@@ -166,6 +176,7 @@ public class CarDAO {
                         rs.getString("status"),
                         rs.getString("image")
                 );
+                
                 return c;
             }
 

@@ -48,6 +48,7 @@ public class AuthController {
         }
 
         User newUser = new User(username, password, "user");
+        
         try {
             Connection conn = SQLConnect.connect();
             int userID = userDAO.insertUser(conn, newUser);

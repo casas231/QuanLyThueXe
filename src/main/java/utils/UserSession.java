@@ -9,19 +9,18 @@ package utils;
  * @author tanghaian
  */
 public class UserSession {
-
     private static UserSession instance;
     private int id;
     private String username;
-    private boolean hasProfie;
+    private boolean hasProfile;
 
-    private UserSession() {
-    }
+    private UserSession() {}
 
     public static UserSession getInstance() {
         if (instance == null) {
             instance = new UserSession();
         }
+        
         return instance;
     }
 
@@ -46,11 +45,11 @@ public class UserSession {
         this.username = username;
     }
 
-    public boolean isHasProfie() {
-        return hasProfie;
+    public boolean isHasProfile() {
+        return hasProfile;
     }
 
-    public void setHasProfie(boolean hasProfie) {
-        this.hasProfie = hasProfie;
+    public void setHasProfile(boolean hasProfile) {
+        this.hasProfile = hasProfile;
     }
 }

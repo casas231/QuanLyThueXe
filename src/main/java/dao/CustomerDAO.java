@@ -19,22 +19,24 @@ import utils.SQLConnect;
  * @author Admin
  */
 public class CustomerDAO {
-
     public List<Customer> getAllCustomers() throws SQLException {
         List<Customer> list = new ArrayList<>();
         String sql = "SELECT * FROM CUSTOMER";
 
-        try (Connection conn = SQLConnect.connect(); PreparedStatement ps = conn.prepareStatement(sql); ResultSet rs = ps.executeQuery()) {
+        try (Connection conn = SQLConnect.connect(); PreparedStatement ps = conn.prepareStatement(sql)) {
+            ResultSet rs = ps.executeQuery();
+            
             while (rs.next()) {
                 Customer c = new Customer(
-                    rs.getInt("id"),
-                    rs.getInt("account_id"),
-                    rs.getString("name"),
-                    rs.getString("phone"),
-                    rs.getString("id_number"),
-                    rs.getString("driver_license"),
-                    rs.getString("address")
+                        rs.getInt("id"),
+                        rs.getInt("account_id"),
+                        rs.getString("name"),
+                        rs.getString("phone"),
+                        rs.getString("id_number"),
+                        rs.getString("driver_license"),
+                        rs.getString("address")
                 );
+                
                 list.add(c);
             }
         }
@@ -45,6 +47,7 @@ public class CustomerDAO {
     public boolean insertCustomer(User user, String fullName, String phone, String idNumber, String driverLicense, String address) {
         String insertCustomerSQL = "INSERT INTO customer(account_id, name, phone, id_number, driver_license, address) VALUES(?, ?, ?, ?, ?, ?)";
         Connection conn = null;
+        
         try {
             conn = SQLConnect.connect();
             conn.setAutoCommit(false);
@@ -56,6 +59,7 @@ public class CustomerDAO {
                 conn.rollback();
                 return false;
             }
+            
             try (PreparedStatement psCustomer = conn.prepareStatement(insertCustomerSQL)) {
                 psCustomer.setInt(1, generatedUserId);
                 psCustomer.setString(2, fullName);
@@ -69,6 +73,7 @@ public class CustomerDAO {
             }
             
             conn.commit();
+            
             return true;
         } catch (SQLException e) {
             if (conn != null) {
@@ -110,8 +115,8 @@ public class CustomerDAO {
 
     public boolean deleteCustomer(int id, int accountID) throws SQLException {
         String sql = "DELETE FROM CUSTOMER WHERE id = ?";
-        
         Connection conn = null;
+        
         try {
             conn = SQLConnect.connect();
             conn.setAutoCommit(false);
@@ -124,6 +129,7 @@ public class CustomerDAO {
                 psCustomer.setInt(1, id);
                 psCustomer.executeUpdate();
                 conn.commit();
+                
                 return true;
             }
         } catch (SQLException e) {
@@ -134,6 +140,7 @@ public class CustomerDAO {
                     System.err.println(ex.getMessage());
                 }
             }
+            
             System.err.println(e.getMessage());
         } finally {
             if (conn != null) {
@@ -161,6 +168,7 @@ public class CustomerDAO {
                     rs.getString("driver_license"),
                     rs.getString("address")
                 );
+                
                 return c;
             }
             
@@ -185,6 +193,7 @@ public class CustomerDAO {
                     rs.getString("driver_license"),
                     rs.getString("address")
                 );
+                
                 return c;
             }
             
@@ -197,13 +206,16 @@ public class CustomerDAO {
         
         try (Connection conn = SQLConnect.connect()) {
             PreparedStatement psCustomer = conn.prepareStatement(insertCustomerSQL);
+            
             psCustomer.setInt(1, accountID);
             psCustomer.setString(2, fullName);
             psCustomer.setString(3, phone);
             psCustomer.setString(4, idNumber);
             psCustomer.setString(5, driverLicense);
             psCustomer.setString(6, address);
+            
             psCustomer.executeUpdate();
+            
             return true;
         } catch (SQLException e) {
             System.err.println(e.getMessage());

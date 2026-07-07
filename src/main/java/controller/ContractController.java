@@ -14,7 +14,6 @@ import model.Contract;
  * @author Admin
  */
 public class ContractController {
-
     private final ContractDAO contractDAO = new ContractDAO();
 
     public List<Contract> loadAllContract() throws Exception {
@@ -108,6 +107,7 @@ public class ContractController {
     public String removeContractAndUpdateCar(int contractID, int carID, String licensePlate, String carBrand, String carName, String seatQuantityStr, String priceStr, String status, String image) throws Exception {
         int seatQuantity = Integer.parseInt(seatQuantityStr);
         int price = Integer.parseInt(priceStr);
+        
         try {
             boolean isDeleted = contractDAO.deleteContractAndUpdateCar(contractID, carID, licensePlate, carBrand, carName, seatQuantity, price, status, image);
             return isDeleted ? "Xóa hợp đồng thành công!" : "Xóa hợp đồng thất bại.";

@@ -46,16 +46,20 @@ public class PanelUser extends javax.swing.JPanel {
      */
     public PanelUser() {
         initComponents();
+        
         DateForeground.changeForeground(txtHistorySearch);
         DateForeground.changeForeground(txtRentalStartDate);
         DateForeground.changeForeground(txtRentalEndDate);
+        
         txtProfileId.setVisible(false);
         txtProfileAccountId.setVisible(false);
         txtRentalImageName.setVisible(false);
+        
         carTableModel = (DefaultTableModel) jTable1.getModel();
         carSelectTableModel = (DefaultTableModel) jTable2.getModel();
         historyTableModel = (DefaultTableModel) jTable3.getModel();
-        getUserProfie();
+        
+        getUserProfile();
         renderTableCar();
         renderTableHistory();
     }
@@ -1103,17 +1107,22 @@ public class PanelUser extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void getUserProfie() {
+    private void getUserProfile() {
         int currentUserId = UserSession.getInstance().getUserId();
         String currentUserUsername = UserSession.getInstance().getUsername();
+        
         try {
             Customer c = customerController.fillCustomerById(currentUserId);
+            
             if (c == null) {
                 txtProfileUsername.setText(currentUserUsername);
-                UserSession.getInstance().setHasProfie(false);
+                UserSession.getInstance().setHasProfile(false);
+                
                 return;
             }
-            UserSession.getInstance().setHasProfie(true);
+            
+            UserSession.getInstance().setHasProfile(true);
+            
             txtProfileId.setText(Integer.toString(c.getId()));
             txtProfileAccountId.setText(Integer.toString(c.getAccountID()));
             txtProfileUsername.setText(currentUserUsername);
@@ -1162,9 +1171,11 @@ public class PanelUser extends javax.swing.JPanel {
     private void btnLogoutMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnLogoutMousePressed
         // TODO add your handling code here:
         Window frame = SwingUtilities.getWindowAncestor(this);
+        
         if (frame != null) {
             frame.dispose();
         }
+        
         LoginFrame loginFrame = new LoginFrame();
         loginFrame.setVisible(true);
     }//GEN-LAST:event_btnLogoutMousePressed
@@ -1213,7 +1224,7 @@ public class PanelUser extends javax.swing.JPanel {
         String newPassword = new String(txtProfilePassword.getPassword());
         String resChangePassword = authController.changePassword(accountId, newPassword);
 
-        if (UserSession.getInstance().isHasProfie() == false) {
+        if (!UserSession.getInstance().isHasProfile()) {
             res = customerController.createCustomerProfile(accountId, txtProfileName.getText(), txtProfilePhone.getText(), txtProfileID.getText(), txtProfileDriver.getText(), txtProfileAddress.getText());
         } else {
             int customerId = Integer.parseInt(txtProfileId.getText());
@@ -1228,8 +1239,10 @@ public class PanelUser extends javax.swing.JPanel {
         lblProfileStatus.setForeground(Color.green);
         txtProfileUsername.setEnabled(false);
         txtProfilePassword.setEnabled(false);
+        
         JOptionPane.showMessageDialog(this, res, "Hồ sơ", JOptionPane.INFORMATION_MESSAGE);
-        getUserProfie();
+        
+        getUserProfile();
     }//GEN-LAST:event_btnProfileSaveActionPerformed
 
     private void renderTableCar() {
@@ -1237,11 +1250,13 @@ public class PanelUser extends javax.swing.JPanel {
 
         try {
             java.util.List<model.Car> list = carController.loadAllCarUser();
+            
             for (model.Car c : list) {
                 carTableModel.addRow(new Object[]{
                     c.getId(), c.getLicensePlate(), c.getCarBrand(), c.getCarName(), c.getSeatQuantity(), c.getPrice(), c.getStatus(), c.getImage()
                 });
             }
+            
             jTable1.getColumnModel().getColumn(6).setMinWidth(0);
             jTable1.getColumnModel().getColumn(6).setMaxWidth(0);
             jTable1.getColumnModel().getColumn(6).setPreferredWidth(0);
@@ -1257,16 +1272,20 @@ public class PanelUser extends javax.swing.JPanel {
         if (txtRentalSearch.getText().trim().equals("")) {
             JOptionPane.showMessageDialog(this, "Vui lòng nhập hãng xe để lọc!");
             renderTableCar();
+            
             return;
         }
         try {
             carTableModel.setRowCount(0);
+            
             List<Car> listCar = carController.fillCarByBrand(txtRentalSearch.getText());
+            
             for (model.Car c : listCar) {
                 carTableModel.addRow(new Object[]{
                     c.getId(), c.getLicensePlate(), c.getCarBrand(), c.getCarName(), c.getSeatQuantity(), c.getPrice(), c.getStatus(), c.getImage()
                 });
             }
+            
             jTable1.getColumnModel().getColumn(6).setMinWidth(0);
             jTable1.getColumnModel().getColumn(6).setMaxWidth(0);
             jTable1.getColumnModel().getColumn(6).setPreferredWidth(0);
@@ -1280,31 +1299,38 @@ public class PanelUser extends javax.swing.JPanel {
 
     private void btnRentalPayActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRentalPayActionPerformed
         // TODO add your handling code here:
-
-        if (UserSession.getInstance().isHasProfie() == false) {
+        if (UserSession.getInstance().isHasProfile() == false) {
             JOptionPane.showMessageDialog(this, "Vui lòng nhập thông tin cá nhân!");
             return;
         }
+        
         if (caculateTotal(carTableModel, carSelectTableModel) == 0) {
             JOptionPane.showMessageDialog(this, "Vui lòng chọn xe để thuê!");
             return;
         }
+        
         if (txtRentalStartDate.getDate() == null || txtRentalEndDate.getDate() == null) {
             JOptionPane.showMessageDialog(this, "Vui lòng nhập đầy đủ thời gian thuê!");
             return;
         }
+        
         int currentUserId = UserSession.getInstance().getUserId();
+        
         try {
             Customer c = customerController.fillCustomerById(currentUserId);
+            
             if (c != null) {
                 for (int i = 0; i < carSelectTableModel.getRowCount(); i++) {
                     String carID = carSelectTableModel.getValueAt(i, 0).toString();
+                    
                     try {
                         Car car = carController.fillCarById(Integer.parseInt(carID));
                         String startDateSelectTable = carSelectTableModel.getValueAt(i, 2).toString();
                         String endDateSelectTable = carSelectTableModel.getValueAt(i, 3).toString();
+                        
                         try {
                             String res = contractController.createContract(Integer.toString(c.getId()), carID, startDateSelectTable, endDateSelectTable, Long.toString(car.getPrice() * caculateDay(startDateSelectTable, endDateSelectTable)), "Chờ duyệt");
+                            
                             if (res.equals("Thêm mới hợp đồng thành công!")) {
                                 String resUpdateCar = carController.updateCar(Integer.parseInt(carID), car.getLicensePlate(), car.getCarBrand(), car.getCarName(), Integer.toString(car.getSeatQuantity()), Integer.toString(car.getPrice()), "Đang thuê", car.getImage());
 
@@ -1317,7 +1343,6 @@ public class PanelUser extends javax.swing.JPanel {
                         System.err.println(e);
                         return;
                     }
-
                 }
             }
         } catch (Exception e) {
@@ -1327,8 +1352,10 @@ public class PanelUser extends javax.swing.JPanel {
 
         QRPay qr = new QRPay(Integer.toString(caculateTotal(carTableModel, carSelectTableModel)), txtProfilePhone.getText() + " CK");
         qr.setVisible(true);
+        
         renderTableCar();
         renderTableHistory();
+        
         lblRentalLicensePlate.setText("");
         lblRentalBrand.setText("");
         lblRentalName.setText("");
@@ -1339,20 +1366,22 @@ public class PanelUser extends javax.swing.JPanel {
         txtRentalStartDate.setDate(null);
         txtRentalEndDate.setDate(null);
         carSelectTableModel.setRowCount(0);
-
     }//GEN-LAST:event_btnRentalPayActionPerformed
 
     private void renderTableHistory() {
         historyTableModel.setRowCount(0);
+        
         try {
             if (txtProfileId.getText() != "") {
                 java.util.List<model.Contract> list = contractController.loadAllContractById(Integer.parseInt(txtProfileId.getText()));
+                
                 for (model.Contract c : list) {
                     Car car = carController.fillCarById(c.getCarId());
                     historyTableModel.addRow(new Object[]{
                         c.getId(), c.getCarId(), c.getStartDate(), c.getEndDate(), car.getPrice(), car.getImage(), c.getTotalPrice()
                     });
                 }
+                
                 jTable3.getColumnModel().getColumn(1).setMinWidth(0);
                 jTable3.getColumnModel().getColumn(1).setMaxWidth(0);
                 jTable3.getColumnModel().getColumn(1).setPreferredWidth(0);
@@ -1362,9 +1391,7 @@ public class PanelUser extends javax.swing.JPanel {
                 jTable3.getColumnModel().getColumn(5).setMinWidth(0);
                 jTable3.getColumnModel().getColumn(5).setMaxWidth(0);
                 jTable3.getColumnModel().getColumn(5).setPreferredWidth(0);
-
             }
-
         } catch (Exception e) {
             System.err.println(e);
         }
@@ -1372,23 +1399,27 @@ public class PanelUser extends javax.swing.JPanel {
     private void btnHistoryDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHistoryDeleteActionPerformed
         // TODO add your handling code here:
         int selectedRow = jTable3.getSelectedRow();
+        
         if (selectedRow == -1) {
             javax.swing.JOptionPane.showMessageDialog(this, "Vui lòng chọn 1 hợp đồng để xóa!");
             return;
         }
 
         int confirm = javax.swing.JOptionPane.showConfirmDialog(this, "Bạn có chắc muốn xóa hợp đồng này?", "Xác nhận", javax.swing.JOptionPane.YES_NO_OPTION);
+        
         if (confirm == javax.swing.JOptionPane.YES_OPTION) {
             int id = Integer.parseInt(historyTableModel.getValueAt(selectedRow, 0).toString());
             int carID = Integer.parseInt(historyTableModel.getValueAt(selectedRow, 1).toString());
+            
             try {
                 String resCar = contractController.removeContractAndUpdateCar(id, carID, lblHistoryLicensePlate.getText(), lblHistoryBrand.getText(), lblHistoryCarName.getText(), lblHistorySeat.getText(), historyTableModel.getValueAt(selectedRow, 4).toString(), "Sẵn sàng", historyTableModel.getValueAt(selectedRow, 5).toString());
+                
                 javax.swing.JOptionPane.showMessageDialog(this, resCar);
             } catch (Exception e) {
                 System.err.println(e);
             }
-
         }
+        
         renderTableHistory();
 
         lblHistoryLicensePlate.setText("");
@@ -1398,7 +1429,6 @@ public class PanelUser extends javax.swing.JPanel {
         lblHistoryStartDate.setText("");
         lblHistoryEndDate.setText("");
         lblHistoryTotal.setText("");
-
     }//GEN-LAST:event_btnHistoryDeleteActionPerformed
 
     private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
@@ -1418,68 +1448,82 @@ public class PanelUser extends javax.swing.JPanel {
             if (imageFile != null) {
                 int width = lblRentalImage.getWidth();
                 int height = lblRentalImage.getHeight();
+                
                 ImageIcon image = ImageHelper.scaleImage(imageFile, width, height);
                 lblRentalImage.setIcon(image);
             }
         }
-
     }//GEN-LAST:event_jTable1MouseClicked
 
     private boolean isCarDuplicate(DefaultTableModel model, int idToCheck) {
         for (int i = 0; i < model.getRowCount(); i++) {
             int idInTable = (Integer) model.getValueAt(i, 0);
+            
             if (idInTable == idToCheck) {
                 return true;
             }
         }
+        
         return false;
     }
 
     private long caculateDay(String startDate, String endDate) {
         SimpleDateFormat sdf = new SimpleDateFormat("d/M/yyyy");
+        
         try {
             Date date1 = sdf.parse(startDate);
             Date date2 = sdf.parse(endDate);
+            
             long diff = date2.getTime() - date1.getTime();
             long days = diff / (1000 * 60 * 60 * 24);
+            
             return days;
         } catch (Exception e) {
             System.err.println(e);
         }
+        
         return 0;
     }
 
     private int caculateTotal(DefaultTableModel tableCar, DefaultTableModel selectTable) {
         int total = 0;
+        
         for (int i = 0; i < selectTable.getRowCount(); i++) {
             int idSelectTable = (Integer) selectTable.getValueAt(i, 0);
             String startDateSelectTable = selectTable.getValueAt(i, 2).toString();
             String endDateSelectTable = selectTable.getValueAt(i, 3).toString();
+            
             for (int j = 0; j < tableCar.getRowCount(); j++) {
                 int idTableCar = (Integer) tableCar.getValueAt(j, 0);
+                
                 if (idSelectTable == idTableCar) {
                     int price = (Integer) tableCar.getValueAt(j, 5);
                     total += price * caculateDay(startDateSelectTable, endDateSelectTable);
                 }
             }
         }
+        
         return total;
     }
     private void btnRentalAddMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnRentalAddMouseClicked
         // TODO add your handling code here:
-
         if (txtRentalStartDate.getDate() == null || txtRentalEndDate.getDate() == null) {
             JOptionPane.showMessageDialog(this, "Vui lòng nhập đầy đủ thời gian thuê trước khi chọn xe!");
             return;
         }
+        
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        
         String startDateText = sdf.format(txtRentalStartDate.getDate());
         String endDateText = sdf.format(txtRentalEndDate.getDate());
+        
         if (caculateDay(startDateText, endDateText) < 1) {
             JOptionPane.showMessageDialog(this, "Vui lòng nhập thời gian thuê hợp lệ!");
             return;
         }
+        
         int selectedRow = jTable1.getSelectedRow();
+        
         if (selectedRow == -1) {
             javax.swing.JOptionPane.showMessageDialog(this, "Vui lòng chọn 1 xe trên bảng!");
             return;
@@ -1488,6 +1532,7 @@ public class PanelUser extends javax.swing.JPanel {
         int id = Integer.parseInt(carTableModel.getValueAt(selectedRow, 0).toString());
         int price = Integer.parseInt(carTableModel.getValueAt(selectedRow, 5).toString());
         String licensePlateText = lblRentalLicensePlate.getText();
+        
         if (isCarDuplicate(carSelectTableModel, id)) {
             JOptionPane.showMessageDialog(this, "Xe này đã được thêm trước đó!");
         } else {
@@ -1495,17 +1540,21 @@ public class PanelUser extends javax.swing.JPanel {
                 id, licensePlateText, startDateText, endDateText
             });
         }
+        
         String textHienThi = String.format("Tổng tiền: %,d đ", caculateTotal(carTableModel, carSelectTableModel));
+        
         lblRentalTotal.setText(textHienThi);
-
     }//GEN-LAST:event_btnRentalAddMouseClicked
 
     private void btnRentalDeleteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnRentalDeleteMouseClicked
         // TODO add your handling code here:
         int selectedRow = jTable2.getSelectedRow();
+        
         if (selectedRow != -1) {
             carSelectTableModel.removeRow(selectedRow);
+            
             String textHienThi = String.format("Tổng tiền: %,d đ", caculateTotal(carTableModel, carSelectTableModel));
+            
             lblRentalTotal.setText(textHienThi);
         } else {
             JOptionPane.showMessageDialog(this, "Vui lòng chọn một dòng để xóa!");
@@ -1519,6 +1568,7 @@ public class PanelUser extends javax.swing.JPanel {
         if (selectedRow != -1) {
             try {
                 Car car = carController.fillCarById((Integer) historyTableModel.getValueAt(selectedRow, 1));
+                
                 lblHistoryLicensePlate.setText(car.getLicensePlate());
                 lblHistoryBrand.setText(car.getCarBrand());
                 lblHistoryCarName.setText(car.getCarName());
@@ -1526,7 +1576,6 @@ public class PanelUser extends javax.swing.JPanel {
                 lblHistoryStartDate.setText(historyTableModel.getValueAt(selectedRow, 2).toString());
                 lblHistoryEndDate.setText(historyTableModel.getValueAt(selectedRow, 3).toString());
                 lblHistoryTotal.setText(historyTableModel.getValueAt(selectedRow, 6).toString());
-
             } catch (Exception e) {
                 System.err.println(e);
             }
@@ -1536,26 +1585,35 @@ public class PanelUser extends javax.swing.JPanel {
     private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
         // TODO add your handling code here:
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        
         if (txtHistorySearch.getDate() == null) {
             javax.swing.JOptionPane.showMessageDialog(this, "Vui lòng nhập ngày để tìm hợp đồng.");
             return;
         }
+        
         String fillerDate = sdf.format(txtHistorySearch.getDate());
         String option = jComboBox1.getSelectedItem().toString();
+        
         historyTableModel.setRowCount(0);
+        
         try {
             java.util.List<model.Contract> list = contractController.fillContract(option, fillerDate);
+            
             if (list.isEmpty()) {
                 javax.swing.JOptionPane.showMessageDialog(this, "Không tìm thấy hợp đồng");
                 renderTableHistory();
+                
                 return;
             }
+            
             for (model.Contract c : list) {
                 Car car = carController.fillCarById(c.getCarId());
+                
                 historyTableModel.addRow(new Object[]{
                     c.getId(), c.getCarId(), c.getStartDate(), c.getEndDate(), car.getPrice(), car.getImage(), c.getTotalPrice()
                 });
             }
+            
             jTable3.getColumnModel().getColumn(1).setMinWidth(0);
             jTable3.getColumnModel().getColumn(1).setMaxWidth(0);
             jTable3.getColumnModel().getColumn(1).setPreferredWidth(0);

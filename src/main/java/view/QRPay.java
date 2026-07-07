@@ -22,10 +22,13 @@ public class QRPay extends javax.swing.JFrame {
      */
     public QRPay(String total, String content) {
         initComponents();
+        
         setResizable(false);
         setLocationRelativeTo(null);
+        
         this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         this.setIconImage(ImageHelper.getAppIcon());
+        
         lblPayTotal.setText(total);
         lblPayContent.setText(content);
     }
@@ -149,6 +152,7 @@ public class QRPay extends javax.swing.JFrame {
     private void btnPayCompletedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPayCompletedActionPerformed
         // TODO add your handling code here:
         this.dispose();
+        
         JOptionPane.showMessageDialog(this, "Chúng tôi sẽ liên lạc với bạn trong khoảng 30-60 phút sau khi ghi nhận thanh toán!", "Thanh toán", JOptionPane.INFORMATION_MESSAGE);
     }//GEN-LAST:event_btnPayCompletedActionPerformed
 
