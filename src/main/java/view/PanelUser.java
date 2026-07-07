@@ -1372,7 +1372,7 @@ public class PanelUser extends javax.swing.JPanel {
         historyTableModel.setRowCount(0);
         
         try {
-            if (txtProfileId.getText().equals("")) {
+            if (!txtProfileId.getText().equals("")) {
                 java.util.List<model.Contract> list = contractController.loadAllContractById(Integer.parseInt(txtProfileId.getText()));
                 
                 for (model.Contract c : list) {
