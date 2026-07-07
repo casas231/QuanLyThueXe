@@ -1576,6 +1576,7 @@ public class PanelAdmin extends javax.swing.JPanel {
 
         return 0;
     }
+    
     private void btnContractAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnContractAddActionPerformed
         // TODO add your handling code here:
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
@@ -1622,13 +1623,14 @@ public class PanelAdmin extends javax.swing.JPanel {
             try {
                 Car car = carController.fillCarById(carID);
                 String res = contractController.removeContractAndUpdateCar(id, carID, car.getLicensePlate(), car.getCarBrand(), car.getCarName(), Integer.toString(car.getSeatQuantity()), Integer.toString(car.getPrice()), "Sẵn sàng", car.getImage());
+                
                 renderTableContract();
                 renderTableCar();
+                
                 javax.swing.JOptionPane.showMessageDialog(this, res);
             } catch (Exception e) {
                 System.err.println(e);
             }
-
         }
 
         btnContractClearActionPerformed(evt);
@@ -1644,49 +1646,52 @@ public class PanelAdmin extends javax.swing.JPanel {
         }
 
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        
         int id = Integer.parseInt(contractTableModel.getValueAt(selectedRow, 0).toString());
         int tableCarID = Integer.parseInt(contractTableModel.getValueAt(selectedRow, 2).toString());
+        
         String idCustomerText = txtContractCustomer.getText();
         String idCarText = txtContractCar.getText();
         String startDateText = sdf.format(txtContractStart.getDate());
         String endDateText = sdf.format(txtContractEnd.getDate());
         String contractStatusText = cbContractStatus.getSelectedItem().toString();
+        
         try {
             Car carRemove = carController.fillCarById(tableCarID);
             String resRemove = contractController.removeContractAndUpdateCar(id, tableCarID, carRemove.getLicensePlate(), carRemove.getCarBrand(), carRemove.getCarName(), Integer.toString(carRemove.getSeatQuantity()), Integer.toString(carRemove.getPrice()), "Sẵn sàng", carRemove.getImage());
+            
             if (resRemove.equals("Xóa hợp đồng thành công!")) {
                 Car car = carController.fillCarById(Integer.parseInt(idCarText));
+                
                 if (cbContractStatus.getSelectedItem().toString().equals("Không duyệt")) {
                     try {
                         String resCreate = contractController.createContract(idCustomerText, idCarText, startDateText, endDateText, Long.toString(car.getPrice() * caculateDay(startDateText, endDateText)), "Không duyệt");
+                        
                         if (resCreate.equals("Thêm mới hợp đồng thành công!")) {
                             javax.swing.JOptionPane.showMessageDialog(this, "Sửa hợp đồng thành công!");
                         } else {
                             javax.swing.JOptionPane.showMessageDialog(this, "Sửa hợp đồng thất bại!");
-
                         }
-
                     } catch (Exception e) {
                         System.err.println(e);
                     }
                 } else {
                     try {
                         String message = contractController.createContract(idCustomerText, idCarText, startDateText, endDateText, Long.toString(car.getPrice() * caculateDay(startDateText, endDateText)), cbContractStatus.getSelectedItem().toString());
+                        
                         if (message.equals("Thêm mới hợp đồng thành công!")) {
                             String resUpdateCar = carController.updateCar(Integer.parseInt(idCarText), car.getLicensePlate(), car.getCarBrand(), car.getCarName(), Integer.toString(car.getSeatQuantity()), Integer.toString(car.getPrice()), "Đang thuê", car.getImage());
+                            
                             if (resUpdateCar.equals("Cập nhật xe thành công!")) {
                                 javax.swing.JOptionPane.showMessageDialog(this, "Sửa hợp đồng thành công!");
                             } else {
                                 javax.swing.JOptionPane.showMessageDialog(this, "Sửa hợp đồng thất bại!");
-
                             }
                         }
-
                     } catch (Exception e) {
                         System.err.println(e);
                     }
                 }
-
             }
         } catch (Exception e) {
             System.err.println(e);
@@ -1739,12 +1744,14 @@ public class PanelAdmin extends javax.swing.JPanel {
 
             File imageFile = new File("src/main/resources/image/car/" + txtCarImageName.getText());
 
-            if (imageFile != null) {
+            if (imageFile.exists() && imageFile.isFile()) {
                 int width = lblCarImage.getWidth();
                 int height = lblCarImage.getHeight();
 
                 ImageIcon image = ImageHelper.scaleImage(imageFile, width, height);
                 lblCarImage.setIcon(image);
+            } else {
+                lblCarImage.setIcon(null);
             }
         }
     }//GEN-LAST:event_jTable2MouseClicked
