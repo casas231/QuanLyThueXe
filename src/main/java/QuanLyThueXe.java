@@ -15,6 +15,7 @@ import view.LoginFrame;
 public class QuanLyThueXe {
     public static void main(String[] args) {
         FlatMacDarkLaf.setup();
+        
         EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
