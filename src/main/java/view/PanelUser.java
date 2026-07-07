@@ -1372,7 +1372,7 @@ public class PanelUser extends javax.swing.JPanel {
         historyTableModel.setRowCount(0);
         
         try {
-            if (txtProfileId.getText() != "") {
+            if (txtProfileId.getText().equals("")) {
                 java.util.List<model.Contract> list = contractController.loadAllContractById(Integer.parseInt(txtProfileId.getText()));
                 
                 for (model.Contract c : list) {
@@ -1445,12 +1445,14 @@ public class PanelUser extends javax.swing.JPanel {
 
             File imageFile = new File("src/main/resources/image/car/" + txtRentalImageName.getText());
 
-            if (imageFile != null) {
+            if (imageFile.exists() && imageFile.isFile()) {
                 int width = lblRentalImage.getWidth();
                 int height = lblRentalImage.getHeight();
                 
                 ImageIcon image = ImageHelper.scaleImage(imageFile, width, height);
                 lblRentalImage.setIcon(image);
+            } else {
+                lblRentalImage.setIcon(null);
             }
         }
     }//GEN-LAST:event_jTable1MouseClicked
