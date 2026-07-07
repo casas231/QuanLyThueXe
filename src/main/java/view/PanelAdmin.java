@@ -43,17 +43,17 @@ public class PanelAdmin extends javax.swing.JPanel {
      */
     public PanelAdmin() {
         initComponents();
-        
+
         txtCarImageName.setVisible(false);
-        
+
         DateForeground.changeForeground(txtContractStart);
         DateForeground.changeForeground(txtContractEnd);
         DateForeground.changeForeground(txtContractSearch);
-        
+
         customerTableModel = (DefaultTableModel) jTable1.getModel();
         carTableModel = (DefaultTableModel) jTable2.getModel();
         contractTableModel = (DefaultTableModel) jTable3.getModel();
-        
+
         renderTableCustomer();
         renderTableCar();
         renderTableContract();
@@ -1234,11 +1234,11 @@ public class PanelAdmin extends javax.swing.JPanel {
     private void btnLogoutMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnLogoutMousePressed
         // TODO add your handling code here:
         Window frame = SwingUtilities.getWindowAncestor(this);
-        
+
         if (frame != null) {
             frame.dispose();
         }
-        
+
         LoginFrame loginFrame = new LoginFrame();
         loginFrame.setVisible(true);
     }//GEN-LAST:event_btnLogoutMousePressed
@@ -1289,16 +1289,16 @@ public class PanelAdmin extends javax.swing.JPanel {
 
     private void renderTableCar() {
         carTableModel.setRowCount(0);
-        
+
         try {
             java.util.List<model.Car> list = carController.loadAllCar();
-            
+
             for (model.Car c : list) {
                 carTableModel.addRow(new Object[]{
                     c.getId(), c.getLicensePlate(), c.getCarBrand(), c.getCarName(), c.getSeatQuantity(), c.getPrice(), c.getStatus(), c.getImage()
                 });
             }
-            
+
             jTable2.getColumnModel().getColumn(7).setMinWidth(0);
             jTable2.getColumnModel().getColumn(7).setMaxWidth(0);
             jTable2.getColumnModel().getColumn(7).setPreferredWidth(0);
@@ -1312,7 +1312,7 @@ public class PanelAdmin extends javax.swing.JPanel {
         JFileChooser fileChooser = new JFileChooser();
         fileChooser.setCurrentDirectory(new File("src/main/resources/image/car"));
         int result = fileChooser.showOpenDialog(this);
-        
+
         if (result == JFileChooser.APPROVE_OPTION) {
             File selectedFile = fileChooser.getSelectedFile();
             int width = lblCarImage.getWidth();
@@ -1348,14 +1348,14 @@ public class PanelAdmin extends javax.swing.JPanel {
     private void btnCarDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCarDeleteActionPerformed
         // TODO add your handling code here:
         int selectedRow = jTable2.getSelectedRow();
-        
+
         if (selectedRow == -1) {
             javax.swing.JOptionPane.showMessageDialog(this, "Vui lòng chọn 1 xe để xóa!");
             return;
         }
 
         int confirm = javax.swing.JOptionPane.showConfirmDialog(this, "Bạn có chắc muốn xóa xe này?", "Xác nhận", javax.swing.JOptionPane.YES_NO_OPTION);
-        
+
         if (confirm == javax.swing.JOptionPane.YES_OPTION) {
             int id = Integer.parseInt(carTableModel.getValueAt(selectedRow, 0).toString());
             String res = carController.removeCar(id);
@@ -1369,7 +1369,7 @@ public class PanelAdmin extends javax.swing.JPanel {
     private void btnCarEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCarEditActionPerformed
         // TODO add your handling code here:
         int selectedRow = jTable2.getSelectedRow();
-        
+
         if (selectedRow == -1) {
             javax.swing.JOptionPane.showMessageDialog(this, "Vui lòng chọn 1 xe trên bảng để sửa!");
             return;
@@ -1384,7 +1384,7 @@ public class PanelAdmin extends javax.swing.JPanel {
         String statusText = cbCarStatus.getSelectedItem().toString();
         String imageText = txtCarImageName.getText();
         String res = carController.updateCar(id, licensePlateText, carBrandText, carNameText, seatQuantityText, priceText, statusText, imageText);
-        
+
         renderTableCar();
         javax.swing.JOptionPane.showMessageDialog(this, res);
 
@@ -1401,22 +1401,22 @@ public class PanelAdmin extends javax.swing.JPanel {
         cbCarStatus.setSelectedIndex(0);
         lblCarImage.setIcon(null);
         txtCarImageName.setText("");
-        
+
         renderTableCar();
     }//GEN-LAST:event_btnCarClearActionPerformed
 
     private void renderTableCustomer() {
         customerTableModel.setRowCount(0);
-        
+
         try {
             java.util.List<model.Customer> list = customerController.loadAllCustomers();
-            
+
             for (model.Customer c : list) {
                 customerTableModel.addRow(new Object[]{
                     c.getId(), c.getFullName(), c.getPhone(), c.getIdNumber(), c.getDriverLicense(), c.getAddress(), c.getAccountID()
                 });
             }
-            
+
             jTable1.getColumnModel().getColumn(6).setMinWidth(0);
             jTable1.getColumnModel().getColumn(6).setMaxWidth(0);
             jTable1.getColumnModel().getColumn(6).setPreferredWidth(0);
@@ -1436,7 +1436,7 @@ public class PanelAdmin extends javax.swing.JPanel {
 
         try {
             String message = customerController.createCustomer(fullNameText, phoneText, idNumberText, driverLicenseText, addressText);
-            
+
             renderTableCustomer();
             JOptionPane.showMessageDialog(this, message);
         } catch (Exception ex) {
@@ -1449,19 +1449,19 @@ public class PanelAdmin extends javax.swing.JPanel {
     private void btnCustomerDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCustomerDeleteActionPerformed
         // TODO add your handling code here:
         int selectedRow = jTable1.getSelectedRow();
-        
+
         if (selectedRow == -1) {
             javax.swing.JOptionPane.showMessageDialog(this, "Vui lòng chọn 1 khách hàng để xóa!");
             return;
         }
 
         int confirm = javax.swing.JOptionPane.showConfirmDialog(this, "Bạn có chắc muốn xóa khách hàng này?", "Xác nhận", javax.swing.JOptionPane.YES_NO_OPTION);
-        
+
         if (confirm == javax.swing.JOptionPane.YES_OPTION) {
             int id = Integer.parseInt(customerTableModel.getValueAt(selectedRow, 0).toString());
             int accountID = Integer.parseInt(customerTableModel.getValueAt(selectedRow, 6).toString());
             String res = customerController.removeCustomer(id, accountID);
-            
+
             renderTableCustomer();
             javax.swing.JOptionPane.showMessageDialog(this, res);
         }
@@ -1472,7 +1472,7 @@ public class PanelAdmin extends javax.swing.JPanel {
     private void btnCustomerEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCustomerEditActionPerformed
         // TODO add your handling code here:
         int selectedRow = jTable1.getSelectedRow();
-        
+
         if (selectedRow == -1) {
             javax.swing.JOptionPane.showMessageDialog(this, "Vui lòng chọn 1 khách hàng trên bảng để sửa!");
             return;
@@ -1481,7 +1481,7 @@ public class PanelAdmin extends javax.swing.JPanel {
         int id = Integer.parseInt(customerTableModel.getValueAt(selectedRow, 0).toString());
 
         String res = customerController.updateCustomer(id, txtCustomerName.getText(), txtCustomerPhone.getText(), txtCustomerID.getText(), txtCustomerDriver.getText(), txtCustomerAddress.getText());
-        
+
         renderTableCustomer();
         javax.swing.JOptionPane.showMessageDialog(this, res);
 
@@ -1496,7 +1496,7 @@ public class PanelAdmin extends javax.swing.JPanel {
         txtCustomerDriver.setText("");
         txtCustomerAddress.setText("");
         txtCustomerSearch.setText("");
-        
+
         renderTableCustomer();
     }//GEN-LAST:event_btnCustomerClearActionPerformed
 
@@ -1506,19 +1506,19 @@ public class PanelAdmin extends javax.swing.JPanel {
             javax.swing.JOptionPane.showMessageDialog(this, "Vui lòng nhập CCCD để tìm khách hàng.");
             return;
         }
-        
+
         customerTableModel.setRowCount(0);
-        
+
         try {
             Customer c = customerController.fillCustomer(txtCustomerSearch.getText());
-            
+
             if (c == null) {
                 javax.swing.JOptionPane.showMessageDialog(this, "Không tìm thấy khách hàng");
                 renderTableCustomer();
-                
+
                 return;
             }
-            
+
             customerTableModel.addRow(new Object[]{
                 c.getId(), c.getFullName(), c.getPhone(), c.getIdNumber(), c.getDriverLicense(), c.getAddress()
             });
@@ -1529,16 +1529,16 @@ public class PanelAdmin extends javax.swing.JPanel {
 
     private void renderTableContract() {
         contractTableModel.setRowCount(0);
-        
+
         try {
             java.util.List<model.Contract> list = contractController.loadAllContract();
-            
+
             for (model.Contract c : list) {
                 contractTableModel.addRow(new Object[]{
                     c.getId(), c.getCustomerId(), c.getCarId(), c.getStartDate(), c.getEndDate(), c.getTotalPrice(), c.getStatus()
                 });
             }
-            
+
             jTable3.getColumnModel().getColumn(0).setMinWidth(0);
             jTable3.getColumnModel().getColumn(0).setMaxWidth(0);
             jTable3.getColumnModel().getColumn(0).setPreferredWidth(0);
@@ -1550,30 +1550,30 @@ public class PanelAdmin extends javax.swing.JPanel {
 
     private long caculateDay(String startDate, String endDate) {
         SimpleDateFormat sdf = new SimpleDateFormat("d/M/yyyy");
-        
+
         try {
             Date date1 = sdf.parse(startDate);
             Date date2 = sdf.parse(endDate);
             long diff = date2.getTime() - date1.getTime();
             long days = diff / (1000 * 60 * 60 * 24);
-            
+
             return days;
         } catch (Exception e) {
             System.err.println(e);
         }
-        
+
         return 0;
     }
 
     private long caculateTotal(String idCarText, String startDate, String endDate) {
         try {
             Car car = carController.fillCarById(Integer.parseInt(idCarText));
-            
+
             return car.getPrice() * caculateDay(startDate, endDate);
         } catch (Exception e) {
             System.err.println(e);
         }
-        
+
         return 0;
     }
     private void btnContractAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnContractAddActionPerformed
@@ -1607,20 +1607,28 @@ public class PanelAdmin extends javax.swing.JPanel {
     private void btnContractDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnContractDeleteActionPerformed
         // TODO add your handling code here:
         int selectedRow = jTable3.getSelectedRow();
-        
+
         if (selectedRow == -1) {
             javax.swing.JOptionPane.showMessageDialog(this, "Vui lòng chọn 1 hợp đồng để xóa!");
             return;
         }
 
         int confirm = javax.swing.JOptionPane.showConfirmDialog(this, "Bạn có chắc muốn xóa hợp đồng này?", "Xác nhận", javax.swing.JOptionPane.YES_NO_OPTION);
-        
+
         if (confirm == javax.swing.JOptionPane.YES_OPTION) {
             int id = Integer.parseInt(contractTableModel.getValueAt(selectedRow, 0).toString());
-            String res = contractController.removeContract(id);
-            
-            renderTableContract();
-            javax.swing.JOptionPane.showMessageDialog(this, res);
+            int carID = Integer.parseInt(contractTableModel.getValueAt(selectedRow, 2).toString());
+
+            try {
+                Car car = carController.fillCarById(carID);
+                String res = contractController.removeContractAndUpdateCar(id, carID, car.getLicensePlate(), car.getCarBrand(), car.getCarName(), Integer.toString(car.getSeatQuantity()), Integer.toString(car.getPrice()), "Sẵn sàng", car.getImage());
+                renderTableContract();
+                renderTableCar();
+                javax.swing.JOptionPane.showMessageDialog(this, res);
+            } catch (Exception e) {
+                System.err.println(e);
+            }
+
         }
 
         btnContractClearActionPerformed(evt);
@@ -1629,24 +1637,63 @@ public class PanelAdmin extends javax.swing.JPanel {
     private void btnContractEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnContractEditActionPerformed
         // TODO add your handling code here:
         int selectedRow = jTable3.getSelectedRow();
-        
+
         if (selectedRow == -1) {
             javax.swing.JOptionPane.showMessageDialog(this, "Vui lòng chọn 1 hợp đồng trên bảng để sửa!");
             return;
         }
-        
+
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
         int id = Integer.parseInt(contractTableModel.getValueAt(selectedRow, 0).toString());
-        
+        int tableCarID = Integer.parseInt(contractTableModel.getValueAt(selectedRow, 2).toString());
         String idCustomerText = txtContractCustomer.getText();
         String idCarText = txtContractCar.getText();
         String startDateText = sdf.format(txtContractStart.getDate());
         String endDateText = sdf.format(txtContractEnd.getDate());
         String contractStatusText = cbContractStatus.getSelectedItem().toString();
-        String res = contractController.updateContract(id, idCustomerText, idCarText, startDateText, endDateText, Long.toString(caculateTotal(idCarText, startDateText, endDateText)), contractStatusText);
-        
+        try {
+            Car carRemove = carController.fillCarById(tableCarID);
+            String resRemove = contractController.removeContractAndUpdateCar(id, tableCarID, carRemove.getLicensePlate(), carRemove.getCarBrand(), carRemove.getCarName(), Integer.toString(carRemove.getSeatQuantity()), Integer.toString(carRemove.getPrice()), "Sẵn sàng", carRemove.getImage());
+            if (resRemove.equals("Xóa hợp đồng thành công!")) {
+                Car car = carController.fillCarById(Integer.parseInt(idCarText));
+                if (cbContractStatus.getSelectedItem().toString().equals("Không duyệt")) {
+                    try {
+                        String resCreate = contractController.createContract(idCustomerText, idCarText, startDateText, endDateText, Long.toString(car.getPrice() * caculateDay(startDateText, endDateText)), "Không duyệt");
+                        if (resCreate.equals("Thêm mới hợp đồng thành công!")) {
+                            javax.swing.JOptionPane.showMessageDialog(this, "Sửa hợp đồng thành công!");
+                        } else {
+                            javax.swing.JOptionPane.showMessageDialog(this, "Sửa hợp đồng thất bại!");
+
+                        }
+
+                    } catch (Exception e) {
+                        System.err.println(e);
+                    }
+                } else {
+                    try {
+                        String message = contractController.createContract(idCustomerText, idCarText, startDateText, endDateText, Long.toString(car.getPrice() * caculateDay(startDateText, endDateText)), cbContractStatus.getSelectedItem().toString());
+                        if (message.equals("Thêm mới hợp đồng thành công!")) {
+                            String resUpdateCar = carController.updateCar(Integer.parseInt(idCarText), car.getLicensePlate(), car.getCarBrand(), car.getCarName(), Integer.toString(car.getSeatQuantity()), Integer.toString(car.getPrice()), "Đang thuê", car.getImage());
+                            if (resUpdateCar.equals("Cập nhật xe thành công!")) {
+                                javax.swing.JOptionPane.showMessageDialog(this, "Sửa hợp đồng thành công!");
+                            } else {
+                                javax.swing.JOptionPane.showMessageDialog(this, "Sửa hợp đồng thất bại!");
+
+                            }
+                        }
+
+                    } catch (Exception e) {
+                        System.err.println(e);
+                    }
+                }
+
+            }
+        } catch (Exception e) {
+            System.err.println(e);
+        }
+
         renderTableContract();
-        javax.swing.JOptionPane.showMessageDialog(this, res);
+        renderTableCar();
 
         btnContractClearActionPerformed(evt);
     }//GEN-LAST:event_btnContractEditActionPerformed
@@ -1660,14 +1707,14 @@ public class PanelAdmin extends javax.swing.JPanel {
         cbContractStatus.setSelectedIndex(0);
         cbContractSearch.setSelectedIndex(0);
         txtContractSearch.setDate(null);
-        
+
         renderTableContract();
     }//GEN-LAST:event_btnContractClearActionPerformed
 
     private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
         // TODO add your handling code here:
         int selectedRow = jTable1.getSelectedRow();
-        
+
         if (selectedRow != -1) {
             txtCustomerName.setText(customerTableModel.getValueAt(selectedRow, 1).toString());
             txtCustomerPhone.setText(customerTableModel.getValueAt(selectedRow, 2).toString());
@@ -1680,7 +1727,7 @@ public class PanelAdmin extends javax.swing.JPanel {
     private void jTable2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable2MouseClicked
         // TODO add your handling code here:
         int selectedRow = jTable2.getSelectedRow();
-        
+
         if (selectedRow != -1) {
             txtCarLicensePlate.setText(carTableModel.getValueAt(selectedRow, 1).toString());
             txtCarBrand.setText(carTableModel.getValueAt(selectedRow, 2).toString());
@@ -1689,13 +1736,13 @@ public class PanelAdmin extends javax.swing.JPanel {
             txtCarPrice.setText(carTableModel.getValueAt(selectedRow, 5).toString());
             cbCarStatus.setSelectedItem(carTableModel.getValueAt(selectedRow, 6).toString());
             txtCarImageName.setText(carTableModel.getValueAt(selectedRow, 7).toString());
-            
+
             File imageFile = new File("src/main/resources/image/car/" + txtCarImageName.getText());
-            
+
             if (imageFile != null) {
                 int width = lblCarImage.getWidth();
                 int height = lblCarImage.getHeight();
-                
+
                 ImageIcon image = ImageHelper.scaleImage(imageFile, width, height);
                 lblCarImage.setIcon(image);
             }
@@ -1705,20 +1752,20 @@ public class PanelAdmin extends javax.swing.JPanel {
     private void jTable3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable3MouseClicked
         // TODO add your handling code here:
         int selectedRow = jTable3.getSelectedRow();
-        
+
         if (selectedRow != -1) {
             txtContractCustomer.setText(contractTableModel.getValueAt(selectedRow, 1).toString());
             txtContractCar.setText(contractTableModel.getValueAt(selectedRow, 2).toString());
-            
+
             try {
                 SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-                
+
                 txtContractStart.setDate(sdf.parse(contractTableModel.getValueAt(selectedRow, 3).toString()));
                 txtContractEnd.setDate(sdf.parse(contractTableModel.getValueAt(selectedRow, 4).toString()));
             } catch (ParseException e) {
                 System.err.println(e.getMessage());
             }
-            
+
             cbContractStatus.setSelectedItem(contractTableModel.getValueAt(selectedRow, 6).toString());
         }
     }//GEN-LAST:event_jTable3MouseClicked
@@ -1726,27 +1773,27 @@ public class PanelAdmin extends javax.swing.JPanel {
     private void btnContractSearchMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnContractSearchMouseClicked
         // TODO add your handling code here:
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-        
+
         if (txtContractSearch.getDate() == null) {
             javax.swing.JOptionPane.showMessageDialog(this, "Vui lòng nhập ngày để tìm hợp đồng.");
             return;
         }
-        
+
         String fillerDate = sdf.format(txtContractSearch.getDate());
         String option = cbContractSearch.getSelectedItem().toString();
-        
+
         contractTableModel.setRowCount(0);
-        
+
         try {
             java.util.List<model.Contract> list = contractController.fillContract(option, fillerDate);
-            
+
             if (list.isEmpty()) {
                 javax.swing.JOptionPane.showMessageDialog(this, "Không tìm thấy hợp đồng");
                 renderTableContract();
-                
+
                 return;
             }
-            
+
             for (model.Contract c : list) {
                 contractTableModel.addRow(new Object[]{
                     c.getId(), c.getCustomerId(), c.getCarId(), c.getStartDate(), c.getEndDate(), c.getTotalPrice(), c.getStatus()
