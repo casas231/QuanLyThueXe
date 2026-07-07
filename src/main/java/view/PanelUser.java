@@ -39,6 +39,7 @@ public class PanelUser extends javax.swing.JPanel {
 
     private final DefaultTableModel carTableModel;
     private final DefaultTableModel carSelectTableModel;
+    private final DefaultTableModel historyTableModel;
 
     /**
      * Creates new form PanelUser
@@ -53,8 +54,10 @@ public class PanelUser extends javax.swing.JPanel {
         txtRentalImageName.setVisible(false);
         carTableModel = (DefaultTableModel) jTable1.getModel();
         carSelectTableModel = (DefaultTableModel) jTable2.getModel();
+        historyTableModel = (DefaultTableModel) jTable3.getModel();
         getUserProfie();
         renderTableCar();
+        renderTableHistory();
     }
 
     /**
@@ -658,9 +661,9 @@ public class PanelUser extends javax.swing.JPanel {
         });
         jScrollPane3.setViewportView(jTable2);
         if (jTable2.getColumnModel().getColumnCount() > 0) {
-            jTable2.getColumnModel().getColumn(0).setResizable(false);
             jTable2.getColumnModel().getColumn(1).setResizable(false);
             jTable2.getColumnModel().getColumn(2).setResizable(false);
+            jTable2.getColumnModel().getColumn(3).setResizable(false);
         }
 
         btnRentalAdd.setBackground(new java.awt.Color(0, 79, 225));
@@ -860,29 +863,40 @@ public class PanelUser extends javax.swing.JPanel {
 
         jButton1.setBackground(new java.awt.Color(0, 79, 225));
         jButton1.setText("Tìm");
+        jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton1MouseClicked(evt);
+            }
+        });
 
         jTable3.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "ID", "Ngày thuê", "Ngày trả", "Tổng tiền"
+                "ID", "ID xe", "Ngày thuê", "Ngày trả", "Giá xe", "Ảnh xe", "Tổng tiền"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false
+                false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
             }
         });
+        jTable3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTable3MouseClicked(evt);
+            }
+        });
         jScrollPane4.setViewportView(jTable3);
         if (jTable3.getColumnModel().getColumnCount() > 0) {
-            jTable3.getColumnModel().getColumn(0).setResizable(false);
-            jTable3.getColumnModel().getColumn(1).setResizable(false);
             jTable3.getColumnModel().getColumn(2).setResizable(false);
             jTable3.getColumnModel().getColumn(3).setResizable(false);
+            jTable3.getColumnModel().getColumn(4).setResizable(false);
+            jTable3.getColumnModel().getColumn(5).setResizable(false);
+            jTable3.getColumnModel().getColumn(6).setResizable(false);
         }
 
         jLabel31.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
@@ -964,7 +978,7 @@ public class PanelUser extends javax.swing.JPanel {
                         .addComponent(txtHistorySearch, javax.swing.GroupLayout.PREFERRED_SIZE, 261, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(jButton1))
-                    .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 505, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane4))
                 .addGap(40, 40, 40)
                 .addGroup(historyPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(historyPanelLayout.createSequentialGroup()
@@ -1057,7 +1071,7 @@ public class PanelUser extends javax.swing.JPanel {
                             .addComponent(jButton1))
                         .addGap(18, 18, 18)
                         .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 501, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(39, Short.MAX_VALUE))
+                .addContainerGap(45, Short.MAX_VALUE))
         );
 
         contentPanel.add(historyPanel, "cardHistory");
@@ -1108,6 +1122,8 @@ public class PanelUser extends javax.swing.JPanel {
             txtProfileID.setText(c.getIdNumber());
             txtProfileDriver.setText(c.getDriverLicense());
             txtProfileAddress.setText(c.getAddress());
+            lblHistoryName.setText(c.getFullName());
+            lblHistoryPhone.setText(c.getPhone());
         } catch (SQLException e) {
             System.err.println(e.getMessage());
         }
@@ -1288,33 +1304,93 @@ public class PanelUser extends javax.swing.JPanel {
                         String startDateSelectTable = carSelectTableModel.getValueAt(i, 2).toString();
                         String endDateSelectTable = carSelectTableModel.getValueAt(i, 3).toString();
                         try {
-                            String res = contractController.createContract(Integer.toString(c.getId()), carID, startDateSelectTable, endDateSelectTable, Integer.toString(caculateTotal(carTableModel, carSelectTableModel)), "Chờ duyệt");
+                            String res = contractController.createContract(Integer.toString(c.getId()), carID, startDateSelectTable, endDateSelectTable, Long.toString(car.getPrice() * caculateDay(startDateSelectTable, endDateSelectTable)), "Chờ duyệt");
                             if (res.equals("Thêm mới hợp đồng thành công!")) {
                                 String resUpdateCar = carController.updateCar(Integer.parseInt(carID), car.getLicensePlate(), car.getCarBrand(), car.getCarName(), Integer.toString(car.getSeatQuantity()), Integer.toString(car.getPrice()), "Đang thuê", car.getImage());
-                                renderTableCar();
+
                             }
                         } catch (Exception e) {
                             System.err.println(e);
+                            return;
                         }
                     } catch (Exception e) {
                         System.err.println(e);
+                        return;
                     }
 
                 }
             }
         } catch (Exception e) {
             System.err.println(e);
+            return;
         }
 
         QRPay qr = new QRPay(Integer.toString(caculateTotal(carTableModel, carSelectTableModel)), txtProfilePhone.getText() + " CK");
         qr.setVisible(true);
+        renderTableCar();
+        renderTableHistory();
+        lblRentalLicensePlate.setText("");
+        lblRentalBrand.setText("");
+        lblRentalName.setText("");
+        lblRentalSeat.setText("");
+        lblRentalPrice.setText("");
+        txtRentalImageName.setText("");
+        lblRentalImage.setIcon(null);
+        txtRentalStartDate.setDate(null);
+        txtRentalEndDate.setDate(null);
+        carSelectTableModel.setRowCount(0);
+
     }//GEN-LAST:event_btnRentalPayActionPerformed
 
+    private void renderTableHistory() {
+        historyTableModel.setRowCount(0);
+        try {
+            if (txtProfileId.getText() != "") {
+                java.util.List<model.Contract> list = contractController.loadAllContractById(Integer.parseInt(txtProfileId.getText()));
+                for (model.Contract c : list) {
+                    Car car = carController.fillCarById(c.getCarId());
+                    historyTableModel.addRow(new Object[]{
+                        c.getId(), c.getCarId(), c.getStartDate(), c.getEndDate(), car.getPrice(), car.getImage(), c.getTotalPrice()
+                    });
+                }
+                jTable3.getColumnModel().getColumn(1).setMinWidth(0);
+                jTable3.getColumnModel().getColumn(1).setMaxWidth(0);
+                jTable3.getColumnModel().getColumn(1).setPreferredWidth(0);
+                jTable3.getColumnModel().getColumn(4).setMinWidth(0);
+                jTable3.getColumnModel().getColumn(4).setMaxWidth(0);
+                jTable3.getColumnModel().getColumn(4).setPreferredWidth(0);
+                jTable3.getColumnModel().getColumn(5).setMinWidth(0);
+                jTable3.getColumnModel().getColumn(5).setMaxWidth(0);
+                jTable3.getColumnModel().getColumn(5).setPreferredWidth(0);
+
+            }
+
+        } catch (Exception e) {
+            System.err.println(e);
+        }
+    }
     private void btnHistoryDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHistoryDeleteActionPerformed
         // TODO add your handling code here:
-        JOptionPane.showMessageDialog(this, "Xóa hợp đồng thành công!", "Lịch sử thuê xe", JOptionPane.INFORMATION_MESSAGE);
-        lblHistoryName.setText("");
-        lblHistoryPhone.setText("");
+        int selectedRow = jTable3.getSelectedRow();
+        if (selectedRow == -1) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Vui lòng chọn 1 hợp đồng để xóa!");
+            return;
+        }
+
+        int confirm = javax.swing.JOptionPane.showConfirmDialog(this, "Bạn có chắc muốn xóa hợp đồng này?", "Xác nhận", javax.swing.JOptionPane.YES_NO_OPTION);
+        if (confirm == javax.swing.JOptionPane.YES_OPTION) {
+            int id = Integer.parseInt(historyTableModel.getValueAt(selectedRow, 0).toString());
+            int carID = Integer.parseInt(historyTableModel.getValueAt(selectedRow, 1).toString());
+            try {
+                String resCar = contractController.removeContractAndUpdateCar(id, carID, lblHistoryLicensePlate.getText(), lblHistoryBrand.getText(), lblHistoryCarName.getText(), lblHistorySeat.getText(), historyTableModel.getValueAt(selectedRow, 4).toString(), "Sẵn sàng", historyTableModel.getValueAt(selectedRow, 5).toString());
+                javax.swing.JOptionPane.showMessageDialog(this, resCar);
+            } catch (Exception e) {
+                System.err.println(e);
+            }
+
+        }
+        renderTableHistory();
+
         lblHistoryLicensePlate.setText("");
         lblHistoryBrand.setText("");
         lblHistoryCarName.setText("");
@@ -1435,6 +1511,64 @@ public class PanelUser extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(this, "Vui lòng chọn một dòng để xóa!");
         }
     }//GEN-LAST:event_btnRentalDeleteMouseClicked
+
+    private void jTable3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable3MouseClicked
+        // TODO add your handling code here:
+        int selectedRow = jTable3.getSelectedRow();
+
+        if (selectedRow != -1) {
+            try {
+                Car car = carController.fillCarById((Integer) historyTableModel.getValueAt(selectedRow, 1));
+                lblHistoryLicensePlate.setText(car.getLicensePlate());
+                lblHistoryBrand.setText(car.getCarBrand());
+                lblHistoryCarName.setText(car.getCarName());
+                lblHistorySeat.setText(Integer.toString(car.getSeatQuantity()));
+                lblHistoryStartDate.setText(historyTableModel.getValueAt(selectedRow, 2).toString());
+                lblHistoryEndDate.setText(historyTableModel.getValueAt(selectedRow, 3).toString());
+                lblHistoryTotal.setText(historyTableModel.getValueAt(selectedRow, 6).toString());
+
+            } catch (Exception e) {
+                System.err.println(e);
+            }
+        }
+    }//GEN-LAST:event_jTable3MouseClicked
+
+    private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
+        // TODO add your handling code here:
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        if (txtHistorySearch.getDate() == null) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Vui lòng nhập ngày để tìm hợp đồng.");
+            return;
+        }
+        String fillerDate = sdf.format(txtHistorySearch.getDate());
+        String option = jComboBox1.getSelectedItem().toString();
+        historyTableModel.setRowCount(0);
+        try {
+            java.util.List<model.Contract> list = contractController.fillContract(option, fillerDate);
+            if (list.isEmpty()) {
+                javax.swing.JOptionPane.showMessageDialog(this, "Không tìm thấy hợp đồng");
+                renderTableHistory();
+                return;
+            }
+            for (model.Contract c : list) {
+                Car car = carController.fillCarById(c.getCarId());
+                historyTableModel.addRow(new Object[]{
+                    c.getId(), c.getCarId(), c.getStartDate(), c.getEndDate(), car.getPrice(), car.getImage(), c.getTotalPrice()
+                });
+            }
+            jTable3.getColumnModel().getColumn(1).setMinWidth(0);
+            jTable3.getColumnModel().getColumn(1).setMaxWidth(0);
+            jTable3.getColumnModel().getColumn(1).setPreferredWidth(0);
+            jTable3.getColumnModel().getColumn(4).setMinWidth(0);
+            jTable3.getColumnModel().getColumn(4).setMaxWidth(0);
+            jTable3.getColumnModel().getColumn(4).setPreferredWidth(0);
+            jTable3.getColumnModel().getColumn(5).setMinWidth(0);
+            jTable3.getColumnModel().getColumn(5).setMaxWidth(0);
+            jTable3.getColumnModel().getColumn(5).setPreferredWidth(0);
+        } catch (SQLException e) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Lỗi tải bảng hợp đồng: " + e.getMessage());
+        }
+    }//GEN-LAST:event_jButton1MouseClicked
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JDialog QrPay;
